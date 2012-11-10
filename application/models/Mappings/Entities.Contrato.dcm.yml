@@ -1,0 +1,44 @@
+## Entidad Contrato.
+Entities\Contrato:
+  type: entity
+  table: contrato
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    fecha_inicio:
+      type: date
+      nullable: false
+    fecha_termino:
+      type: date
+      nullable: true
+  manyToOne:
+    empleado:
+      targetEntity: Entities\Empleado
+      inversedBy: contratos
+      joinColumn:
+        name: rut_empleado
+        referencedColumnName: rut
+    prevision:
+      targetEntity: Entities\Prevision
+      inversedBy: contratos
+      joinColumn:
+        name: id_prevision
+        referencedColumnName: id
+  oneToOne:
+    tipoContrato:
+      targetEntity: Entities\TipoContrato
+      joinColumn:
+        name: id_tipo_contrato
+        referencedColumnName: id
+  oneToMany:
+    pactosSalud:
+      targetEntity: Entities\PactoSalud
+      mappedBy: contrato
+    registrosMensuales:
+      targetEntity: Entities\RegistroMensual
+      mappedBy: contrato
+  options:
+    orderBy: fecha_inicio DESC

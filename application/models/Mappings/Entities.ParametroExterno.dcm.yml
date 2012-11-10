@@ -1,0 +1,22 @@
+## Entidad ParametroExterno.
+Entities\ParametroExterno:
+  type: entity
+  table: parametro_externo
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    codigo:
+      type: string
+      length: 21
+      nullable: false
+    fecha_vigencia:
+      type: date
+      nullable: false
+    valor:
+      type: float
+      nullable: false
+  options:
+    orderBy: fecha_vigencia DESC

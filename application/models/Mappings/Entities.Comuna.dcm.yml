@@ -1,0 +1,16 @@
+## Entidad Comuna.
+Entities\Comuna:
+  type: entity
+  table: comuna
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    nombre:
+      type: string
+      length: 45
+      nullable: false
+  options:
+    orderBy: nombre ASC

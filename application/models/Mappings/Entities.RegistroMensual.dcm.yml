@@ -1,0 +1,37 @@
+## Entidad RegistroMensual.
+Entities\RegistroMensual:
+  type: entity
+  table: registro_mensual
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    cantidad_horas_extras:
+      type: float
+      nullable: true
+    monto_anticipo:
+      type: integer
+      nullable: true
+    bono_movilizacion:
+      type: integer
+      nullable: true
+    bono_colacion:
+      type: integer
+      nullable: true
+    bono_produccion:
+      type: integer
+      nullable: true
+    fecha_periodo:
+      type: date
+      nullable: false
+  manyToOne:
+    contrato:
+      targetEntity: Entities\Contrato
+      inversedBy: registrosMensuales
+      joinColumn:
+        name: id_contrato
+        referencedColumnName: id
+  options:
+    orderBy: fecha_periodo DESC

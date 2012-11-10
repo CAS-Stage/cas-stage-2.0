@@ -1,0 +1,42 @@
+## Entidad Empleado.
+Entities\Empleado:
+  type: entity
+  table: empleado
+  id:
+    rut:
+      type: integer
+  fields:
+    apellidos:
+      type: string
+      length: 45
+      nullable: false
+    nombres:
+      type: string
+      length: 45
+      nullable: false
+    fecha_nacimiento:
+      type: date
+      nullable: false
+    direccion:
+      type: string
+      length: 100
+      nullable: false
+    fono:
+      type: string
+      length: 45
+      nullable: true
+  manyToOne:
+    comuna:
+      targetEntity: Entities\Comuna
+      joinColumn:
+        name: id_comuna
+        referencedColumnName: id
+  oneToMany:
+    contratos:
+      targetEntity: Entities\Contrato
+      mappedBy: empleado
+    registrosMensuales:
+      targetEntity: Entities\RegistroMensual
+      mappedBy: registroMensual
+  options:
+    orderBy: apellidos ASC

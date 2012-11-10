@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Modificar Valor de Cotización - CAS Stage Ltda.</title>
+		<link rel="stylesheet" media="screen" href="design/screen.css">
+	</head>
+	<body>
+		<header>
+			<p>Conectado como: <em>Encargado Administrativo</em> <a href="index.html">[Cerrar sesión]</a></p>
+			<h1>CAS Stage Ltda.</h1>
+			<nav id="breadcrumb">
+				Usted está en:
+				<ul>
+					<li>
+						<a href="menu.html">Sistema CAS Stage</a>
+						<ul>
+							<li>
+								<a href="parametros_externos.html">Parámetros Externos</a>
+								<ul>
+									<li>
+										<a href="prevision.html">Previsión</a>
+										<ul>
+											<li><a href="prevision_modificar.html">Modificar Valor de Cotización (AFP Habitat, junio 2012, 11,56%)</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<h1>Modificar Valor de Cotización</h1>
+			<form method="post" action="prevision.html">
+				<fieldset>
+					<legend>Ingreso de Datos Actualizados</legend>
+					<label>
+						<span>Nombre</span>
+						<select name="id_prevision">
+							<option value="1">Jubilado</option>
+							<option value="2" selected="selected">AFP Habitat</option>
+							<option value="3">AFP Modelo</option>
+						</select>
+					</label>
+					<label>
+						<span>Fecha Vigencia</span>
+						<input type="month" name="fecha_vigencia" required="required" value="2012-06">
+					</label>
+					<label>
+						<span>Valor (%)</span>
+						<input type="number" name="valor" min="0.00" max="49.99" step="0.01" required="required" value="11.56">
+					</label>
+					<button type="submit">Actualizar Parámetro</button>
+				</fieldset>
+			</form>
+		</section>
+		<footer>
+			<p>Sistema CAS Stage</p>
+			<p>Desarrollado por: Matías Astorga Donoso &bull; Alberto Castillo Veloso &bull; Jorge Guitard Torres</p>
+			<p>Uso exclusivo de la empresa CAS Stage Ltda.</p>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,28 @@
+## Entidad RentaContrato.
+Entities\RentaContrato:
+  type: entity
+  table: renta_contrato
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    fecha_periodo:
+      type: date
+      nullable: false
+    renta_bruta:
+      type: integer
+      nullable: false
+    gratificacion:
+      type: boolean
+      nullable: false
+  manyToOne:
+    tipoContrato:
+      targetEntity: Entities\TipoContrato
+      inversedBy: rentasContrato
+      joinColumn:
+        name: id_tipo_contrato
+        referencedColumnName: id
+  options:
+    orderBy: fecha_periodo DESC

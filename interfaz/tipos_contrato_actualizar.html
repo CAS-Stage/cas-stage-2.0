@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Actualizar Tipos de Contrato - CAS Stage Ltda.</title>
+		<link rel="stylesheet" media="screen" href="design/screen.css">
+	</head>
+	<body>
+		<header>
+			<p>Conectado como: <em>Encargado Administrativo</em> <a href="index.html">[Cerrar sesión]</a></p>
+			<h1>CAS Stage Ltda.</h1>
+			<nav id="breadcrumb">
+				Usted está en:
+				<ul>
+					<li>
+						<a href="menu.html">Sistema CAS Stage</a>
+						<ul>
+							<li>
+								<a href="tipos_contrato.html">Tipos de Contrato</a>
+								<ul>
+									<li>
+										<a href="tipos_contrato_actualizar.html">Actualizar Tipo de Contrato</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<h1>Actualizar Tipo de Contrato</h1>
+			<form method="post" action="tipos_contrato.html">
+				<fieldset>
+					<legend>Ingreso de Nuevos Datos</legend>
+					<label>
+						<span>Cargo</span>
+						<select name="id_cargo" required="required">
+							<option></option>
+							<option value="1">Socio</option>
+							<option value="2">Ayudante</option>
+						</select>
+					</label>
+					<label>
+						<span>Fecha Vigencia</span>
+						<input type="date" name="fecha_vigencia" required="required">
+					</label>
+					<label>
+						<span>Renta Bruta ($)</span>
+						<input type="number" name="renta_bruta" min="182000" max="9999999" required="required">
+					</label>
+					<button type="submit">Actualizar Tipo de Contrato</button>
+				</fieldset>
+			</form>
+		</section>
+		<footer>
+			<p>Sistema CAS Stage</p>
+			<p>Desarrollado por: Matías Astorga Donoso &bull; Alberto Castillo Veloso &bull; Jorge Guitard Torres</p>
+			<p>Uso exclusivo de la empresa CAS Stage Ltda.</p>
+		</footer>
+	</body>
+</html>

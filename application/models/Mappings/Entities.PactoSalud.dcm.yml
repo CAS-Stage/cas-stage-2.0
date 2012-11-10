@@ -1,0 +1,31 @@
+## Entidad PactoSalud.
+Entities\PactoSalud:
+  type: entity
+  table: pacto_salud
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    fecha_periodo:
+      type: date
+      nullable: false
+    pacto:
+      type: float
+      nullable: true
+  manyToOne:
+    contrato:
+      targetEntity: Entities\Contrato
+      inversedBy: pactosSalud
+      joinColumn:
+        name: id_contrato
+        referencedColumnName: id
+    sistemaSalud:
+      targetEntity: Entities\SistemaSalud
+      inversedBy: pactosSalud
+      joinColumn:
+        name: id_sistema_salud
+        referencedColumnName: id
+  options:
+    orderBy: fecha_periodo DESC

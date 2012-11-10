@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Actualizar Pacto de Salud de Empleado - CAS Stage Ltda.</title>
+		<link rel="stylesheet" media="screen" href="design/screen.css">
+	</head>
+	<body>
+		<header>
+			<p>Conectado como: <em>Encargado Administrativo</em> <a href="index.html">[Cerrar sesión]</a></p>
+			<h1>CAS Stage Ltda.</h1>
+			<nav id="breadcrumb">
+				Usted está en:
+				<ul>
+					<li>
+						<a href="menu.html">Sistema CAS Stage</a>
+						<ul>
+							<li>
+								<a href="registro_empleados.html">Registro de Empleados</a>
+								<ul>
+									<li>
+										<a href="registro_empleados_actualizar_pacto_salud.html">Actualizar Pacto de Salud de Empleado: Juanito Pérez</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<h1>Actualizar Pacto de Salud de Empleado: Juanito Pérez</h1>
+			<form method="post" action="registro_empleados.html">
+				<table>
+					<caption>Pactos Anteriores: Consalud</caption>
+					<thead>
+						<tr>
+							<th>Fecha vigencia</th>
+							<th>Pacto</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Jun 2008</td>
+							<td class="decimal">4<span>,210</span> <span>UF</span></td>
+						</tr>
+						<tr>
+							<td>Sep 2008</td>
+							<td class="decimal">4<span>,224</span> <span>UF</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<fieldset>
+					<legend>Datos de Nuevo Pacto de Salud: Consalud</legend>
+					<label>
+						<span>Pacto de Salud (UF)</span>
+						<input type="number" name="pacto" min="0.001" max="100.000" step="0.001" required="required">
+					</label>
+					<button type="submit">Actualizar Pacto</button>
+				</fieldset>
+			</form>
+		</section>
+		<footer>
+			<p>Sistema CAS Stage</p>
+			<p>Desarrollado por: Matías Astorga Donoso &bull; Alberto Castillo Veloso &bull; Jorge Guitard Torres</p>
+			<p>Uso exclusivo de la empresa CAS Stage Ltda.</p>
+		</footer>
+	</body>
+</html>

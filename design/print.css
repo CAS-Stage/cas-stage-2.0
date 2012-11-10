@@ -1,0 +1,363 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+}
+
+
+html {
+	background-color: rgb(255,255,210);
+}
+
+body {
+	width: 980px;
+	margin: 0 auto 40px auto;
+	font-family: Calibri, 'Trebuchet MS', Arial, sans-serif;
+}
+
+header {
+	font-size: 14px;
+	margin-bottom: 25px;
+}
+
+	header > p {
+		display: none;
+	}
+
+	header > h1 {
+		text-align: center;
+		font-size: 32px;
+	}
+	
+	header > nav {
+		display: none;
+	}
+			
+section {
+	
+}
+
+	section > h1 {
+		width: 100%;
+		font-size: 20px;
+		border-bottom: 2px solid black;
+		margin-bottom: 20px;
+	}
+	
+	section > h2 {
+		font-size: 16px;
+		font-weight: normal;
+	}
+	
+	section > h3 {
+		font-size: 14px;
+		font-weight: normal;
+	}
+			
+	section > a {
+		display: none;
+	}
+			
+	section > table {
+		width: 100%;
+		background-color: rgb(220,220,220);
+		border: 1px solid lightgrey;
+		font-size: 15px;
+	}
+	
+	section > table.small {
+		font-size: 12px;
+	}
+	
+		section > table.small > * > tr > *:first-of-type {
+			width: 70px;
+			padding-left: 0;
+		}
+		
+		section > table.small > * > tr > *:nth-of-type(7),
+		section > table.small > * > tr > *:nth-of-type(8) {
+			width: 65px;
+		}
+	
+		section table > thead {
+			background-color: black;
+			color: white;
+		}
+		
+				section table > thead > tr > th {
+					border: 1px solid grey;
+				}
+		
+				section table > * > tr > * {
+					padding: 1px;
+				}
+		
+				section table > tbody > tr > td {
+					border: 1px solid grey;
+					background-color: white;
+					padding: 1px 4px;
+				}
+				
+				section table > tbody > tr > td.number {
+					text-align: right;
+					padding-left: 22px;
+				}
+				
+					section table > tbody > tr > td.number > span {
+						float: left;
+						margin-left: -10px;
+					}
+					
+				section table > tbody > tr > td.decimal {
+					text-align: right;
+					padding-right: 22px;
+				}
+				
+					section table > tbody > tr > td.decimal > span:first-of-type:not(:only-of-type) {
+						width: 30px;
+						margin-right: 10px;
+						text-align: left;
+					}
+				
+					section table > tbody > tr > td.decimal > span:last-of-type:not(:only-of-type) {
+						float: right;
+						width: 16px;
+						margin-right: -10px;
+						overflow: visible;
+					}
+					
+					section table > tbody > tr > td.decimal > span:only-of-type {
+						float: right;
+						width: 16px;
+						margin-left: 35px;
+						margin-right: -10px;
+						overflow: visible;
+					}
+				
+				section > table > * > tr > *:last-of-type {
+					width: 120px;
+				}
+				
+					section table > tbody > tr > td > a {
+						border: none;
+					}
+	
+	section > form.filter {
+		float: left;
+		text-align: left;
+		margin-bottom: 15px;
+	}
+	
+		section > form > input,
+		section > form > select {
+			width: 200px;
+			border: none;
+			color: black;
+			font-size: 20px;
+			vertical-align: middle;
+		}
+		
+			section button {
+				display: none;
+			}
+			
+	section > div {
+		width: 590px;
+		margin: 0 auto;
+	}
+			
+		section > div > ul {
+			margin: 0 auto;
+			width: 580px;
+			padding: 5px;
+			background-color: white;
+		}
+		
+	section ul {
+		list-style: none;
+	}
+		
+			section > div > ul > li:nth-of-type(1),
+			section > div > ul > li:nth-of-type(2) {
+				display: inline-block;
+				margin-bottom: 20px;
+				font-size: 18px;
+				font-weight: bold;
+			}
+                        
+                        section > div > ul > li:nth-of-type(1) {
+                            width: 408px;
+                        }
+			
+			section > div > ul > li:nth-of-type(2) {
+				width: 143px;
+				padding-left: 25px;
+				text-align: left;
+				
+			}
+			
+				section > div > ul > li:nth-of-type(2) > span {
+					float: right;
+				}
+			
+				section > div > ul > li:nth-of-type(3) > ul {
+					margin-bottom: 20px;
+					border-top: 2px solid black;
+				}
+				
+				section > div > ul > li:nth-of-type(3) > ul:last-of-type {
+					font-weight: bold;
+					font-size: 18px;
+				}
+				
+					section > div > ul > li:nth-of-type(3) > ul:last-of-type > li {
+						display: inline-block;
+						width: 288px;
+					}
+					
+					section > div > ul > li:nth-of-type(3) > ul:last-of-type > li:last-of-type {
+						width: 108px;
+						padding-left: 180px;
+						text-align: left;
+					}
+					
+						section > div > ul > li:nth-of-type(3) > ul:last-of-type > li:last-of-type > span {
+							float: right;
+							width: 70px;
+							text-align: right;
+						}
+					
+					section > div > ul > li:nth-of-type(3) > ul > li:first-of-type {
+						margin-bottom: 10px;
+						font-size: 18px;
+						font-weight: bold;
+					}
+					
+						section > div > ul > li:nth-of-type(3) > ul > li:last-of-type > ul {
+							margin-top: 15px;
+						}
+					
+							section > div > ul > li:nth-of-type(3) > ul > li:last-of-type > ul > li {
+								display: inline-block;
+								width: 288px;
+								font-weight: bold;
+							}
+						
+							section > div > ul > li:nth-of-type(3) > ul > li:last-of-type > ul > li:last-of-type {
+								width: 108px;
+								padding-left: 180px;
+								text-align: left;
+							}
+						
+								section > div > ul > li:nth-of-type(3) > ul > li:last-of-type > ul > li:last-of-type > span {
+									float: right;
+									width: 70px;
+									text-align: right;
+									border-top: 2px solid black;
+								}
+					
+							section > div > ul > li:nth-of-type(3) > ul > li:not(:last-of-type) > ul > li:first-of-type {
+								margin-top: 10px;
+								border-top: 1px solid black;
+								font-weight: bold;
+							}
+								
+											section > div > ul > li:nth-of-type(3) > ul > li > ul > li > ul > li > ul > li {
+												display: inline-block;
+												width: 288px;
+											}
+									
+											section > div > ul > li:nth-of-type(3) > ul > li > ul > li > ul > li > ul > li:last-of-type {
+												width: 108px;
+												padding-left: 180px;
+												text-align: left;
+											}
+									
+												section > div > ul > li:nth-of-type(3) > ul > li > ul > li > ul > li > ul > li:last-of-type > span {
+													float: right;
+												}
+									
+								section > div > ul > li:nth-of-type(3) > ul > li > ul > li:nth-of-type(3) > ul {
+									margin-top: 10px;
+								}
+						
+									section > div > ul > li:nth-of-type(3) > ul > li > ul > li:nth-of-type(3) > ul > li {
+										display: inline-block;
+										width: 288px;
+										color: rgb(60,60,60);
+									}
+							
+									section > div > ul > li:nth-of-type(3) > ul > li > ul > li:nth-of-type(3) > ul > li:last-of-type {
+										width: 108px;
+										padding-left: 180px;
+										text-align: left;
+									}
+							
+										section > div > ul > li:nth-of-type(3) > ul > li > ul > li:nth-of-type(3) > ul > li:last-of-type > span {
+											float: right;
+											width: 70px;
+											text-align: right;
+											border-top: 1px solid black;
+										}
+		
+	section > div.print {
+		height: 160px;
+	}
+		
+		section > div.print > p {
+			margin-bottom: 20px;
+		}
+		
+		section > div.print > div {
+			float: right;
+			width: 180px;
+			height: 50px;
+			margin-top: 30px;
+			border-top: 1px solid black;
+		}
+		
+			section > div.print > div > span {
+				display: block;
+				margin: 0 auto;
+				text-align: center;
+			}
+			
+	section > ul {
+		display: inline-block;
+		width: 466px;
+		height: 170px;
+		padding: 10px;
+		border: 1px solid grey;
+		background-color: white;
+		text-align: left;
+		vertical-align: top;
+	}
+		
+			section > ul > li > ul {
+				margin-bottom: 5px;
+			}
+			
+				section > ul > li > ul > li {
+					display: inline-block;
+					vertical-align: top;
+				}
+				
+				section > ul > li > ul > li:first-of-type {
+					width: 180px;
+				}
+				
+				section > ul > li > ul > li:last-of-type {
+					width: 282px;
+				}
+			
+footer {
+	margin-top: 50px;
+	font-size: 11px;
+	text-align: center;
+	border-top: 1px solid black;
+}
+
+	footer > p:not(:last-of-type) {
+		display: none;
+	}

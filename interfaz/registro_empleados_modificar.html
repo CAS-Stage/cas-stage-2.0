@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Modificar Datos de Empleado - CAS Stage Ltda.</title>
+		<link rel="stylesheet" media="screen" href="design/screen.css">
+	</head>
+	<body>
+		<header>
+			<p>Conectado como: <em>Encargado Administrativo</em> <a href="index.html">[Cerrar sesión]</a></p>
+			<h1>CAS Stage Ltda.</h1>
+			<nav id="breadcrumb">
+				Usted está en:
+				<ul>
+					<li>
+						<a href="menu.html">Sistema CAS Stage</a>
+						<ul>
+							<li>
+								<a href="registro_empleados.html">Registro de Empleados</a>
+								<ul>
+									<li>
+										<a href="registro_empleados_modificar.html">Modificar Datos de Empleado: Juanito Pérez</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<h1>Modificar Datos de Empleado: Juanito Pérez</h1>
+			<form method="post" class="registro_empleados" action="registro_empleados.html">
+				<fieldset>
+					<legend>Datos Personales existentes</legend>
+					<label class="rut">
+						<span>RUT</span>
+						<input type="number" name="rut" min="1000000" max="99999999" required="required" value="12345678">
+					</label>
+					<label class="dv">
+						<span>-</span>
+						<input type="text" name="dv" pattern="[0-9|K]{1}" maxlength="1" required="required" value="K">
+					</label>
+					<label>
+						<span>Apellidos</span>
+						<input type="text" name="apellidos" maxlength="45" required="required" value="Pérez Alegría">
+					</label>
+					<label>
+						<span>Nombres</span>
+						<input type="text" name="nombres" maxlength="45" required="required" value="Juanito Ignacio">
+					</label>
+					<label>
+						<span>Fecha de Nacimiento</span>
+						<input type="date" name="fecha_nacimiento" max="2000-06-25" required="required" value="1980-06-15">
+					</label>
+					<label>
+						<span>Dirección</span>
+						<input type="text" name="direccion" maxlength="100" required="required" value="Pasaje 1 44444">
+					</label>
+					<label>
+						<span>Comuna</span>
+						<select name="id_comuna" required="required">
+							<option></option>
+							<option value="1">Cerrillos</option>
+							<option value="2">Cerro Navia</option>
+							<option value="3" selected="selected">Conchalí</option>
+						</select>
+					</label>
+					<label>
+						<span>Fono</span>
+						<input type="text" name="fono" maxlength="45" value="2345789">
+					</label>
+				</fieldset>
+				<fieldset>
+					<legend>Datos Contractuales existentes</legend>
+					<label class="start">
+						<span>Periodo de Contrato</span>
+						<input type="date" name="fecha_inicio" required="required" value="2012-06-03">
+					</label>
+					<label class="end">
+						<span>-</span>
+						<input type="date" name="fecha_termino">
+					</label>
+					<label>
+						<span>Cargo</span>
+						<select name="id_cargo" required="required">
+							<option></option>
+							<option value="1">Socio</option>
+							<option value="2" selected="selected">Ayudante</option>
+						</select>
+					</label>
+					<label>
+						<span>Previsión</span>
+						<select name="id_prevision" required="required">
+							<option></option>
+							<option value="1">Jubilado</option>
+							<option value="2">Capital</option>
+							<option value="3" selected="selected">Habitat</option>
+							<option value="4">Modelo</option>
+							<option value="5">INP</option>
+						</select>
+					</label>
+					<label>
+						<span>Sistema de Salud</span>
+						<select name="id_sistema_salud" required="required">
+							<option></option>
+							<option value="1" selected="selected">Fonasa</option>
+							<option value="2">Consalud</option>
+							<option value="3">Cruz Blanca</option>
+						</select>
+					</label>
+					<label>
+						<span>Pacto de Salud (UF)</span>
+						<input type="number" name="pacto" min="0.001" max="100.000" step="0.001" required="required" value="4.123">
+					</label>
+					<button type="submit">Guardar Cambios</button>
+				</fieldset>
+			</form>
+		</section>
+		<footer>
+			<p>Sistema CAS Stage</p>
+			<p>Desarrollado por: Matías Astorga Donoso &bull; Alberto Castillo Veloso &bull; Jorge Guitard Torres</p>
+			<p>Uso exclusivo de la empresa CAS Stage Ltda.</p>
+		</footer>
+	</body>
+</html>

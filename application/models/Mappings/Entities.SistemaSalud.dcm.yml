@@ -1,0 +1,23 @@
+## Entidad SistemaSalud.
+Entities\SistemaSalud:
+  type: entity
+  table: sistema_salud
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    nombre:
+      type: string
+      length: 45
+      nullable: false
+    tiene_pacto:
+      type: boolean
+      nullable: false
+  oneToMany:
+    pactosSalud:
+      targetEntity: Entities\PactoSalud
+      mappedBy: sistemaSalud
+  options:
+    orderBy: nombre ASC

@@ -1,0 +1,23 @@
+## Entidad Prevision.
+Entities\Prevision:
+  type: entity
+  table: prevision
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    nombre:
+      type: string
+      length: 45
+      nullable: false
+  oneToMany:
+    contratos:
+      targetEntity: Entities\Contrato
+      mappedBy: prevision
+    descuentosPrevision:
+      targetEntity: Entities\DescuentoPrevision
+      mappedBy: prevision
+  options:
+    orderBy: nombre ASC

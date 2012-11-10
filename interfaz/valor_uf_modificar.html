@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Modificar Valor UF - CAS Stage Ltda.</title>
+		<link rel="stylesheet" media="screen" href="design/screen.css">
+	</head>
+	<body>
+		<header>
+			<p>Conectado como: <em>Encargado Administrativo</em> <a href="index.html">[Cerrar sesión]</a></p>
+			<h1>CAS Stage Ltda.</h1>
+			<nav id="breadcrumb">
+				Usted está en:
+				<ul>
+					<li>
+						<a href="menu.html">Sistema CAS Stage</a>
+						<ul>
+							<li>
+								<a href="parametros_externos.html">Parámetros Externos</a>
+								<ul>
+									<li>
+										<a href="valor_uf.html">Valor UF</a>
+										<ul>
+											<li><a href="valor_uf_modificar.html">Modificar Valor UF (30 agosto 2012, $22.123,45)</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<h1>Modificar Valor UF</h1>
+			<form method="post" action="valor_uf.html">
+				<fieldset>
+					<legend>Modificación de Datos Existentes</legend>
+					<label>
+						<span>Fecha Vigencia</span>
+						<input type="date" name="fecha_vigencia" required="required" value="2012-08-30">
+					</label>
+					<label>
+						<span>Valor ($)</span>
+						<input type="number" name="valor" min="0.01" max="9999999.99" step="0.01" required="required" value="22456.78">
+					</label>
+					<button type="submit">Guardar Cambios</button>
+				</fieldset>
+			</form>
+		</section>
+		<footer>
+			<p>Sistema CAS Stage</p>
+			<p>Desarrollado por: Matías Astorga Donoso &bull; Alberto Castillo Veloso &bull; Jorge Guitard Torres</p>
+			<p>Uso exclusivo de la empresa CAS Stage Ltda.</p>
+		</footer>
+	</body>
+</html>

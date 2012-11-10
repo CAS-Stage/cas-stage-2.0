@@ -1,0 +1,25 @@
+## Entidad DescuentoPrevision.
+Entities\DescuentoPrevision:
+  type: entity
+  table: descuento_prevision
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    fecha_periodo:
+      type: date
+      nullable: false
+    descuento:
+      type: float
+      nullable: false
+  manyToOne:
+    prevision:
+      targetEntity: Entities\Prevision
+      inversedBy: descuentosPrevision
+      joinColumn:
+        name: id_prevision
+        referencedColumnName: id
+  options:
+    orderBy: fecha_periodo DESC
