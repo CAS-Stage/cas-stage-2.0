@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-setlocale(LC_ALL, 'es_CL.utf8');
+set_include_path(APPPATH.'third_party/PEAR');
+setlocale(LC_ALL, 'es_CL.utf8', 'Spanish');
 
 /*
 |--------------------------------------------------------------------------
