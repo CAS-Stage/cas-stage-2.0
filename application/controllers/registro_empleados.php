@@ -99,7 +99,7 @@ class Registro_Empleados extends CI_Controller {
             
             $this->form_validation->set_rules('fecha_inicio_contrato', null, 'required|valid_date');
             $this->form_validation->set_rules('fecha_termino_contrato', null, 'valid_date');
-            $this->form_validation->set_rules('id_cargo', null, 'required|numeric');
+            $this->form_validation->set_rules('id_tipo_contrato', null, 'required|numeric');
             $this->form_validation->set_rules('id_prevision', null, 'required|numeric');
             $this->form_validation->set_rules('id_sistema_salud', null, 'required|numeric');
             $this->form_validation->set_rules('pacto_salud', null, 'numeric');
@@ -107,10 +107,15 @@ class Registro_Empleados extends CI_Controller {
 
             if ($this->form_validation->run()) {
             
+                // Revisar lo que se envía por POST
+//                header('Content-Type: text/plain; charset=utf-8');
+//                print_r($_POST);
+//                exit;
+                
                 $EmpleadoNuevo->setRut($this->input->post('rut'));
                 $EmpleadoNuevo->setApellidos($this->input->post('apellidos'));
                 $EmpleadoNuevo->setNombres($this->input->post('nombres'));
-                $EmpleadoNuevo->setFechaNacimiento($this->input->post('fecha_nacimiento')->format('Y-m-d'));
+                $EmpleadoNuevo->setFechaNacimiento(date_create($this->input->post('fecha_nacimiento')));
                 $EmpleadoNuevo->setDireccion($this->input->post('direccion'));
                 $EmpleadoNuevo->setComuna(
                     $this->doctrine->em->getReference('Entities\Comuna', $this->input->post('id_comuna'))
@@ -122,32 +127,41 @@ class Registro_Empleados extends CI_Controller {
                 $ContratoNuevo->setFechaInicio(date_create($this->input->post('fecha_inicio_contrato')));
                 if ($this->input->post('fecha_termino_contrato'))
                     $ContratoNuevo->setFechaInicio(date_create($this->input->post('fecha_termino_contrato')));
+                
                 $ContratoNuevo->setTipoContrato(
                     $this->doctrine->em->getReference('Entities\TipoContrato', $this->input->post('id_tipo_contrato'))
                 );
                 $ContratoNuevo->setPrevision(
                     $this->doctrine->em->getReference('Entities\Prevision', $this->input->post('id_prevision'))
                 );
-                $ContratoNuevo->setSistemaSalud(
-                    $this->doctrine->em->getReference('Entities\SistemaSalud', $this->input->post('id_sistema_salud'))
-                );
-                $ContratoNuevo->setPacto($this->input->post('descuento')/100);
-                
+
                 $PactoSaludNuevo = new Entities\PactoSalud;
                 
                 $PactoSaludNuevo->setFechaPeriodo(date_create(strftime('%Y-%m-01')));
                 $PactoSaludNuevo->setPacto($this->input->post('pacto_salud'));
+                $PactoSaludNuevo->setSistemaSalud(
+                    $this->doctrine->em->getReference('Entities\SistemaSalud', $this->input->post('id_sistema_salud'))
+                );
                 
-                $ContratoNuevo->addPactoSaud($PactoSaludNuevo);
+                $PactoSaludNuevo->setPacto($this->input->post('pacto'));
                 
-                $EmpleadoNuevo->addContrato($ContratoNuevo);
+                //$ContratoNuevo->addPactoSalud($PactoSaludNuevo);
+                $PactoSaludNuevo->setContrato($ContratoNuevo);
+                
+                //$EmpleadoNuevo->addContrato($ContratoNuevo);
+                $ContratoNuevo->setEmpleado($EmpleadoNuevo);
 
                 try {
+                    //$this->doctrine->em->persist($EmpleadoNuevo);
                     $this->doctrine->em->persist($EmpleadoNuevo);
+                    $this->doctrine->em->persist($ContratoNuevo);
+                    $this->doctrine->em->persist($PactoSaludNuevo);
                     $this->doctrine->em->flush();
 
                     $this->parser->parse('registro_empleados/crear', array());
                 } catch(Exception $e) {
+//                    throw $e;
+//                    exit;
                     $this->parser->parse('registro_empleados/error_agregar_unico', array());
                 }
                 

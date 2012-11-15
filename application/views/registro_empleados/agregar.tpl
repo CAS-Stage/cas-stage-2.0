@@ -60,7 +60,7 @@
                     </label>
                     <label>
                         <span>Cargo</span>
-                        <select name="id_cargo" required="required">
+                        <select name="id_tipo_contrato" required="required">
                             <option></option>
                             {foreach item=entry from=$tipos_contrato}
                             <option value="{$entry.id}">{$entry.cargo|htmlspecialchars}</option>

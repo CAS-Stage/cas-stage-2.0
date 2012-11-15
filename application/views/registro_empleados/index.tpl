@@ -35,14 +35,17 @@
                         <td>{$entry.cargo_tipo_contrato|htmlspecialchars}</td>
                         <td>
                             <a href="{''|htmlspecialchars}registro_empleados/modificar/{$entry.rut}.html">[Modificar]</a>
+                            {if $entry.fecha_termino_contrato}
                             <a href="{''|htmlspecialchars}registro_empleados/recontratar/{$entry.rut}.html">[Alta]</a>
+                            {else}
+                            <a href="{''|htmlspecialchars}registro_empleados/baja/{$entry.rut}.html">[Baja]</a>
+                            {/if}       
                             <a href="{''|htmlspecialchars}registro_empleados/actualizar_pacto_salud/{$entry.rut}.html">[Actualizar Pacto Salud]</a>
                         </td>
                     </tr>
                     {/foreach}
                 </tbody>
             </table>
-            <button type="button" onclick="window.print();">Imprimir</button>
         </section>
         {include file='includes/body_footer.tpl'}
 </body>
