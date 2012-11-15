@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-15 16:38:32
-         compiled from "application/views/informes/nomina_anticipos/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:3516509eff56ba1960-22099356%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-15 16:39:12
+         compiled from "application/views/informes/horas_extras/index.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:1544450a50ca0d4c951-54979931%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '24345aa812beeb1c67aa7b281ef6207b5368135b' => 
+    'b2f002ab6535857e71bb28b280c78f76eda9b870' => 
     array (
-      0 => 'application/views/informes/nomina_anticipos/index.tpl',
+      0 => 'application/views/informes/horas_extras/index.tpl',
       1 => 1352590191,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '3516509eff56ba1960-22099356',
+  'nocache_hash' => '1544450a50ca0d4c951-54979931',
   'function' => 
   array (
   ),
@@ -27,9 +27,9 @@ $_smarty_tpl->decodeProperties(array (
         <?php $_template = new Smarty_Internal_Template('includes/body_header.tpl', $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate(); $_template->rendered_content = null;?><?php unset($_template);?>
         <section>
-			<h1>Nómina de Anticipos</h1>
+			<h1>Informe de Horas Extras</h1>
 			<form method="post" class="filter">
-				<input type="month" name="mes" value="2012-05">
+				<input type="month" name="mes" value="Mayo 2012">
 			</form>
 			<table>
 				<thead>
@@ -37,8 +37,8 @@ $_smarty_tpl->decodeProperties(array (
 						<th>RUT</th>
 						<th>Apellidos</th>
 						<th>Nombres</th>
-						<th>Monto</th>
-						<th class="print">Firma</th>
+						<th>Horas Extras</th>
+						<th>Valor Monetario</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,14 +55,14 @@ if ($_smarty_tpl->_count($_from) > 0){
 </td>
 						<td><?php echo htmlspecialchars(ucwords($_smarty_tpl->tpl_vars['entry']->value['nombres']));?>
 </td>
-						<td class="number"><span>$</span><?php echo number_format($_smarty_tpl->tpl_vars['entry']->value['monto_anticipo'],0,',','.');?>
+						<td class="number"><?php echo number_format($_smarty_tpl->tpl_vars['entry']->value['cantidad_horas_extras'],2,',','.');?>
 </td>
-                                                <td class="print"> </td>
+						<td class="number"><span>$</span><?php echo number_format($_smarty_tpl->tpl_vars['entry']->value['valor_monetario'],0,',','.');?>
+</td>
 					</tr>
 					<?php }} ?>
 				</tbody>
-			
-		</table>
+			</table>
 			<button type="button" onclick="window.print();">Imprimir</button>
 		</section>
 		<?php $_template = new Smarty_Internal_Template('includes/body_footer.tpl', $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
