@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-15 16:31:21
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-15 21:34:14
          compiled from "application/views/registro_empleados/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:22049509eff140cc056-36792147%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2412250a551c6e65c42-16367357%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '5b1399e3ee50005057dd7f088b66813fb68f352a' => 
     array (
       0 => 'application/views/registro_empleados/index.tpl',
-      1 => 1352590191,
+      1 => 1352995426,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '22049509eff140cc056-36792147',
+  'nocache_hash' => '2412250a551c6e65c42-16367357',
   'function' => 
   array (
   ),

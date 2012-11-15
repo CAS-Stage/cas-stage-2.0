@@ -163,7 +163,7 @@ pip-log.txt
 .DS_Store
 
 # Caché de plantillas
-application/cache/smarty/compiled/
+application/cache/smarty/compiled/*
 
 #Proxies de modelo de datos
-application/models/Proxies/
+application/models/Proxies/*
