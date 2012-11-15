@@ -34,13 +34,13 @@
                         <td>{if $entry.fecha_termino_contrato}{'%d %b %Y'|strftime:$entry.fecha_termino_contrato}{else}Indefinido{/if}</td>
                         <td>{$entry.cargo_tipo_contrato|htmlspecialchars}</td>
                         <td>
-                            <a href="{''|htmlspecialchars}registro_empleados/modificar/{$entry.rut}.html">[Modificar]</a>
-                            {if $entry.fecha_termino_contrato}
-                            <a href="{''|htmlspecialchars}registro_empleados/recontratar/{$entry.rut}.html">[Alta]</a>
+                            <a href="{''|base_url}registro_empleados/modificar/{$entry.id_contrato}.html">[Modificar]</a>
+                            {if $entry.fecha_termino_contrato && {{'%Y-%m-%d'|strftime:$entry.fecha_termino_contrato}|strtotime} < {'now'|strtotime}}
+                            <a href="{''|base_url}registro_empleados/recontratar/{$entry.id_contrato}.html">[Alta]</a>
                             {else}
-                            <a href="{''|htmlspecialchars}registro_empleados/baja/{$entry.rut}.html">[Baja]</a>
+                            <a href="{''|base_url}registro_empleados/baja/{$entry.id_contrato}.html">[Baja]</a>
                             {/if}       
-                            <a href="{''|htmlspecialchars}registro_empleados/actualizar_pacto_salud/{$entry.rut}.html">[Actualizar Pacto Salud]</a>
+                            <a href="{''|base_url}registro_empleados/actualizar_pacto_salud/{$entry.id_contrato}.html">[Actualizar Pacto Salud]</a>
                         </td>
                     </tr>
                     {/foreach}
