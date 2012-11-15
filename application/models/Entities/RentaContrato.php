@@ -25,7 +25,7 @@ class RentaContrato
     /**
      * @var boolean $gratificacion
      */
-    private $gratificacion;
+    private $gratificacion = false;
 
     /**
      * @var Entities\TipoContrato

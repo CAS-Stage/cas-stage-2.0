@@ -43,8 +43,8 @@ class Tipos_Contrato extends CI_Controller {
             $this->form_validation->set_rules('renta_bruta', null, 'required|numeric');
             
             // Volcado de post, ver si pasa sin excepción
-//            header('Content-Type: text/plain; charset=utf-8');
-//            print_r($_POST);
+            //header('Content-Type: text/plain; charset=utf-8');
+            //print_r($_POST);
             //exit;
             
             if ($this->form_validation->run()) {
