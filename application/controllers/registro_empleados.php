@@ -9,19 +9,19 @@ class Registro_Empleados extends CI_Controller {
             $UltimoContrato = null;
             foreach($item->getContratos() as $subitem) {
                 $UltimoContrato = $subitem;
-                break;
+                //break;
             }
             
             $UltimaRentaContrato = null;
             foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
                 $UltimaRentaContrato = $subitem;
-                break;
+                //break;
             }
 
             $UltimoPactoSalud = null;
             foreach($UltimoContrato->getPactosSalud() as $subitem) {
                 $UltimoPactoSalud = $subitem;
-                break;
+                //break;
             }
             
             $empleados[] = array(
@@ -35,6 +35,7 @@ class Registro_Empleados extends CI_Controller {
                 'fecha_termino_contrato' => ($UltimoContrato->getFechaTermino())? $UltimoContrato->getFechaTermino()->getTimestamp() : null,
                 'cargo_tipo_contrato' => $UltimaRentaContrato->getTipoContrato()->getCargo(),
                 'id_contrato' => $UltimoContrato->getId(),
+                'tiene_pacto_sistema_salud' => $UltimoPactoSalud->getSistemaSalud()->getTienePacto()
             );
         }
         $this->parser->parse('registro_empleados/index', array(
@@ -352,6 +353,249 @@ class Registro_Empleados extends CI_Controller {
         
         }
     }
+    
+    public function baja($id) {
+        $ContratoActual = $this->doctrine->em->getReference('Entities\Contrato', $id);
+        
+        $ayer = new DateTime('yesterday');
+        $ContratoActual->setFechaTermino($ayer);
+        
+        $this->doctrine->em->persist($ContratoActual);
+        $this->doctrine->em->flush();
+        
+        redirect('registro_empleados');
+    }
+    
+    public function recontratar($id) {
+        $ContratoActual = $this->doctrine->em->getReference('Entities\Contrato', $id);
+        $EmpleadoActual = $ContratoActual->getEmpleado();
+        
+        $contratos_anteriores = array();
+        foreach($EmpleadoActual->getContratos() as $item) {
+            
+            $UltimoPactoSalud = null;
+            foreach($item->getPactosSalud() as $subitem) {
+                $UltimoPactoSalud = $subitem;
+                //break;
+            }
+            
+            $contratos_anteriores[] = array(
+                'fecha_inicio' => $item->getFechaInicio()->getTimestamp(),
+                'fecha_termino' => ($item->getFechaTermino())? $item->getFechaTermino()->getTimestamp() : null,
+                'cargo_tipo_contrato' => $item->getTipoContrato()->getCargo(),
+                'nombre_prevision' => $item->getPrevision()->getNombre(),
+                'nombre_sistema_salud' => ($UltimoPactoSalud)? $UltimoPactoSalud->getSistemaSalud()->getNombre() : null,
+                'pacto_salud' => ($UltimoPactoSalud)? $UltimoPactoSalud->getPacto() : null
+            );
+        }
+        
+        $tipos_contrato = array();
+        foreach($this->doctrine->em->getRepository('Entities\TipoContrato')->findAll() as $item) {
+            $tipos_contrato[] = array(
+                'id' => $item->getId(),
+                'cargo' => $item->getCargo()
+            );
+        }
+        
+        $prevision = array();
+        foreach($this->doctrine->em->getRepository('Entities\Prevision')->findAll() as $item) {
+            $prevision[] = array(
+                'id' => $item->getId(),
+                'nombre' => $item->getNombre()
+            );
+        }
+        
+        $sistemas_salud = array();
+        foreach($this->doctrine->em->getRepository('Entities\SistemaSalud')->findAll() as $item) {
+            $sistemas_salud[] = array(
+                'id' => $item->getId(),
+                'nombre' => $item->getNombre(),
+                'tiene_pacto' => $item->getTienePacto()
+            );
+        }
+        
+        if (!$this->input->post()) {
+        
+            $this->parser->parse('registro_empleados/recontratar', array(
+                'empleado' => array(
+                    'id_contrato' => $ContratoActual->getId(),
+                    'rut' => $EmpleadoActual->getRut(),
+                    'apellidos' => $EmpleadoActual->getApellidos(),
+                    'nombres' => $EmpleadoActual->getNombres(),
+                ),
+                'contratos_anteriores' => $contratos_anteriores,
+                'tipos_contrato' => $tipos_contrato,
+                'prevision' => $prevision,
+                'sistemas_salud' => $sistemas_salud
+            ));
+            
+        } else {
+            $this->form_validation->set_rules('fecha_inicio_contrato', null, 'required|valid_date');
+            $this->form_validation->set_rules('fecha_termino_contrato', null, 'valid_date');
+            $this->form_validation->set_rules('id_tipo_contrato', null, 'required|numeric');
+            $this->form_validation->set_rules('id_prevision', null, 'required|numeric');
+            $this->form_validation->set_rules('id_sistema_salud', null, 'required|numeric');
+            $this->form_validation->set_rules('pacto_salud', null, 'numeric');
+            
+            // Volcado de post, ver si pasa sin excepción
+//            header('Content-Type: text/plain; charset=utf-8');
+//            print_r($_POST);
+//            exit;
+            
+            if ($this->form_validation->run()) {
+                
+                $ContratoActual = $this->doctrine->em->getReference('Entities\Contrato', $id);
+                $EmpleadoActual = $this->doctrine->em->getReference('Entities\Empleado', $ContratoActual->getEmpleado()->getRut());
+                
+                $NuevoContrato = new Entities\Contrato;
+                
+                $NuevoContrato->setFechaInicio(date_create($this->input->post('fecha_inicio_contrato')));
+                if ($this->input->post('fecha_termino_contrato'))
+                    $NuevoContrato->setFechaTermino(date_create($this->input->post('fecha_termino_contrato')));
+                
+                $NuevoContrato->setTipoContrato(
+                    $this->doctrine->em->getReference('Entities\TipoContrato', $this->input->post('id_tipo_contrato'))
+                );
+                $NuevoContrato->setPrevision(
+                    $this->doctrine->em->getReference('Entities\Prevision', $this->input->post('id_prevision'))
+                );
 
+                // ver si esto afecta en algo
+                //$PactoSaludActual = new Entities\PactoSalud;
+                //$PactoSaludActual = $UltimoPactoSalud;
+                $NuevoPactoSalud = new Entities\PactoSalud;
+                
+                $NuevoPactoSalud->setFechaPeriodo(date_create(strftime('%Y-%m-01')));
+                $NuevoPactoSalud->setPacto($this->input->post('pacto_salud'));
+                $NuevoPactoSalud->setSistemaSalud(
+                    $this->doctrine->em->getReference('Entities\SistemaSalud', $this->input->post('id_sistema_salud'))
+                );
+                
+                $NuevoPactoSalud->setPacto($this->input->post('pacto'));
+                
+                //$ContratoNuevo->addPactoSalud($PactoSaludNuevo);
+                $NuevoPactoSalud->setContrato($NuevoContrato);
+                
+                //$EmpleadoNuevo->addContrato($ContratoNuevo);
+                $NuevoContrato->setEmpleado($EmpleadoActual);
+                
+                try {
+                    //$this->doctrine->em->persist($EmpleadoActual);
+                    $this->doctrine->em->persist($NuevoContrato);
+                    $this->doctrine->em->persist($NuevoPactoSalud);
+                    $this->doctrine->em->flush();
+                    
+                    $this->parser->parse('registro_empleados/alta', array());
+                } catch(Exception $e) {
+                    // Verificar excepción en base de datos (default para gratificacion)
+                    throw $e;
+                    exit;
+                    $this->parser->parse('registro_empleados/error_alta_unico', array(
+                        'contrato' => array (
+                            'id' => $ContratoActual->getId()
+                        )
+                    ));
+                }
+                
+            } else {
+            
+                $this->parser->parse('registro_empleados/error_alta', array(
+                    'contrato' => array (
+                        'id' => $ContratoActual->getId()
+                    )
+                ));
+                
+            }
+        
+        }
+    }
+    
+    public function actualizar_pacto_salud($id) {
+        $ContratoActual = $this->doctrine->em->getReference('Entities\Contrato', $id);
+        $EmpleadoActual = $ContratoActual->getEmpleado();
+        
+        $UltimoPactoSalud = null;
+        foreach($ContratoActual->getPactosSalud() as $subitem) {
+            $UltimoPactoSalud = $subitem;
+            //break;
+        }
+        
+        $pactos_anteriores = array();
+        foreach($ContratoActual->getPactosSalud() as $item) {
+            $pactos_anteriores[] = array(
+                'fecha_periodo' => $item->getFechaPeriodo()->getTimeStamp(),
+                'pacto' => $item->getPacto()
+            );
+        }
+        
+        if (!$this->input->post()) {
+        
+            $this->parser->parse('registro_empleados/actualizar_pacto_salud', array(
+                'empleado' => array(
+                    'id_contrato' => $ContratoActual->getId(),
+                    'rut' => $EmpleadoActual->getRut(),
+                    'apellidos' => $EmpleadoActual->getApellidos(),
+                    'nombres' => $EmpleadoActual->getNombres(),
+                    'nombre_sistema_salud' => $UltimoPactoSalud->getSistemaSalud()->getNombre()
+                ),
+                'pactos_anteriores' => $pactos_anteriores
+            ));
+            
+        } else {
+            $this->form_validation->set_rules('pacto', null, 'required|numeric');
+            
+            
+            if ($this->form_validation->run()) {
+               
+                $ContratoActual = $this->doctrine->em->getReference('Entities\Contrato', $id);
+                $EmpleadoActual = $this->doctrine->em->getReference('Entities\Empleado', $ContratoActual->getEmpleado()->getRut());
+                
+                $UltimoPactoSalud = null;
+                foreach($ContratoActual->getPactosSalud() as $subitem) {
+                    $UltimoPactoSalud = $subitem;
+                    //break;
+                }
+                
+                if ($UltimoPactoSalud->getFechaPeriodo() == date_create(strftime('%Y-%m-01'))) {
+                    $NuevoPactoSalud = $UltimoPactoSalud;
+                    $NuevoPactoSalud->setPacto($this->input->post('pacto'));
+                } else {
+                    $NuevoPactoSalud = new Entities\PactoSalud;
+
+                    $NuevoPactoSalud->setFechaPeriodo(date_create(strftime('%Y-%m-01')));
+                    $NuevoPactoSalud->setPacto($this->input->post('pacto'));
+                    $NuevoPactoSalud->setSistemaSalud(
+                        $UltimoPactoSalud->getSistemaSalud()
+                    );
+
+                    $NuevoPactoSalud->setContrato($ContratoActual);
+                }
+                
+                try {
+                    if ($NuevoPactoSalud->getPacto() == $UltimoPactoSalud->getPacto())
+                        throw(new Exception);
+                    $this->doctrine->em->persist($NuevoPactoSalud);
+                    $this->doctrine->em->flush();
+                    $this->parser->parse('registro_empleados/pacto', array());
+                } catch(Exception $e) {
+                    $this->parser->parse('registro_empleados/error_pacto_unico', array(
+                        'contrato' => array (
+                            'id' => $ContratoActual->getId()
+                        )
+                    ));
+                }
+                
+            } else {
+            
+                $this->parser->parse('registro_empleados/error_pacto', array(
+                    'contrato' => array (
+                        'id' => $ContratoActual->getId()
+                    )
+                ));
+                
+            }
+        
+        }
+    }
     
 }

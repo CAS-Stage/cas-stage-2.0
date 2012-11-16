@@ -38,9 +38,11 @@
                             {if $entry.fecha_termino_contrato && {{'%Y-%m-%d'|strftime:$entry.fecha_termino_contrato}|strtotime} < {'now'|strtotime}}
                             <a href="{''|base_url}registro_empleados/recontratar/{$entry.id_contrato}.html">[Alta]</a>
                             {else}
-                            <a href="{''|base_url}registro_empleados/baja/{$entry.id_contrato}.html">[Baja]</a>
-                            {/if}       
+                            <a href="{''|base_url}registro_empleados/baja/{$entry.id_contrato}.html" onclick="return confirm('¿Está seguro que desea dar de baja al siguiente empleado?\n\nRUT: {$entry.rut|number_format:0:',':'.'}-{$entry.rut|modulo11}\nNombre: {$entry.apellidos}, {$entry.nombres}\nCargo: {$entry.cargo_tipo_contrato}');">[Baja]</a>
+                            {/if}
+                            {if $entry.tiene_pacto_sistema_salud}
                             <a href="{''|base_url}registro_empleados/actualizar_pacto_salud/{$entry.id_contrato}.html">[Actualizar Pacto Salud]</a>
+                            {/if}
                         </td>
                     </tr>
                     {/foreach}
