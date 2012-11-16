@@ -149,33 +149,38 @@ section {
 			/* revisar scroll */
 			
 		}
+                
+                section table > tfoot {
+                    font-weight: bold;
+                }
 		
 				section table > * > tr > * {
 					padding: 1px;
 				}
 		
-				section table > tbody > tr > td {
+				section table > tbody > tr > td,
+                                section table > tfoot > tr > td {
 					border: 1px solid grey;
 					background-color: white;
 					padding: 1px 4px;
 				}
 				
-				section table > tbody > tr > td.number {
+				section table > * > tr > td.number {
 					text-align: right;
 					padding-left: 22px;
 				}
 				
-					section table > tbody > tr > td.number > span {
+					section table > * > tr > td.number > span {
 						float: left;
 						margin-left: -10px;
 					}
 					
-				section table > tbody > tr > td.decimal {
+				section table > * > tr > td.decimal {
 					text-align: right;
 					padding-right: 22px;
 				}
 				
-					section table > tbody > tr > td.decimal > span:first-of-type:not(:only-of-type) {
+					section table > * > tr > td.decimal > span:first-of-type:not(:only-of-type) {
 						width: 30px;
 						margin-right: 10px;
 						text-align: left;
