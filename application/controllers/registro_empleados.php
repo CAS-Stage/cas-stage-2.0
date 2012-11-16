@@ -258,7 +258,7 @@ class Registro_Empleados extends CI_Controller {
         } else {
             
             $this->form_validation->set_rules('rut', null, 'required|numeric');
-            $this->form_validation->set_rules('dv', null, 'required|max_length[1]|matches[modulo11|rut]');
+            $this->form_validation->set_rules('dv', null, 'required|max_length[1]|matches_modulo11[rut]');
             $this->form_validation->set_rules('apellidos', null, 'required|max_length[45]');
             $this->form_validation->set_rules('nombres', null, 'required|max_length[45]');
             $this->form_validation->set_rules('fecha_nacimiento', null, 'required|valid_date');
