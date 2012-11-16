@@ -237,7 +237,7 @@ class Registro_Empleados extends CI_Controller {
                     'fono_empleado' => $ContratoActual->getEmpleado()->getFono(),
                     
                     'fecha_inicio' => $ContratoActual->getFechaInicio()->getTimestamp(),
-                    'fecha_termino' => $ContratoActual->getFechaTermino()->getTimestamp(),
+                    'fecha_termino' => ($ContratoActual->getFechaTermino())? $ContratoActual->getFechaTermino()->getTimestamp() : null,
                     
                     'id_tipo_contrato' => $ContratoActual->getTipoContrato()->getId(),
                     'id_prevision' => $ContratoActual->getPrevision()->getId(),
