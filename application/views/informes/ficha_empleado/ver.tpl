@@ -27,7 +27,7 @@
                 <li>
                     <ul>
                         <li>Fecha de Nacimiento</li>
-                        <li>{'%e de %B de %Y'|strftime:$empleado.fecha_nacimiento}</li>
+                        <li>{'%#d de %B de %Y'|strftime:$empleado.fecha_nacimiento}</li>
                     </ul>
                 </li>
                 <li>
@@ -59,7 +59,7 @@
                 <li>
                     <ul>
                         <li>Renta Bruta</li>
-                        <li>{'%.0n'|money_format:$empleado.renta_bruta}</li>
+                        <li>${$empleado.renta_bruta|number_format:0:',':'.'}</li>
                     </ul>
                 </li>
                 <li>
