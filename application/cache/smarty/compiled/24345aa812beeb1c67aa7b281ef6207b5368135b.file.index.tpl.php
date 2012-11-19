@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-15 16:38:32
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:24:40
          compiled from "application/views/informes/nomina_anticipos/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:3516509eff56ba1960-22099356%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:297850aabfb8edf954-02078701%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '24345aa812beeb1c67aa7b281ef6207b5368135b' => 
     array (
       0 => 'application/views/informes/nomina_anticipos/index.tpl',
-      1 => 1352590191,
+      1 => 1353367477,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '3516509eff56ba1960-22099356',
+  'nocache_hash' => '297850aabfb8edf954-02078701',
   'function' => 
   array (
   ),
@@ -28,9 +28,11 @@ $_smarty_tpl->decodeProperties(array (
  echo $_template->getRenderedTemplate(); $_template->rendered_content = null;?><?php unset($_template);?>
         <section>
 			<h1>Nómina de Anticipos</h1>
-			<form method="post" class="filter">
-				<input type="month" name="mes" value="2012-05">
-			</form>
+			<form method="post" class="filter" action="<?php echo base_url('');?>
+informes/nomina_anticipos.html">
+                            <input type="month" name="mes" value="<?php echo $_smarty_tpl->getVariable('mes')->value;?>
+" onchange="this.parentNode.submit();">
+                        </form>
 			<table>
 				<thead>
 					<tr>

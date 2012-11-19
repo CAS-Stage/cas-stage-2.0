@@ -3,47 +3,87 @@
 class Liquidaciones_Sueldo extends CI_Controller {
 
     public function index($periodo_actual = null) {
-        if (is_null($periodo_actual))
-            $periodo_actual =  strftime('%Y-%m-01');
+        if (is_null($periodo_actual) AND $this->input->post('mes') == '') {
+            $periodo_actual =  strftime('%Y-%m');
+            $mes = strftime('%Y-%m');
+        }
+        else {
+            if (!is_null($periodo_actual))
+                $mes = $periodo_actual;
+            if ($this->input->post('mes') != '') {
+                $periodo_actual = $this->input->post('mes');
+                $mes = $this->input->post('mes');
+            }
+        }
+        
+        $periodo_actual = strftime($periodo_actual.'-01');
+
         $empleados = array();
         foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
             
             $UltimoContrato = null;
-            foreach($item->getContratos() as $subitem) {
-                $UltimoContrato = $subitem;
-                break;
+            foreach($item->getContratos() as $subitem) {                
+                if (
+                        (
+                            $subitem->getFechaTermino() == null AND
+                            strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual)
+                        ) OR (
+                            $subitem->getFechaTermino() != null AND
+                            strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual) AND
+                            strtotime($subitem->getFechaTermino()->format('Y-m-01')) >= strtotime($periodo_actual)
+                        )
+                    ) {
+                        $UltimoContrato = $subitem;
+                        break;
+                    }
             }
             
             $RegistroMensualSeleccionado = null;
-            foreach ($UltimoContrato->getRegistrosMensuales() as $subitem){ 
-                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == $periodo_actual) {
-                    $RegistroMensualSeleccionado = $subitem;
-                    break;
+            if ($UltimoContrato) {
+                foreach ($UltimoContrato->getRegistrosMensuales() as $subitem){ 
+                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == $periodo_actual) {
+                        $RegistroMensualSeleccionado = $subitem;
+                        break;
+                    }
                 }
+
+                if ($UltimoContrato->getFechaTermino() == null OR ($UltimoContrato->getFechaTermino() != null AND strtotime($UltimoContrato->getFechaTermino()->format('Y-m-01')) >= strtotime($periodo_actual)))
+                    $empleados[] = array(
+                        'rut' => $item->getRut(),
+                        'apellidos' => $item->getApellidos(),
+                        'nombres' => $item->getNombres(),
+                        'fecha_contrato' => $UltimoContrato->getFechaInicio()->getTimestamp(),
+                        'cargo' => $UltimoContrato->getTipoContrato()->getCargo()
+                    );
             }
-            
-            $empleados[] = array(
-                'rut' => $item->getRut(),
-                'apellidos' => $item->getApellidos(),
-                'nombres' => $item->getNombres(),
-                'fecha_contrato' => $UltimoContrato->getFechaInicio()->getTimestamp(),
-                'cargo' => $UltimoContrato->getTipoContrato()->getCargo()
-            );
         }
         $this->parser->parse('informes/liquidaciones_sueldo/index', array(
-            'empleados' => $empleados
+            'empleados' => $empleados,
+            'mes' => $mes
         ));
     }
     
-    public function ver($rut,$periodo_actual = null) {
-        if (is_null($periodo_actual))
-            $periodo_actual =  strftime('%Y-%m-01');
+    public function ver($rut, $periodo_actual = null) {
+        if (is_null($periodo_actual) AND $this->input->post('mes') == '') {
+            $periodo_actual =  strftime('%Y-%m');
+            $mes = strftime('%Y-%m');
+        }
+        else {
+            if (!is_null($periodo_actual))
+                $mes = $periodo_actual;
+            if ($this->input->post('mes') != '') {
+                $periodo_actual = $this->input->post('mes');
+                $mes = $this->input->post('mes');
+            }
+        }
+        
+        $periodo_actual = strftime($periodo_actual.'-01');
         
         $UltimoFactorHoraExtra = null;
         foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findAll() as $item) {
             if ($item->getCodigo() == 'FACTOR_HORA_EXTRA') {
                 $UltimoFactorHoraExtra = $item;
-                break;
+                //break;
             }
         }
         
@@ -51,7 +91,7 @@ class Liquidaciones_Sueldo extends CI_Controller {
         foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findAll() as $item) {
             if ($item->getCodigo() == 'FACTOR_GRATIFICACION') {
                 $UltimoFactorGratificacion = $item;
-                break;
+                //break;
             }
         }
         
@@ -59,7 +99,7 @@ class Liquidaciones_Sueldo extends CI_Controller {
         foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findAll() as $item) {
             if ($item->getCodigo() == 'SUELDO_MINIMO') {
                 $UltimoSueldoMinimo = $item;
-                break;
+                //break;
             }
         }
         
@@ -67,7 +107,7 @@ class Liquidaciones_Sueldo extends CI_Controller {
         foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findAll() as $item) {
             if ($item->getCodigo() == 'VALOR_UF') {
                 $UltimoValorUf = $item;
-                break;
+                //break;
             }
         }
         
@@ -75,39 +115,50 @@ class Liquidaciones_Sueldo extends CI_Controller {
         foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findAll() as $item) {
             if ($item->getCodigo() == 'DESCUENTO_SALUD') {
                 $UltimoDescuentoSalud = $item;
-                break;
+                //break;
             }
         }
         
         $item = $this->doctrine->em->getRepository('Entities\Empleado')->findOneByRut($rut);
                
         $UltimoContrato = null;
-        foreach($item->getContratos() as $subitem) {
-            $UltimoContrato = $subitem;
-            break;
-        }
+        foreach($item->getContratos() as $subitem) {                
+                if (
+                        (
+                            $subitem->getFechaTermino() == null AND
+                            strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual)
+                        ) OR (
+                            $subitem->getFechaTermino() != null AND
+                            strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual) AND
+                            strtotime($subitem->getFechaTermino()->format('Y-m-01')) >= strtotime($periodo_actual)
+                        )
+                    ) {
+                        $UltimoContrato = $subitem;
+                        break;
+                    }
+            }
         
         $UltimaRentaContrato = null;
         foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
             $UltimaRentaContrato = $subitem;
-            break;
+            //break;
         }
         
         $UltimoDescuentoPrevision = null;        
         foreach($UltimoContrato->getPrevision()->getDescuentosPrevision() as $subitem) {
             $UltimoDescuentoPrevision = $subitem;
-            break;
+            //break;
         }
         
         $UltimoPactoSalud = null;
         foreach($UltimoContrato->getPactosSalud() as $subitem) {
             $UltimoPactoSalud = $subitem;
-            break;
+            //break;
         }
         
         $RegistroMensualSeleccionado = null;
             foreach ($UltimoContrato->getRegistrosMensuales() as $subitem){ 
-                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == $periodo_actual) {
+                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == strftime($periodo_actual)) {
                     $RegistroMensualSeleccionado = $subitem;
                     break;
                 }
@@ -126,7 +177,7 @@ class Liquidaciones_Sueldo extends CI_Controller {
                         $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
                         : $UltimaRentaContrato->getRentaBruta() * .25
                     : null,
-                    'horas_extras' => ($RegistroMensualSeleccionado AND $UltimoFactorHoraExtra)? array(
+                    'horas_extras' => ($RegistroMensualSeleccionado AND $UltimoFactorHoraExtra)? (($RegistroMensualSeleccionado->getCantidadHorasExtras())? array(
                         'cantidad' => $RegistroMensualSeleccionado->getCantidadHorasExtras(),
                         'valor_monetario' => $UltimoFactorHoraExtra->getValor() *
                                 (
@@ -136,8 +187,8 @@ class Liquidaciones_Sueldo extends CI_Controller {
                                             : $UltimaRentaContrato->getRentaBruta() * .25
                                         ) + $UltimaRentaContrato->getRentaBruta()
                                 ) * $RegistroMensualSeleccionado->getCantidadHorasExtras()
-                         ) : null,
-                    'bono_produccion' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoProduccion() : null
+                         ) : null) : null,
+                    'bono_produccion' => ($RegistroMensualSeleccionado)? (($RegistroMensualSeleccionado->getBonoProduccion())? $RegistroMensualSeleccionado->getBonoProduccion() : null) : null
                 ),
                 'no_imponible' => array(
                     'bono_movilizacion' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoMovilizacion() : null,

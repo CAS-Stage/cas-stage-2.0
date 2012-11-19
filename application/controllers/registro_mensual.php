@@ -22,30 +22,44 @@ class Registro_Mensual extends CI_Controller {
         foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
             
             $UltimoContrato = null;
-            foreach($item->getContratos() as $subitem) {
-                $UltimoContrato = $subitem;
-                //break;
-            }
-            
-            $RegistroMensualSeleccionado = null;
-            foreach ($UltimoContrato->getRegistrosMensuales() as $subitem){
-                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == $periodo_actual) {
-                    $RegistroMensualSeleccionado = $subitem;
-                    break;
+            foreach($item->getContratos() as $subitem) {                
+                if (
+                        (
+                            $subitem->getFechaTermino() == null AND
+                            strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual)
+                        ) OR (
+                            $subitem->getFechaTermino() != null AND
+                            strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual) AND
+                            strtotime($subitem->getFechaTermino()->format('Y-m-01')) >= strtotime($periodo_actual)
+                        )
+                    ) {
+                        $UltimoContrato = $subitem;
+                        break;
                 }
             }
             
-            $empleados[] = array(
-                'id_contrato' => $UltimoContrato->getId(),
-                'rut' => $item->getRut(),
-                'apellidos' => $item->getApellidos(),
-                'nombres' => $item->getNombres(),
-                'monto_anticipo_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getMontoAnticipo() : null,
-                'cantidad_horas_extras_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtras() : null,
-                'bono_movilizacion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoMovilizacion() : null,
-                'bono_colacion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoColacion() : null,
-                'bono_produccion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoProduccion() : null
-            );
+            $RegistroMensualSeleccionado = null;
+            
+            if ($UltimoContrato) {
+                foreach ($UltimoContrato->getRegistrosMensuales() as $subitem){
+                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == $periodo_actual) {
+                        $RegistroMensualSeleccionado = $subitem;
+                        break;
+                    }
+                }
+
+                $empleados[] = array(
+                    'id_contrato' => $UltimoContrato->getId(),
+                    'rut' => $item->getRut(),
+                    'apellidos' => $item->getApellidos(),
+                    'nombres' => $item->getNombres(),
+                    'monto_anticipo_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getMontoAnticipo() : null,
+                    'cantidad_horas_extras_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtras() : null,
+                    'bono_movilizacion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoMovilizacion() : null,
+                    'bono_colacion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoColacion() : null,
+                    'bono_produccion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoProduccion() : null
+                );
+            }
         }
         $this->parser->parse('registro_mensual/index', array(
             'empleados' => $empleados,

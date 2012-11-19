@@ -7,9 +7,11 @@
         {include file='includes/body_header.tpl'}
         <section>
             <h1>Previsión</h1>
+            <!--
             <form method="post" class="filter">
                 <input type="search" name="buscar" placeholder="Buscar">
             </form>
+            -->
                 <a href="{''|base_url}parametros_externos/prevision/actualizar.html"><span>Actualizar Cotizaciones</span></a>
             <table>
                 <thead>

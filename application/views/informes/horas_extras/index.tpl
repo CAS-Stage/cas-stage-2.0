@@ -7,9 +7,9 @@
         {include file='includes/body_header.tpl'}
         <section>
 			<h1>Informe de Horas Extras</h1>
-			<form method="post" class="filter">
-				<input type="month" name="mes" value="Mayo 2012">
-			</form>
+			<form method="post" class="filter" action="{''|base_url}informes/horas_extras.html">
+                            <input type="month" name="mes" value="{$mes}" onchange="this.parentNode.submit();">
+                        </form>
 			<table>
 				<thead>
 					<tr>

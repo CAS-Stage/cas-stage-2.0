@@ -7,9 +7,9 @@
         {include file='includes/body_header.tpl'}
         <section>
             <h1>Registro de Empleados</h1>
-            <form method="post" class="filter">
+            <!-- <form method="post" class="filter">
                 <input type="search" name="buscar" placeholder="Buscar">
-            </form>
+            </form> -->
             <a href="{''|base_url}registro_empleados/agregar.html"><span>Agregar Nuevo Empleado</span></a>
             <table class="registro_empleados">
                 <thead>

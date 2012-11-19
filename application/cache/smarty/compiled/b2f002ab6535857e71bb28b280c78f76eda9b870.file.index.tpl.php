@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-15 16:39:12
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:25:49
          compiled from "application/views/informes/horas_extras/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1544450a50ca0d4c951-54979931%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:3151650aabffd42d396-51076127%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'b2f002ab6535857e71bb28b280c78f76eda9b870' => 
     array (
       0 => 'application/views/informes/horas_extras/index.tpl',
-      1 => 1352590191,
+      1 => 1353367452,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1544450a50ca0d4c951-54979931',
+  'nocache_hash' => '3151650aabffd42d396-51076127',
   'function' => 
   array (
   ),
@@ -28,9 +28,11 @@ $_smarty_tpl->decodeProperties(array (
  echo $_template->getRenderedTemplate(); $_template->rendered_content = null;?><?php unset($_template);?>
         <section>
 			<h1>Informe de Horas Extras</h1>
-			<form method="post" class="filter">
-				<input type="month" name="mes" value="Mayo 2012">
-			</form>
+			<form method="post" class="filter" action="<?php echo base_url('');?>
+informes/horas_extras.html">
+                            <input type="month" name="mes" value="<?php echo $_smarty_tpl->getVariable('mes')->value;?>
+" onchange="this.parentNode.submit();">
+                        </form>
 			<table>
 				<thead>
 					<tr>

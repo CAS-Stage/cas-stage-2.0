@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-11 02:04:40
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:14:09
          compiled from "application/views/parametros_externos/sueldo_minimo/index.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:7313509ef9a80703d4-22271938%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     'b5bc922541adde1ad9c4a32e767d60267c378ca5' => 
     array (
       0 => 'application/views/parametros_externos/sueldo_minimo/index.tpl',
-      1 => 1342199719,
+      1 => 1352995426,
       2 => 'file',
     ),
   ),

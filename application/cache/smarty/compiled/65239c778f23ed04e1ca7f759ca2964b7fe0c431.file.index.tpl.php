@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-15 16:37:55
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:14:49
          compiled from "application/views/informes/ficha_empleado/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:2399050a50c538b9061-05309231%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1952950aabd693a78b5-97265809%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '65239c778f23ed04e1ca7f759ca2964b7fe0c431' => 
     array (
       0 => 'application/views/informes/ficha_empleado/index.tpl',
-      1 => 1352590191,
+      1 => 1353366886,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2399050a50c538b9061-05309231',
+  'nocache_hash' => '1952950aabd693a78b5-97265809',
   'function' => 
   array (
   ),
@@ -28,9 +28,11 @@ $_smarty_tpl->decodeProperties(array (
  echo $_template->getRenderedTemplate(); $_template->rendered_content = null;?><?php unset($_template);?>
         <section>
             <h1>Ficha de Empleado</h1>
+            <!--
             <form method="post" class="filter">
                 <input type="search" name="keyword" placeholder="Buscar">
             </form>
+            -->
             <table>
                 <thead>
                     <tr>

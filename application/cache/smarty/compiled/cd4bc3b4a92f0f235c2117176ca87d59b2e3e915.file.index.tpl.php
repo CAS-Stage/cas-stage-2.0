@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-15 16:34:14
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:09:30
          compiled from "application/views/informes/liquidaciones_sueldo/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:3032850a50b764064a0-74440937%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1623750aabc2a25bdf1-35543517%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'cd4bc3b4a92f0f235c2117176ca87d59b2e3e915' => 
     array (
       0 => 'application/views/informes/liquidaciones_sueldo/index.tpl',
-      1 => 1352590191,
+      1 => 1353365863,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '3032850a50b764064a0-74440937',
+  'nocache_hash' => '1623750aabc2a25bdf1-35543517',
   'function' => 
   array (
   ),
@@ -28,9 +28,10 @@ $_smarty_tpl->decodeProperties(array (
  echo $_template->getRenderedTemplate(); $_template->rendered_content = null;?><?php unset($_template);?>
         <section>
             <h1>Liquidaciones de Sueldo</h1>
-            <form method="post" class="filter">
-                <input type="month" name="mes" value="2012-05">
-                <input type="search" name="keyword" placeholder="Buscar">
+            <form method="post" class="filter" action="<?php echo base_url('');?>
+informes/liquidaciones_sueldo.html">
+                <input type="month" name="mes" value="<?php echo $_smarty_tpl->getVariable('mes')->value;?>
+" onchange="this.parentNode.submit();">
             </form>
             <table>
                 <thead>

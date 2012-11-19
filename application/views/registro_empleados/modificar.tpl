@@ -78,17 +78,23 @@
                     </label>
                     <label>
                         <span>Sistema de Salud</span>
-                        <select name="id_sistema_salud" required="required">
-                            <option></option>
+                        <select name="id_sistema_salud" required="required" onchange="if(this.options[this.selectedIndex].getAttribute('data-tiene-pacto') == '0') { document.getElementById('pacto_salud').style.visibility = 'hidden'; document.getElementById('input_pacto_salud').removeAttribute('required'); } else { document.getElementById('pacto_salud').style.visibility = 'visible'; document.getElementById('input_pacto_salud').setAttribute('required', 'required'); }">
                             {foreach item=entry from=$sistemas_salud}
-                            <option value="{$entry.id}"{if $entry.id eq $contrato.id_sistema_salud} selected="selected"{/if}>{$entry.nombre|htmlspecialchars}</option>
+                            <option data-tiene-pacto="{if $entry.tiene_pacto}1{else}0{/if}" value="{$entry.id}"{if $entry.id eq $contrato.id_sistema_salud} selected="selected"{/if}>{$entry.nombre|htmlspecialchars}</option>
                             {/foreach}
                         </select>
                     </label>
-                    <label>
+                    <label id="pacto_salud">
                         <span>Pacto de Salud (UF)</span>
-                        <input type="number" name="pacto" min="0.001" max="100.000" step="0.001" required="required" value="{$contrato.pacto|number_format:3:'.':''}">
+                        <input id="input_pacto_salud" type="number" name="pacto" min="0.001" max="100.000" step="0.001" value="{$contrato.pacto|number_format:3:'.':''}">
                     </label>
+                    <script type="text/javascript">
+                        if ({$contrato.pacto|number_format:3:'.':''} == 0) {
+                            document.getElementById('pacto_salud').style.visibility = 'hidden';
+                        } else {
+                            document.getElementById('input_pacto_salud').setAttribute('required', 'required');
+                        }
+                    </script>
                     <button type="submit">Guardar Cambios</button>
                 </fieldset>
             </form>

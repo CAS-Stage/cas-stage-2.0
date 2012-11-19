@@ -7,9 +7,9 @@
         {include file='includes/body_header.tpl'}
         <section>
 			<h1>Nómina de Anticipos</h1>
-			<form method="post" class="filter">
-				<input type="month" name="mes" value="2012-05">
-			</form>
+			<form method="post" class="filter" action="{''|base_url}informes/nomina_anticipos.html">
+                            <input type="month" name="mes" value="{$mes}" onchange="this.parentNode.submit();">
+                        </form>
 			<table>
 				<thead>
 					<tr>

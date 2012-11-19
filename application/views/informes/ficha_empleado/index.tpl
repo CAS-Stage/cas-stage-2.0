@@ -7,9 +7,11 @@
         {include file='includes/body_header.tpl'}
         <section>
             <h1>Ficha de Empleado</h1>
+            <!--
             <form method="post" class="filter">
                 <input type="search" name="keyword" placeholder="Buscar">
             </form>
+            -->
             <table>
                 <thead>
                     <tr>

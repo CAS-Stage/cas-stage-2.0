@@ -7,9 +7,8 @@
         {include file='includes/body_header.tpl'}
         <section>
             <h1>Liquidaciones de Sueldo</h1>
-            <form method="post" class="filter">
-                <input type="month" name="mes" value="2012-05">
-                <input type="search" name="keyword" placeholder="Buscar">
+            <form method="post" class="filter" action="{''|base_url}informes/liquidaciones_sueldo.html">
+                <input type="month" name="mes" value="{$mes}" onchange="this.parentNode.submit();">
             </form>
             <table>
                 <thead>

@@ -8,7 +8,7 @@
         <section>
             <h1>Registro Mensual</h1>
             <form method="post" class="filter" action="{''|base_url}registro_mensual.html">
-                <input type="month" name="mes" value="{$mes}">
+                <input type="month" name="mes" value="{$mes}" onchange="this.parentNode.submit();">
             </form>
             <table>
                 <thead>

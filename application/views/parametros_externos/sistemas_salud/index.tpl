@@ -7,9 +7,9 @@
         {include file='includes/body_header.tpl'}
         <section>
             <h1>Sistemas de Salud</h1>
-            <form method="post" class="filter">
+            <!-- <form method="post" class="filter">
                 <input type="search" name="buscar" placeholder="Buscar">
-            </form>
+            </form> -->
             <!-- <a href="sistemas_salud_agregar.html"><span>Agregar Nuevo Sistema de Salud</span></a> -->
             <table>
                 <thead>

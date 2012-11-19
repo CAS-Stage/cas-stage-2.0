@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-15 21:34:14
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:02:53
          compiled from "application/views/registro_empleados/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:2412250a551c6e65c42-16367357%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:825850aaba9d93d3e6-62453295%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '5b1399e3ee50005057dd7f088b66813fb68f352a' => 
     array (
       0 => 'application/views/registro_empleados/index.tpl',
-      1 => 1352995426,
+      1 => 1353366171,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2412250a551c6e65c42-16367357',
+  'nocache_hash' => '825850aaba9d93d3e6-62453295',
   'function' => 
   array (
   ),
@@ -28,9 +28,9 @@ $_smarty_tpl->decodeProperties(array (
  echo $_template->getRenderedTemplate(); $_template->rendered_content = null;?><?php unset($_template);?>
         <section>
             <h1>Registro de Empleados</h1>
-            <form method="post" class="filter">
+            <!-- <form method="post" class="filter">
                 <input type="search" name="buscar" placeholder="Buscar">
-            </form>
+            </form> -->
             <a href="<?php echo base_url('');?>
 registro_empleados/agregar.html"><span>Agregar Nuevo Empleado</span></a>
             <table class="registro_empleados">
@@ -67,21 +67,36 @@ if ($_smarty_tpl->_count($_from) > 0){
                         <td><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['entry']->value['cargo_tipo_contrato']);?>
 </td>
                         <td>
-                            <a href="<?php echo htmlspecialchars('');?>
-registro_empleados/modificar/<?php echo $_smarty_tpl->tpl_vars['entry']->value['rut'];?>
+                            <a href="<?php echo base_url('');?>
+registro_empleados/modificar/<?php echo $_smarty_tpl->tpl_vars['entry']->value['id_contrato'];?>
 .html">[Modificar]</a>
-                            <a href="<?php echo htmlspecialchars('');?>
-registro_empleados/recontratar/<?php echo $_smarty_tpl->tpl_vars['entry']->value['rut'];?>
+                            <?php ob_start();?><?php echo strftime('%Y-%m-%d',$_smarty_tpl->tpl_vars['entry']->value['fecha_termino_contrato']);?>
+<?php $_tmp1=ob_get_clean();?><?php ob_start();?><?php echo strtotime($_tmp1);?>
+<?php $_tmp2=ob_get_clean();?><?php ob_start();?><?php echo strtotime('now');?>
+<?php $_tmp3=ob_get_clean();?><?php if ($_smarty_tpl->tpl_vars['entry']->value['fecha_termino_contrato']&&$_tmp2<$_tmp3){?>
+                            <a href="<?php echo base_url('');?>
+registro_empleados/recontratar/<?php echo $_smarty_tpl->tpl_vars['entry']->value['id_contrato'];?>
 .html">[Alta]</a>
-                            <a href="<?php echo htmlspecialchars('');?>
-registro_empleados/actualizar_pacto_salud/<?php echo $_smarty_tpl->tpl_vars['entry']->value['rut'];?>
+                            <?php }else{ ?>
+                            <a href="<?php echo base_url('');?>
+registro_empleados/baja/<?php echo $_smarty_tpl->tpl_vars['entry']->value['id_contrato'];?>
+.html" onclick="return confirm('¿Está seguro que desea dar de baja al siguiente empleado?\n\nRUT: <?php echo number_format($_smarty_tpl->tpl_vars['entry']->value['rut'],0,',','.');?>
+-<?php echo modulo11($_smarty_tpl->tpl_vars['entry']->value['rut']);?>
+\nNombre: <?php echo $_smarty_tpl->tpl_vars['entry']->value['apellidos'];?>
+, <?php echo $_smarty_tpl->tpl_vars['entry']->value['nombres'];?>
+\nCargo: <?php echo $_smarty_tpl->tpl_vars['entry']->value['cargo_tipo_contrato'];?>
+');">[Baja]</a>
+                            <?php }?>
+                            <?php if ($_smarty_tpl->tpl_vars['entry']->value['tiene_pacto_sistema_salud']){?>
+                            <a href="<?php echo base_url('');?>
+registro_empleados/actualizar_pacto_salud/<?php echo $_smarty_tpl->tpl_vars['entry']->value['id_contrato'];?>
 .html">[Actualizar Pacto Salud]</a>
+                            <?php }?>
                         </td>
                     </tr>
                     <?php }} ?>
                 </tbody>
             </table>
-            <button type="button" onclick="window.print();">Imprimir</button>
         </section>
         <?php $_template = new Smarty_Internal_Template('includes/body_footer.tpl', $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate(); $_template->rendered_content = null;?><?php unset($_template);?>
