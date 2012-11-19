@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:09:30
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:39:07
          compiled from "application/views/informes/liquidaciones_sueldo/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1623750aabc2a25bdf1-35543517%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2296950aac31b764796-07599672%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'cd4bc3b4a92f0f235c2117176ca87d59b2e3e915' => 
     array (
       0 => 'application/views/informes/liquidaciones_sueldo/index.tpl',
-      1 => 1353365863,
+      1 => 1353368344,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1623750aabc2a25bdf1-35543517',
+  'nocache_hash' => '2296950aac31b764796-07599672',
   'function' => 
   array (
   ),
@@ -65,6 +65,7 @@ if ($_smarty_tpl->_count($_from) > 0){
                         <td>
                             <a href="<?php echo base_url('');?>
 informes/liquidaciones_sueldo/ver/<?php echo $_smarty_tpl->tpl_vars['entry']->value['rut'];?>
+/<?php echo $_smarty_tpl->getVariable('mes')->value;?>
 .html">[Ver Liquidación]</a>
                         </td>
                     </tr>

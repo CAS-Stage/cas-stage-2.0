@@ -21,6 +21,7 @@
 					</tr>
 				</thead>
 				<tbody>
+                                    {assign var=suma_monto_anticipo value=0}
                                     {foreach item=entry from=$empleados}
 					<tr>
                                             	<td class="number">{$entry.rut|number_format:0:',':'.'}-{$entry.rut|modulo11}</td>
@@ -29,8 +30,15 @@
 						<td class="number"><span>$</span>{$entry.monto_anticipo|number_format:0:',':'.'}</td>
                                                 <td class="print"> </td>
 					</tr>
+                                        {assign var=suma_monto_anticipo value=$suma_monto_anticipo+$entry.monto_anticipo}
 					{/foreach}
 				</tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="3">Total</th>
+                                        <td class="number"><span>$</span>{$suma_monto_anticipo|number_format:0:',':'.'}</td>
+                                    </tr>
+                                </tfoot>
 			
 		</table>
 			<button type="button" onclick="window.print();">Imprimir</button>

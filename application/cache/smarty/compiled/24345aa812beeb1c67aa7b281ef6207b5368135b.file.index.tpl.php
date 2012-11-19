@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:24:40
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:48:56
          compiled from "application/views/informes/nomina_anticipos/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:297850aabfb8edf954-02078701%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:370050aac568c46b60-27211976%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '24345aa812beeb1c67aa7b281ef6207b5368135b' => 
     array (
       0 => 'application/views/informes/nomina_anticipos/index.tpl',
-      1 => 1353367477,
+      1 => 1353368935,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '297850aabfb8edf954-02078701',
+  'nocache_hash' => '370050aac568c46b60-27211976',
   'function' => 
   array (
   ),
@@ -44,6 +44,7 @@ informes/nomina_anticipos.html">
 					</tr>
 				</thead>
 				<tbody>
+                                    <?php $_smarty_tpl->tpl_vars['suma_monto_anticipo'] = new Smarty_variable(0, null, null);?>
                                     <?php  $_smarty_tpl->tpl_vars['entry'] = new Smarty_Variable;
  $_from = $_smarty_tpl->getVariable('empleados')->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 if ($_smarty_tpl->_count($_from) > 0){
@@ -61,8 +62,16 @@ if ($_smarty_tpl->_count($_from) > 0){
 </td>
                                                 <td class="print"> </td>
 					</tr>
+                                        <?php $_smarty_tpl->tpl_vars['suma_monto_anticipo'] = new Smarty_variable($_smarty_tpl->getVariable('suma_monto_anticipo')->value+$_smarty_tpl->tpl_vars['entry']->value['monto_anticipo'], null, null);?>
 					<?php }} ?>
 				</tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="3">Total</th>
+                                        <td class="number"><span>$</span><?php echo number_format($_smarty_tpl->getVariable('suma_monto_anticipo')->value,0,',','.');?>
+</td>
+                                    </tr>
+                                </tfoot>
 			
 		</table>
 			<button type="button" onclick="window.print();">Imprimir</button>

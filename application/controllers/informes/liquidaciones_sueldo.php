@@ -191,8 +191,8 @@ class Liquidaciones_Sueldo extends CI_Controller {
                     'bono_produccion' => ($RegistroMensualSeleccionado)? (($RegistroMensualSeleccionado->getBonoProduccion())? $RegistroMensualSeleccionado->getBonoProduccion() : null) : null
                 ),
                 'no_imponible' => array(
-                    'bono_movilizacion' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoMovilizacion() : null,
-                    'bono_colacion' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoColacion() : null
+                    'bono_movilizacion' => ($RegistroMensualSeleccionado)? (($RegistroMensualSeleccionado->getBonoMovilizacion())? $RegistroMensualSeleccionado->getBonoMovilizacion() : null) : null,
+                    'bono_colacion' => ($RegistroMensualSeleccionado)? (($RegistroMensualSeleccionado->getBonoColacion())? $RegistroMensualSeleccionado->getBonoColacion() : null) : null
                 )
             ),
             'descuentos' => array(

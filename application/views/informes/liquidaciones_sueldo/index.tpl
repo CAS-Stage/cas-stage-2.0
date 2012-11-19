@@ -30,7 +30,7 @@
                         <td>{'%d %b %Y'|strftime:$entry.fecha_contrato}</td>
                         <td>{$entry.cargo|htmlspecialchars}</td>
                         <td>
-                            <a href="{''|base_url}informes/liquidaciones_sueldo/ver/{$entry.rut}.html">[Ver Liquidación]</a>
+                            <a href="{''|base_url}informes/liquidaciones_sueldo/ver/{$entry.rut}/{$mes}.html">[Ver Liquidación]</a>
                         </td>
                     </tr>
                     {/foreach}
