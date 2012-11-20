@@ -21,7 +21,7 @@
                                     <ul>
                                         <li>
                                             <ul>
-                                                <li>Sueldo base 30 días mes <span>{'%B %Y'|strftime:$empleado.periodo}</span> año <span>2012</span></li>
+                                                <li>Sueldo base 30 días mes <span>{'%B'|strftime:$empleado.periodo}</span> año <span>{'%Y'|strftime:$empleado.periodo}</span></li>
                                                 <li>$ <span>{$empleado.haberes.imponible.sueldo_base|number_format:0:',':'.'}</span></li>
                                             </ul>
                                             {$total_imponible=$total_imponible+$empleado.haberes.imponible.sueldo_base|round}
