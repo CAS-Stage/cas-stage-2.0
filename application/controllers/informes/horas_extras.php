@@ -75,9 +75,10 @@ class Horas_Extras extends CI_Controller {
                 }
                 
                 foreach ($UltimoContrato->getRegistrosMensuales() as $subitem){ 
-                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == $periodo_actual)
+                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == $periodo_actual) {
                         $RegistroMensualSeleccionado = $subitem;
-                    break;
+                        break;
+                    }
                 }
             
                 $empleados[] = array(
@@ -95,7 +96,7 @@ class Horas_Extras extends CI_Controller {
                         ) * $RegistroMensualSeleccionado->getCantidadHorasExtras()
                         : 0
                 );
-                        }
+            }
         }
         $this->parser->parse('informes/horas_extras/index', array(
             'empleados' => $empleados,
