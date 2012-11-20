@@ -21,6 +21,7 @@ a:hover {
 }
 
 html {
+        margin: 5px;
 	background-color: rgb(255,255,210);
 }
 
