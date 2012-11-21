@@ -4,13 +4,14 @@ class Registro_Empleados extends CI_Controller {
 
     public function index() {
         $periodo_actual =  strftime('%Y-%m-01');
+        $dia_actual =  strftime('%Y-%m-%d');
         
         $empleados = array();
         foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
             
             $UltimoContrato = null;
             foreach($item->getContratos() as $subitem) {
-                if (strftime('%Y-%m-01', $subitem->getFechaInicio()->getTimestamp()) <= strftime($periodo_actual)) {
+                if (strftime('%Y-%m-%d', $subitem->getFechaInicio()->getTimestamp()) <= strftime($dia_actual)) {
                     $UltimoContrato = $subitem;
                     break;
                 }
