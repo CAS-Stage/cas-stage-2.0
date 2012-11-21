@@ -4,20 +4,21 @@ class Listado_Empleados extends CI_Controller {
 
     public function index() {
         $periodo_actual =  strftime('%Y-%m-01');
+        $dia_actual =  strftime('%Y-%m-%d');
         
         $empleados = array();
         foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
             
             $UltimoContrato = null;
-            foreach($item->getContratos() as $subitem) {                
+            foreach($item->getContratos() as $subitem) {
                 if (
                         (
                             $subitem->getFechaTermino() == null AND
-                            strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual)
+                            strtotime($subitem->getFechaInicio()->format('Y-m-d')) <= strtotime($dia_actual)
                         ) OR (
                             $subitem->getFechaTermino() != null AND
-                            strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual) AND
-                            strtotime($subitem->getFechaTermino()->format('Y-m-01')) >= strtotime($periodo_actual)
+                            strtotime($subitem->getFechaInicio()->format('Y-m-d')) <= strtotime($dia_actual) AND
+                            strtotime($subitem->getFechaTermino()->format('Y-m-d')) >= strtotime($dia_actual)
                         )
                     ) {
                         $UltimoContrato = $subitem;
