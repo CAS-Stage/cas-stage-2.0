@@ -1,8 +1,8 @@
 <?php
-
+set_include_path('./third_party/PEAR');
 // trailing slash is important!
 define('APPPATH', './');
-define('BASEPATH', '/usr/share/php/Doctrine/');
+define('BASEPATH', 'Doctrine/');
 define('ENVIRONMENT', 'production');
 
 require APPPATH.'libraries/Doctrine.php';
