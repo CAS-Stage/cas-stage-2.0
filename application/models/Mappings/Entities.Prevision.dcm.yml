@@ -20,7 +20,7 @@ Entities\Prevision:
       targetEntity: Entities\DescuentoPrevision
       mappedBy: prevision
       orderBy:
-        fecha_periodo: ASC
+        fecha_periodo: DESC
   options:
     orderBy:
-      fecha_periodo: ASC
+      fecha_periodo: DESC

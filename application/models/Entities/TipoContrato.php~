@@ -33,7 +33,7 @@ class TipoContrato
      *
      * @ORM\OneToMany(targetEntity="Entities\RentaContrato", mappedBy="tipoContrato")
      * @ORM\OrderBy({
-     *     "fecha_periodo"="asc"
+     *     "fecha_periodo"="ASC"
      * })
      */
     private $rentasContrato;
