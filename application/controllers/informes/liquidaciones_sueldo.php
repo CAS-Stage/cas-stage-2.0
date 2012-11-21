@@ -80,7 +80,7 @@ class Liquidaciones_Sueldo extends CI_Controller {
         $periodo_actual = strftime($periodo_actual.'-01');
         
         $UltimoFactorHoraExtra = null;
-        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'FACTOR_HORA_EXTRA'), array('fecha_vigencia' => 'asc')) as $item) {
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'FACTOR_HORA_EXTRA'), array('fecha_vigencia' => 'DESC')) as $item) {
             if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
                 $UltimoFactorHoraExtra = $item;
                 break;
@@ -88,7 +88,7 @@ class Liquidaciones_Sueldo extends CI_Controller {
         }
         
         $UltimoFactorGratificacion = null;
-        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'FACTOR_GRATIFICACION'), array('fecha_vigencia' => 'asc')) as $item) {
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'FACTOR_GRATIFICACION'), array('fecha_vigencia' => 'DESC')) as $item) {
             if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
                 $UltimoFactorGratificacion = $item;
                 break;
@@ -96,7 +96,7 @@ class Liquidaciones_Sueldo extends CI_Controller {
         }
         
         $UltimoSueldoMinimo = null;
-        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'SUELDO_MINIMO'), array('fecha_vigencia' => 'asc')) as $item) {
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'SUELDO_MINIMO'), array('fecha_vigencia' => 'DESC')) as $item) {
             if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
                 $UltimoSueldoMinimo = $item;
                 break;
@@ -104,7 +104,7 @@ class Liquidaciones_Sueldo extends CI_Controller {
         }
         
         $UltimoValorUf = null;
-        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'VALOR_UF'), array('fecha_vigencia' => 'asc')) as $item) {
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'VALOR_UF'), array('fecha_vigencia' => 'DESC')) as $item) {
             if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
                 $UltimoValorUf = $item;
                 break;
@@ -112,7 +112,7 @@ class Liquidaciones_Sueldo extends CI_Controller {
         }
         
         $UltimoDescuentoSalud = null;
-        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'DESCUENTO_SALUD'), array('fecha_vigencia' => 'asc')) as $item) {
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'DESCUENTO_SALUD'), array('fecha_vigencia' => 'DESC')) as $item) {
             if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
                 $UltimoDescuentoSalud = $item;
                 break;
