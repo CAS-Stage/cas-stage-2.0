@@ -40,7 +40,7 @@ class Prevision
      *
      * @ORM\OneToMany(targetEntity="Entities\DescuentoPrevision", mappedBy="prevision")
      * @ORM\OrderBy({
-     *     "fecha_periodo"="ASC"
+     *     "fecha_periodo"="DESC"
      * })
      */
     private $descuentosPrevision;

@@ -50,7 +50,7 @@ class Contrato
      *
      * @ORM\OneToMany(targetEntity="Entities\PactoSalud", mappedBy="contrato")
      * @ORM\OrderBy({
-     *     "fecha_periodo"="ASC"
+     *     "fecha_periodo"="DESC"
      * })
      */
     private $pactosSalud;

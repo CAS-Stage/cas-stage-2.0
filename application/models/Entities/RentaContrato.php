@@ -38,7 +38,7 @@ class RentaContrato
     /**
      * @var boolean
      *
-     * @ORM\Column(name="gratificacion", type="boolean", nullable=false)
+     * @ORM\Column(name="gratificacion", type="boolean", nullable=true)
      */
     private $gratificacion;
 

@@ -28,6 +28,10 @@
                         <span>Renta Bruta ($)</span>
                         <input type="number" name="renta_bruta" min="182000" max="9999999" required="required">
                     </label>
+                    <label>
+                        <input type="checkbox" name="gratificacion" value="1">
+                        <span>¿Tiene gratificación?</span>
+                    </label>
                     <button type="submit">Actualizar Tipo de Contrato</button>
                 </fieldset>
             </form>

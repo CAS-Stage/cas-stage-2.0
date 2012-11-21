@@ -27,6 +27,10 @@
                         <span>Renta Bruta ($)</span>
                         <input type="number" name="renta_bruta" min="182000" max="9999999" required="required" value="{$renta_contrato.renta_bruta}">
                     </label>
+                    <label>
+                        <input type="checkbox" name="gratificacion" value="1"{if $renta_contrato.gratificacion} checked="checked"{/if}>
+                        <span>¿Tiene gratificación?</span>
+                    </label>
                     <button type="submit">Guardar Cambios</button>
                 </fieldset>
             </form>

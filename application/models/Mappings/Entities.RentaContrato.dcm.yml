@@ -17,7 +17,7 @@ Entities\RentaContrato:
     gratificacion:
       type: boolean
       default: true
-      nullable: false
+      nullable: true
   manyToOne:
     tipoContrato:
       targetEntity: Entities\TipoContrato

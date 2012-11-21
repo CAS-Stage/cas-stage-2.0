@@ -41,6 +41,7 @@ class Tipos_Contrato extends CI_Controller {
             $this->form_validation->set_rules('id_tipo_contrato', null, 'required|numeric');
             $this->form_validation->set_rules('fecha_periodo', null, 'required|valid_date');
             $this->form_validation->set_rules('renta_bruta', null, 'required|numeric');
+            $this->form_validation->set_rules('gratificacion', null, 'numeric');
             
             // Volcado de post, ver si pasa sin excepción
             //header('Content-Type: text/plain; charset=utf-8');
@@ -54,6 +55,10 @@ class Tipos_Contrato extends CI_Controller {
                 );
                 $RentaContratoNuevo->setFechaPeriodo(date_create($this->input->post('fecha_periodo')));
                 $RentaContratoNuevo->setRentaBruta($this->input->post('renta_bruta'));
+                if ($this->input->post('gratificacion'))
+                    $RentaContratoNuevo->setGratificacion(true);
+                else
+                    $RentaContratoNuevo->setGratificacion(false);
 
                 try {
                     $this->doctrine->em->persist($RentaContratoNuevo);
@@ -106,6 +111,7 @@ class Tipos_Contrato extends CI_Controller {
             $this->form_validation->set_rules('id_tipo_contrato', null, 'required|numeric');
             $this->form_validation->set_rules('fecha_periodo', null, 'required|valid_date');
             $this->form_validation->set_rules('renta_bruta', null, 'required|numeric');
+            $this->form_validation->set_rules('gratificacion', null, 'numeric');
             
             // Volcado de post, ver si pasa sin excepción
 //            header('Content-Type: text/plain; charset=utf-8');
@@ -119,6 +125,10 @@ class Tipos_Contrato extends CI_Controller {
                 );
                 $RentaContratoActual->setFechaPeriodo(date_create($this->input->post('fecha_periodo')));
                 $RentaContratoActual->setRentaBruta($this->input->post('renta_bruta'));
+                if ($this->input->post('gratificacion'))
+                    $RentaContratoActual->setGratificacion(true);
+                else
+                    $RentaContratoActual->setGratificacion(false);
                 
                 try {
                     $this->doctrine->em->persist($RentaContratoActual);
