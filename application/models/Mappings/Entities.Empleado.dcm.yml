@@ -35,6 +35,8 @@ Entities\Empleado:
     contratos:
       targetEntity: Entities\Contrato
       mappedBy: empleado
+      orderBy:
+        fecha_inicio: desc
     registrosMensuales:
       targetEntity: Entities\RegistroMensual
       mappedBy: registroMensual
