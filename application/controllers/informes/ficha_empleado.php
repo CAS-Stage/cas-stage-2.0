@@ -40,24 +40,41 @@ class Ficha_Empleado extends CI_Controller {
     }
     
     public function ver($rut) {
+        $periodo_actual =  strftime('%Y-%m-01');
+        
         $item = $this->doctrine->em->getRepository('Entities\Empleado')->findOneByRut($rut);
         
         $UltimoContrato = null;
-        foreach($item->getContratos() as $subitem) {
-            $UltimoContrato = $subitem;
-            //break;
+        foreach($item->getContratos() as $subitem) {                
+            if (
+                    (
+                        $subitem->getFechaTermino() == null AND
+                        strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual)
+                    ) OR (
+                        $subitem->getFechaTermino() != null AND
+                        strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual) AND
+                        strtotime($subitem->getFechaTermino()->format('Y-m-01')) >= strtotime($periodo_actual)
+                    )
+                ) {
+                    $UltimoContrato = $subitem;
+                    break;
+                }
         }
         
         $UltimaRentaContrato = null;
         foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
-            $UltimaRentaContrato = $subitem;
-            //break;
+            if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                $UltimaRentaContrato = $subitem;
+                break;
+            }
         }
         
         $UltimoPactoSalud = null;
         foreach($UltimoContrato->getPactosSalud() as $subitem) {
-            $UltimoPactoSalud = $subitem;
-            //break;
+            if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                $UltimoPactoSalud = $subitem;
+                break;
+            }
         }
         
         $empleado = array(

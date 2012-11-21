@@ -9,21 +9,36 @@ class Listado_Empleados extends CI_Controller {
         foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
             
             $UltimoContrato = null;
-            foreach($item->getContratos() as $subitem) {
-                $UltimoContrato = $subitem;
-                //break;
+            foreach($item->getContratos() as $subitem) {                
+                if (
+                        (
+                            $subitem->getFechaTermino() == null AND
+                            strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual)
+                        ) OR (
+                            $subitem->getFechaTermino() != null AND
+                            strtotime($subitem->getFechaInicio()->format('Y-m-01')) <= strtotime($periodo_actual) AND
+                            strtotime($subitem->getFechaTermino()->format('Y-m-01')) >= strtotime($periodo_actual)
+                        )
+                    ) {
+                        $UltimoContrato = $subitem;
+                        break;
+                    }
             }
             
             $UltimaRentaContrato = null;
             foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
-                $UltimaRentaContrato = $subitem;
-                //break;
+                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                    $UltimaRentaContrato = $subitem;
+                    break;
+                }
             }
 
             $UltimoPactoSalud = null;
             foreach($UltimoContrato->getPactosSalud() as $subitem) {
-                $UltimoPactoSalud = $subitem;
-                //break;
+                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                    $UltimoPactoSalud = $subitem;
+                    break;
+                }
             }
             
             if ($UltimoContrato->getFechaTermino() == null OR ($UltimoContrato->getFechaTermino() != null AND $UltimoContrato->getFechaTermino() >= date_create('now')))
