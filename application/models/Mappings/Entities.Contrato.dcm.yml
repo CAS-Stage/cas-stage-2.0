@@ -38,10 +38,7 @@ Entities\Contrato:
       targetEntity: Entities\PactoSalud
       mappedBy: contrato
       orderBy:
-        fecha_periodo: ASC
+        fecha_periodo: DESC
     registrosMensuales:
       targetEntity: Entities\RegistroMensual
       mappedBy: contrato
-  options:
-    orderBy:
-      fecha_inicio: DESC

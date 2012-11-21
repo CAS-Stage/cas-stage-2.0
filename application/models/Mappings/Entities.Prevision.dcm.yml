@@ -21,6 +21,3 @@ Entities\Prevision:
       mappedBy: prevision
       orderBy:
         fecha_periodo: DESC
-  options:
-    orderBy:
-      fecha_periodo: DESC

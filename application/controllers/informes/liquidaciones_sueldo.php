@@ -148,14 +148,11 @@ class Liquidaciones_Sueldo extends CI_Controller {
         
         $UltimoDescuentoPrevision = null;        
         foreach($UltimoContrato->getPrevision()->getDescuentosPrevision() as $subitem) {
-            //echo $subitem->getFechaPeriodo()->format('Y-m-d');
-            //echo " <= ".$periodo_actual."<br>";
             if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
                 $UltimoDescuentoPrevision = $subitem;
                 break;
             }
         }
-        //exit;
         
         $UltimoPactoSalud = null;
         foreach($UltimoContrato->getPactosSalud() as $subitem) {
