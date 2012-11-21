@@ -3,25 +3,33 @@
 class Registro_Empleados extends CI_Controller {
 
     public function index() {
+        $periodo_actual =  strftime('%Y-%m-01');
+        
         $empleados = array();
         foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
             
             $UltimoContrato = null;
             foreach($item->getContratos() as $subitem) {
-                $UltimoContrato = $subitem;
-                //break;
+                if (strftime('%Y-%m-01', $subitem->getFechaInicio()->getTimestamp()) <= strftime($periodo_actual)) {
+                    $UltimoContrato = $subitem;
+                    break;
+                }
             }
             
             $UltimaRentaContrato = null;
             foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
-                $UltimaRentaContrato = $subitem;
-                //break;
+                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                    $UltimaRentaContrato = $subitem;
+                    break;
+                }
             }
 
             $UltimoPactoSalud = null;
             foreach($UltimoContrato->getPactosSalud() as $subitem) {
-                $UltimoPactoSalud = $subitem;
-                //break;
+                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                    $UltimoPactoSalud = $subitem;
+                    break;
+                }
             }
             
             $empleados[] = array(
@@ -129,6 +137,8 @@ class Registro_Empleados extends CI_Controller {
                 $ContratoNuevo->setFechaInicio(date_create($this->input->post('fecha_inicio_contrato')));
                 if ($this->input->post('fecha_termino_contrato'))
                     $ContratoNuevo->setFechaTermino(date_create($this->input->post('fecha_termino_contrato')));
+                else
+                    $ContratoNuevo->setFechaTermino(null);
                 
                 $ContratoNuevo->setTipoContrato(
                     $this->doctrine->em->getReference('Entities\TipoContrato', $this->input->post('id_tipo_contrato'))
@@ -144,8 +154,11 @@ class Registro_Empleados extends CI_Controller {
                 $PactoSaludNuevo->setSistemaSalud(
                     $this->doctrine->em->getReference('Entities\SistemaSalud', $this->input->post('id_sistema_salud'))
                 );
-                
-                $PactoSaludNuevo->setPacto($this->input->post('pacto'));
+            
+                if ($this->input->post('pacto'))
+                    $PactoSaludNuevo->setPacto($this->input->post('pacto'));
+                else
+                    $PactoSaludNuevo->setPacto(null);
                 
                 //$ContratoNuevo->addPactoSalud($PactoSaludNuevo);
                 $PactoSaludNuevo->setContrato($ContratoNuevo);
@@ -297,6 +310,8 @@ class Registro_Empleados extends CI_Controller {
                 $ContratoActual->setFechaInicio(date_create($this->input->post('fecha_inicio_contrato')));
                 if ($this->input->post('fecha_termino_contrato'))
                     $ContratoActual->setFechaTermino(date_create($this->input->post('fecha_termino_contrato')));
+                else
+                    $ContratoActual->setFechaTermino(null);
                 
                 $ContratoActual->setTipoContrato(
                     $this->doctrine->em->getReference('Entities\TipoContrato', $this->input->post('id_tipo_contrato'))
@@ -315,7 +330,10 @@ class Registro_Empleados extends CI_Controller {
                     $this->doctrine->em->getReference('Entities\SistemaSalud', $this->input->post('id_sistema_salud'))
                 );
                 
-                $PactoSaludActual->setPacto($this->input->post('pacto'));
+                if ($this->input->post('pacto'))
+                    $PactoSaludActual->setPacto($this->input->post('pacto'));
+                else
+                    $PactoSaludActual->setPacto(null);
                 
                 //$ContratoNuevo->addPactoSalud($PactoSaludNuevo);
                 $PactoSaludActual->setContrato($ContratoActual);
@@ -452,6 +470,8 @@ class Registro_Empleados extends CI_Controller {
                 $NuevoContrato->setFechaInicio(date_create($this->input->post('fecha_inicio_contrato')));
                 if ($this->input->post('fecha_termino_contrato'))
                     $NuevoContrato->setFechaTermino(date_create($this->input->post('fecha_termino_contrato')));
+                else
+                    $NuevoContrato->setFechaTermino(null);
                 
                 $NuevoContrato->setTipoContrato(
                     $this->doctrine->em->getReference('Entities\TipoContrato', $this->input->post('id_tipo_contrato'))
@@ -471,7 +491,10 @@ class Registro_Empleados extends CI_Controller {
                     $this->doctrine->em->getReference('Entities\SistemaSalud', $this->input->post('id_sistema_salud'))
                 );
                 
-                $NuevoPactoSalud->setPacto($this->input->post('pacto'));
+                if ($this->input->post('pacto'))
+                    $NuevoPactoSalud->setPacto($this->input->post('pacto'));
+                else
+                    $NuevoPactoSalud->setPacto(null);
                 
                 //$ContratoNuevo->addPactoSalud($PactoSaludNuevo);
                 $NuevoPactoSalud->setContrato($NuevoContrato);

@@ -91,6 +91,7 @@
                     <script type="text/javascript">
                         if ({$contrato.pacto|number_format:3:'.':''} == 0) {
                             document.getElementById('pacto_salud').style.visibility = 'hidden';
+                            document.getElementById('input_pacto_salud').removeAttribute('required');
                         } else {
                             document.getElementById('input_pacto_salud').setAttribute('required', 'required');
                         }

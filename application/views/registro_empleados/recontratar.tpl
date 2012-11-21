@@ -79,7 +79,7 @@
                     </label>
                     <script type="text/javascript">
                         document.getElementById('pacto_salud').style.visibility = 'hidden';
-                        document.getElementById('input_pacto_salud').setAttribute('required', 'required');
+                        document.getElementById('input_pacto_salud').removeAttribute('required');
                     </script>
                     <button type="submit">Crear Nuevo Contrato</button>
                 </fieldset>
