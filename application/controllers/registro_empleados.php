@@ -9,12 +9,30 @@ class Registro_Empleados extends CI_Controller {
         $empleados = array();
         foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
             
-            $UltimoContrato = null;
+            /*$UltimoContrato = null;
             foreach($item->getContratos() as $subitem) {
                 if (strftime('%Y-%m-%d', $subitem->getFechaInicio()->getTimestamp()) <= strftime($dia_actual)) {
                     $UltimoContrato = $subitem;
                     break;
                 }
+            }*/
+            
+            
+            $UltimoContrato = null;
+            foreach($item->getContratos() as $subitem) {
+                if (
+                        (
+                            $subitem->getFechaTermino() == null AND
+                            strtotime($subitem->getFechaInicio()->format('Y-m-d')) <= strtotime($dia_actual)
+                        ) OR (
+                            $subitem->getFechaTermino() != null AND
+                            strtotime($subitem->getFechaInicio()->format('Y-m-d')) <= strtotime($dia_actual) AND
+                            strtotime($subitem->getFechaTermino()->format('Y-m-d')) >= strtotime($dia_actual)
+                        )
+                    ) {
+                        $UltimoContrato = $subitem;
+                        break;
+                    }
             }
             
             $UltimaRentaContrato = null;
