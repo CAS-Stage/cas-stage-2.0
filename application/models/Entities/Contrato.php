@@ -1,0 +1,284 @@
+<?php
+
+namespace Entities;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Contrato
+ *
+ * @ORM\Table(name="contrato")
+ * @ORM\Entity
+ */
+class Contrato
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
+     */
+    private $fecha_inicio;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_termino", type="date", nullable=true)
+     */
+    private $fecha_termino;
+
+    /**
+     * @var \Entities\TipoContrato
+     *
+     * @ORM\OneToOne(targetEntity="Entities\TipoContrato")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_tipo_contrato", referencedColumnName="id", unique=true)
+     * })
+     */
+    private $tipoContrato;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Entities\PactoSalud", mappedBy="contrato")
+     * @ORM\OrderBy({
+     *     "fecha_periodo"="ASC"
+     * })
+     */
+    private $pactosSalud;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Entities\RegistroMensual", mappedBy="contrato")
+     */
+    private $registrosMensuales;
+
+    /**
+     * @var \Entities\Empleado
+     *
+     * @ORM\ManyToOne(targetEntity="Entities\Empleado", inversedBy="contratos")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="rut_empleado", referencedColumnName="rut")
+     * })
+     */
+    private $empleado;
+
+    /**
+     * @var \Entities\Prevision
+     *
+     * @ORM\ManyToOne(targetEntity="Entities\Prevision", inversedBy="contratos")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_prevision", referencedColumnName="id")
+     * })
+     */
+    private $prevision;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->pactosSalud = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->registrosMensuales = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fecha_inicio
+     *
+     * @param \DateTime $fechaInicio
+     * @return Contrato
+     */
+    public function setFechaInicio($fechaInicio)
+    {
+        $this->fecha_inicio = $fechaInicio;
+    
+        return $this;
+    }
+
+    /**
+     * Get fecha_inicio
+     *
+     * @return \DateTime 
+     */
+    public function getFechaInicio()
+    {
+        return $this->fecha_inicio;
+    }
+
+    /**
+     * Set fecha_termino
+     *
+     * @param \DateTime $fechaTermino
+     * @return Contrato
+     */
+    public function setFechaTermino($fechaTermino)
+    {
+        $this->fecha_termino = $fechaTermino;
+    
+        return $this;
+    }
+
+    /**
+     * Get fecha_termino
+     *
+     * @return \DateTime 
+     */
+    public function getFechaTermino()
+    {
+        return $this->fecha_termino;
+    }
+
+    /**
+     * Set tipoContrato
+     *
+     * @param \Entities\TipoContrato $tipoContrato
+     * @return Contrato
+     */
+    public function setTipoContrato(\Entities\TipoContrato $tipoContrato = null)
+    {
+        $this->tipoContrato = $tipoContrato;
+    
+        return $this;
+    }
+
+    /**
+     * Get tipoContrato
+     *
+     * @return \Entities\TipoContrato 
+     */
+    public function getTipoContrato()
+    {
+        return $this->tipoContrato;
+    }
+
+    /**
+     * Add pactosSalud
+     *
+     * @param \Entities\PactoSalud $pactosSalud
+     * @return Contrato
+     */
+    public function addPactosSalud(\Entities\PactoSalud $pactosSalud)
+    {
+        $this->pactosSalud[] = $pactosSalud;
+    
+        return $this;
+    }
+
+    /**
+     * Remove pactosSalud
+     *
+     * @param \Entities\PactoSalud $pactosSalud
+     */
+    public function removePactosSalud(\Entities\PactoSalud $pactosSalud)
+    {
+        $this->pactosSalud->removeElement($pactosSalud);
+    }
+
+    /**
+     * Get pactosSalud
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPactosSalud()
+    {
+        return $this->pactosSalud;
+    }
+
+    /**
+     * Add registrosMensuales
+     *
+     * @param \Entities\RegistroMensual $registrosMensuales
+     * @return Contrato
+     */
+    public function addRegistrosMensuale(\Entities\RegistroMensual $registrosMensuales)
+    {
+        $this->registrosMensuales[] = $registrosMensuales;
+    
+        return $this;
+    }
+
+    /**
+     * Remove registrosMensuales
+     *
+     * @param \Entities\RegistroMensual $registrosMensuales
+     */
+    public function removeRegistrosMensuale(\Entities\RegistroMensual $registrosMensuales)
+    {
+        $this->registrosMensuales->removeElement($registrosMensuales);
+    }
+
+    /**
+     * Get registrosMensuales
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRegistrosMensuales()
+    {
+        return $this->registrosMensuales;
+    }
+
+    /**
+     * Set empleado
+     *
+     * @param \Entities\Empleado $empleado
+     * @return Contrato
+     */
+    public function setEmpleado(\Entities\Empleado $empleado = null)
+    {
+        $this->empleado = $empleado;
+    
+        return $this;
+    }
+
+    /**
+     * Get empleado
+     *
+     * @return \Entities\Empleado 
+     */
+    public function getEmpleado()
+    {
+        return $this->empleado;
+    }
+
+    /**
+     * Set prevision
+     *
+     * @param \Entities\Prevision $prevision
+     * @return Contrato
+     */
+    public function setPrevision(\Entities\Prevision $prevision = null)
+    {
+        $this->prevision = $prevision;
+    
+        return $this;
+    }
+
+    /**
+     * Get prevision
+     *
+     * @return \Entities\Prevision 
+     */
+    public function getPrevision()
+    {
+        return $this->prevision;
+    }
+}

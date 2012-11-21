@@ -16,5 +16,8 @@ Entities\TipoContrato:
     rentasContrato:
       targetEntity: Entities\RentaContrato
       mappedBy: tipoContrato
+      orderBy:
+        fecha_periodo: ASC
   options:
-    orderBy: cargo ASC
+    orderBy:
+      cargo: ASC

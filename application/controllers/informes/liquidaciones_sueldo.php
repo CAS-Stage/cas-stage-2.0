@@ -140,29 +140,35 @@ class Liquidaciones_Sueldo extends CI_Controller {
         
         $UltimaRentaContrato = null;
         foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
-            $UltimaRentaContrato = $subitem;
-            //break;
+            if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                $UltimaRentaContrato = $subitem;
+                break;
+            }
         }
         
         $UltimoDescuentoPrevision = null;        
         foreach($UltimoContrato->getPrevision()->getDescuentosPrevision() as $subitem) {
-            $UltimoDescuentoPrevision = $subitem;
-            //break;
+            if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                $UltimoDescuentoPrevision = $subitem;
+                break;
+            }
         }
         
         $UltimoPactoSalud = null;
         foreach($UltimoContrato->getPactosSalud() as $subitem) {
-            $UltimoPactoSalud = $subitem;
-            //break;
+            if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                $UltimoPactoSalud = $subitem;
+                break;
+            }
         }
         
         $RegistroMensualSeleccionado = null;
-            foreach ($UltimoContrato->getRegistrosMensuales() as $subitem){ 
-                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == strftime($periodo_actual)) {
-                    $RegistroMensualSeleccionado = $subitem;
-                    break;
-                }
+        foreach ($UltimoContrato->getRegistrosMensuales() as $subitem){ 
+            if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == strftime($periodo_actual)) {
+                $RegistroMensualSeleccionado = $subitem;
+                break;
             }
+        }
         
         $empleado = array(
             'rut' => $item->getRut(),

@@ -19,5 +19,8 @@ Entities\Prevision:
     descuentosPrevision:
       targetEntity: Entities\DescuentoPrevision
       mappedBy: prevision
+      orderBy:
+        fecha_periodo: ASC
   options:
-    orderBy: nombre ASC
+    orderBy:
+      fecha_periodo: ASC

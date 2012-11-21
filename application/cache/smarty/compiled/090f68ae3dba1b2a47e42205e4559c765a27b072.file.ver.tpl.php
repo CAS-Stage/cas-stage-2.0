@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:31:49
+<?php /* Smarty version Smarty-3.0.9, created on 2012-11-21 20:59:24
          compiled from "application/views/informes/liquidaciones_sueldo/ver.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:112450a50c2621a8d6-06909300%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     '090f68ae3dba1b2a47e42205e4559c765a27b072' => 
     array (
       0 => 'application/views/informes/liquidaciones_sueldo/ver.tpl',
-      1 => 1352995426,
+      1 => 1353440291,
       2 => 'file',
     ),
   ),
@@ -49,7 +49,9 @@ $_smarty_tpl->decodeProperties(array (
                                     <ul>
                                         <li>
                                             <ul>
-                                                <li>Sueldo base 30 días mes <span>junio</span> año <span>2012</span></li>
+                                                <li>Sueldo base 30 días mes <span><?php echo strftime('%B',$_smarty_tpl->getVariable('empleado')->value['periodo']);?>
+</span> año <span><?php echo strftime('%Y',$_smarty_tpl->getVariable('empleado')->value['periodo']);?>
+</span></li>
                                                 <li>$ <span><?php echo number_format($_smarty_tpl->getVariable('empleado')->value['haberes']['imponible']['sueldo_base'],0,',','.');?>
 </span></li>
                                             </ul>

@@ -87,6 +87,24 @@ class Prevision extends \Entities\Prevision implements \Doctrine\ORM\Proxy\Proxy
         return parent::getDescuentosPrevision();
     }
 
+    public function addContrato(\Entities\Contrato $contratos)
+    {
+        $this->__load();
+        return parent::addContrato($contratos);
+    }
+
+    public function removeContrato(\Entities\Contrato $contratos)
+    {
+        $this->__load();
+        return parent::removeContrato($contratos);
+    }
+
+    public function removeDescuentosPrevision(\Entities\DescuentoPrevision $descuentosPrevision)
+    {
+        $this->__load();
+        return parent::removeDescuentosPrevision($descuentosPrevision);
+    }
+
 
     public function __sleep()
     {

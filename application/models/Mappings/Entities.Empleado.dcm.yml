@@ -39,4 +39,5 @@ Entities\Empleado:
       targetEntity: Entities\RegistroMensual
       mappedBy: registroMensual
   options:
-    orderBy: apellidos ASC
+    orderBy:
+      apellidos: ASC

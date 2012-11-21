@@ -87,6 +87,12 @@ class SistemaSalud extends \Entities\SistemaSalud implements \Doctrine\ORM\Proxy
         return parent::getPactosSalud();
     }
 
+    public function removePactosSalud(\Entities\PactoSalud $pactosSalud)
+    {
+        $this->__load();
+        return parent::removePactosSalud($pactosSalud);
+    }
+
 
     public function __sleep()
     {

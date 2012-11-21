@@ -75,6 +75,12 @@ class TipoContrato extends \Entities\TipoContrato implements \Doctrine\ORM\Proxy
         return parent::getRentasContrato();
     }
 
+    public function removeRentasContrato(\Entities\RentaContrato $rentasContrato)
+    {
+        $this->__load();
+        return parent::removeRentasContrato($rentasContrato);
+    }
+
 
     public function __sleep()
     {
