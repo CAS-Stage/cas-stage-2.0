@@ -90,10 +90,12 @@
                     </label>
                     <script type="text/javascript">
                         if ({$contrato.pacto|number_format:3:'.':''} == 0) {
-                            document.getElementById('pacto_salud').style.visibility = 'hidden';
                             document.getElementById('input_pacto_salud').removeAttribute('required');
+                            document.getElementById('input_pacto_salud').setAttribute('min', '0.000');
+                            document.getElementById('pacto_salud').style.visibility = 'hidden';
                         } else {
                             document.getElementById('input_pacto_salud').setAttribute('required', 'required');
+                            document.getElementById('input_pacto_salud').setAttribute('min', '0.001');
                         }
                     </script>
                     <button type="submit">Guardar Cambios</button>
