@@ -26,38 +26,39 @@ class Registro_Empleados extends CI_Controller {
                     }
             }
             
-
-            $UltimaRentaContrato = null;
-            foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
-                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
-                    $UltimaRentaContrato = $subitem;
-                    break;
+            if ($UltimoContrato) {
+            
+                $UltimaRentaContrato = null;
+                foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
+                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                        $UltimaRentaContrato = $subitem;
+                        break;
+                    }
                 }
-            }
 
-            $UltimoPactoSalud = null;
-            foreach($UltimoContrato->getPactosSalud() as $subitem) {
-                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
-                    $UltimoPactoSalud = $subitem;
-                    break;
+                $UltimoPactoSalud = null;
+                foreach($UltimoContrato->getPactosSalud() as $subitem) {
+                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                        $UltimoPactoSalud = $subitem;
+                        break;
+                    }
                 }
+
+                $empleados[] = array(
+                    'rut' => $item->getRut(),
+                    'apellidos' => $item->getApellidos(),
+                    'nombres' => $item->getNombres(),
+                    'direccion' => $item->getDireccion(),
+                    'comuna' => $item->getComuna()->getNombre(),
+                    'fono' => $item->getFono(),
+                    'fecha_inicio_contrato' => $UltimoContrato->getFechaInicio()->getTimestamp(),
+                    'fecha_termino_contrato' => ($UltimoContrato->getFechaTermino())? $UltimoContrato->getFechaTermino()->getTimestamp() : null,
+                    'cargo_tipo_contrato' => $UltimaRentaContrato->getTipoContrato()->getCargo(),
+                    'id_contrato' => $UltimoContrato->getId(),
+                    'tiene_pacto_sistema_salud' => $UltimoPactoSalud->getSistemaSalud()->getTienePacto()
+                );
+                
             }
-
-            $empleados[] = array(
-                'rut' => $item->getRut(),
-                'apellidos' => $item->getApellidos(),
-                'nombres' => $item->getNombres(),
-                'direccion' => $item->getDireccion(),
-                'comuna' => $item->getComuna()->getNombre(),
-                'fono' => $item->getFono(),
-                'fecha_inicio_contrato' => $UltimoContrato->getFechaInicio()->getTimestamp(),
-                'fecha_termino_contrato' => ($UltimoContrato->getFechaTermino())? $UltimoContrato->getFechaTermino()->getTimestamp() : null,
-                'cargo_tipo_contrato' => $UltimaRentaContrato->getTipoContrato()->getCargo(),
-                'id_contrato' => $UltimoContrato->getId(),
-                'tiene_pacto_sistema_salud' => $UltimoPactoSalud->getSistemaSalud()->getTienePacto()
-            );
-
-
         }
         $this->parser->parse('registro_empleados/index', array(
             'empleados' => $empleados
