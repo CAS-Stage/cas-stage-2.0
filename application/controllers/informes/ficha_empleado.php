@@ -10,23 +10,7 @@ class Ficha_Empleado extends CI_Controller {
         foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
             
             $UltimoContrato = null;
-            // debug
-            header('Content-Type: text/plain; charset=utf-8');
             foreach($item->getContratos() as $subitem) {
-                var_dump($item->getRut());
-                var_dump($subitem->getId());
-                if ($subitem->getFechaInicio())
-                    var_dump(strtotime($subitem->getFechaInicio()->format('Y-m-d')));
-                else
-                    echo "No hay fecha inicio\n";
-
-                if ($subitem->getFechaTermino())
-                    var_dump(strtotime($subitem->getFechaTermino()->format('Y-m-d')));
-                else
-                    echo "No hay fecha término\n";
-
-                var_dump(strtotime($dia_actual));
-
                 if (
                         (
                             $subitem->getFechaTermino() == null AND
@@ -41,20 +25,19 @@ class Ficha_Empleado extends CI_Controller {
                         break;
                     }
             }
-            echo "Listo.\n\n";
             
+            if ($UltimoContrato) {
             
-            if ($UltimoContrato->getFechaTermino() == null OR ($UltimoContrato->getFechaTermino() != null AND $UltimoContrato->getFechaTermino() >= date_create('now')))
-                $empleados[] = array(
-                    'rut' => $item->getRut(),
-                    'apellidos' => $item->getApellidos(),
-                    'nombres' => $item->getNombres(),
-                    'fecha_contrato' => $UltimoContrato->getFechaInicio()->getTimestamp(),
-                    'cargo' => $UltimoContrato->getTipoContrato()->getCargo()
-                );
+                if ($UltimoContrato->getFechaTermino() == null OR ($UltimoContrato->getFechaTermino() != null AND $UltimoContrato->getFechaTermino() >= date_create('now')))
+                    $empleados[] = array(
+                        'rut' => $item->getRut(),
+                        'apellidos' => $item->getApellidos(),
+                        'nombres' => $item->getNombres(),
+                        'fecha_contrato' => $UltimoContrato->getFechaInicio()->getTimestamp(),
+                        'cargo' => $UltimoContrato->getTipoContrato()->getCargo()
+                    );
+            }
         }
-        
-        exit;
         
         $this->parser->parse('informes/ficha_empleado/index', array(
             'empleados' => $empleados

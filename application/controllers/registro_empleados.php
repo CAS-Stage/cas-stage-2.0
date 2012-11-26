@@ -9,15 +9,6 @@ class Registro_Empleados extends CI_Controller {
         $empleados = array();
         foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
             
-            /*$UltimoContrato = null;
-            foreach($item->getContratos() as $subitem) {
-                if (strftime('%Y-%m-%d', $subitem->getFechaInicio()->getTimestamp()) <= strftime($dia_actual)) {
-                    $UltimoContrato = $subitem;
-                    break;
-                }
-            }*/
-            
-            
             $UltimoContrato = null;
             foreach($item->getContratos() as $subitem) {
                 if (
@@ -35,35 +26,39 @@ class Registro_Empleados extends CI_Controller {
                     }
             }
             
-            $UltimaRentaContrato = null;
-            foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
-                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
-                    $UltimaRentaContrato = $subitem;
-                    break;
-                }
-            }
-
-            $UltimoPactoSalud = null;
-            foreach($UltimoContrato->getPactosSalud() as $subitem) {
-                if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
-                    $UltimoPactoSalud = $subitem;
-                    break;
-                }
-            }
+            if ($UltimoContrato) {
             
-            $empleados[] = array(
-                'rut' => $item->getRut(),
-                'apellidos' => $item->getApellidos(),
-                'nombres' => $item->getNombres(),
-                'direccion' => $item->getDireccion(),
-                'comuna' => $item->getComuna()->getNombre(),
-                'fono' => $item->getFono(),
-                'fecha_inicio_contrato' => $UltimoContrato->getFechaInicio()->getTimestamp(),
-                'fecha_termino_contrato' => ($UltimoContrato->getFechaTermino())? $UltimoContrato->getFechaTermino()->getTimestamp() : null,
-                'cargo_tipo_contrato' => $UltimaRentaContrato->getTipoContrato()->getCargo(),
-                'id_contrato' => $UltimoContrato->getId(),
-                'tiene_pacto_sistema_salud' => $UltimoPactoSalud->getSistemaSalud()->getTienePacto()
-            );
+                $UltimaRentaContrato = null;
+                foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
+                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                        $UltimaRentaContrato = $subitem;
+                        break;
+                    }
+                }
+
+                $UltimoPactoSalud = null;
+                foreach($UltimoContrato->getPactosSalud() as $subitem) {
+                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                        $UltimoPactoSalud = $subitem;
+                        break;
+                    }
+                }
+
+                $empleados[] = array(
+                    'rut' => $item->getRut(),
+                    'apellidos' => $item->getApellidos(),
+                    'nombres' => $item->getNombres(),
+                    'direccion' => $item->getDireccion(),
+                    'comuna' => $item->getComuna()->getNombre(),
+                    'fono' => $item->getFono(),
+                    'fecha_inicio_contrato' => $UltimoContrato->getFechaInicio()->getTimestamp(),
+                    'fecha_termino_contrato' => ($UltimoContrato->getFechaTermino())? $UltimoContrato->getFechaTermino()->getTimestamp() : null,
+                    'cargo_tipo_contrato' => $UltimaRentaContrato->getTipoContrato()->getCargo(),
+                    'id_contrato' => $UltimoContrato->getId(),
+                    'tiene_pacto_sistema_salud' => $UltimoPactoSalud->getSistemaSalud()->getTienePacto()
+                );
+                
+            }
         }
         $this->parser->parse('registro_empleados/index', array(
             'empleados' => $empleados

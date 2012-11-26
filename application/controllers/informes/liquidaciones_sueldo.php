@@ -38,8 +38,8 @@ class Liquidaciones_Sueldo extends CI_Controller {
                     }
             }
             
-            $RegistroMensualSeleccionado = null;
             if ($UltimoContrato) {
+                $RegistroMensualSeleccionado = null;
                 foreach ($UltimoContrato->getRegistrosMensuales() as $subitem){ 
                     if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == $periodo_actual) {
                         $RegistroMensualSeleccionado = $subitem;
