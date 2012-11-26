@@ -112,7 +112,7 @@ class Registro_Empleados extends CI_Controller {
         } else {
             
             $this->form_validation->set_rules('rut', null, 'required|numeric');
-            $this->form_validation->set_rules('dv', null, 'required|max_length[1]|matches[modulo11|rut]');
+            $this->form_validation->set_rules('dv', null, 'required|max_length[1]|matches_modulo11[rut]');
             $this->form_validation->set_rules('apellidos', null, 'required|max_length[45]');
             $this->form_validation->set_rules('nombres', null, 'required|max_length[45]');
             $this->form_validation->set_rules('fecha_nacimiento', null, 'required|valid_date');
@@ -336,9 +336,7 @@ class Registro_Empleados extends CI_Controller {
                 // ver si esto afecta en algo
                 //$PactoSaludActual = new Entities\PactoSalud;
                 $PactoSaludActual = $UltimoPactoSalud;
-                
                 $PactoSaludActual->setFechaPeriodo(date_create(strftime('%Y-%m-01')));
-                $PactoSaludActual->setPacto($this->input->post('pacto_salud'));
                 $PactoSaludActual->setSistemaSalud(
                     $this->doctrine->em->getReference('Entities\SistemaSalud', $this->input->post('id_sistema_salud'))
                 );
@@ -589,8 +587,10 @@ class Registro_Empleados extends CI_Controller {
                 $UltimoPactoSalud = null;
                 foreach($ContratoActual->getPactosSalud() as $subitem) {
                     $UltimoPactoSalud = $subitem;
-                    //break;
+                    break;
                 }
+                
+                $UltimoPactoSaludAntiguo = clone $UltimoPactoSalud;
                 
                 if ($UltimoPactoSalud->getFechaPeriodo() == date_create(strftime('%Y-%m-01'))) {
                     $NuevoPactoSalud = $UltimoPactoSalud;
@@ -608,7 +608,7 @@ class Registro_Empleados extends CI_Controller {
                 }
                 
                 try {
-                    if ($NuevoPactoSalud->getPacto() == $UltimoPactoSalud->getPacto())
+                    if (floatval($NuevoPactoSalud->getPacto()) == floatval($UltimoPactoSaludAntiguo->getPacto()))
                         throw(new Exception);
                     $this->doctrine->em->persist($NuevoPactoSalud);
                     $this->doctrine->em->flush();
