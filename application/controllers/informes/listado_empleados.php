@@ -42,7 +42,7 @@ class Listado_Empleados extends CI_Controller {
                 }
             }
             
-            if ($UltimoContrato->getFechaTermino() == null OR ($UltimoContrato->getFechaTermino() != null AND $UltimoContrato->getFechaTermino() >= date_create('now')))
+            if ($UltimoContrato != null AND ($UltimoContrato->getFechaTermino() == null OR ($UltimoContrato->getFechaTermino() != null AND $UltimoContrato->getFechaTermino() >= date_create('now'))))
                 $empleados[] = array(
                     'rut' => $item->getRut(),
                     'apellidos' => $item->getApellidos(),
