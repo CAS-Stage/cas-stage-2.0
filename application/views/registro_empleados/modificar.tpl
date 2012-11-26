@@ -56,7 +56,7 @@
                     </label>
                     <label class="end">
                         <span>-</span>
-                        <input type="date" name="fecha_termino_contrato" value="{'%Y-%m-%d'|strftime:$contrato.fecha_termino}">
+                        <input type="date" name="fecha_termino_contrato"{if $contrato.fecha_termino} value="{'%Y-%m-%d'|strftime:$contrato.fecha_termino}{/if}">
                     </label>
                     <label>
                         <span>Cargo</span>
