@@ -5,13 +5,12 @@ class Valor_Uf extends CI_Controller {
     public function index() {
         
         $parametros_externos = array();
-        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findAll() as $item) {
-            if ($item->getCodigo() == 'VALOR_UF')
-                $parametros_externos[] = array(
-                    'id' => $item->getId(),
-                    'fecha_vigencia' => $item->getFechaVigencia()->getTimestamp(),
-                    'valor' => $item->getValor()
-                );
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'VALOR_UF'), array('fecha_vigencia' => 'DESC')) as $item) {
+            $parametros_externos[] = array(
+                'id' => $item->getId(),
+                'fecha_vigencia' => $item->getFechaVigencia()->getTimestamp(),
+                'valor' => $item->getValor()
+            );
         }
         $this->parser->parse('parametros_externos/valor_uf/index', array(
             'parametros_externos' => $parametros_externos

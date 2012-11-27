@@ -5,7 +5,7 @@ class Sistemas_Salud extends CI_Controller {
     public function index() {
         
         $sistemas_salud = array();
-        foreach($this->doctrine->em->getRepository('Entities\SistemaSalud')->findAll() as $item) {
+        foreach($this->doctrine->em->getRepository('Entities\SistemaSalud')->findBy(array(), array('nombre' => 'ASC')) as $item) {
             
             $sistemas_salud[] = array(
                 'id' => $item->getId(),

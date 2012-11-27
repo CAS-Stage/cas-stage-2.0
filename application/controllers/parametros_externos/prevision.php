@@ -5,7 +5,7 @@ class Prevision extends CI_Controller {
     public function index() {
         
         $descuentos_prevision = array();
-        foreach($this->doctrine->em->getRepository('Entities\DescuentoPrevision')->findAll() as $item) {
+        foreach($this->doctrine->em->getRepository('Entities\DescuentoPrevision')->findBy(array(), array('fecha_periodo' => 'DESC')) as $item) {
 
             $descuentos_prevision[] = array(
                 'id' => $item->getId(),

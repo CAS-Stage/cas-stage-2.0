@@ -7,7 +7,7 @@ class Listado_Empleados extends CI_Controller {
         $dia_actual =  strftime('%Y-%m-%d');
         
         $empleados = array();
-        foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
+        foreach($this->doctrine->em->getRepository('Entities\Empleado')->findBy(array(), array('apellidos' => 'ASC', 'nombres' => 'ASC', 'rut' => 'ASC')) as $item) {
             
             $UltimoContrato = null;
             foreach($item->getContratos() as $subitem) {

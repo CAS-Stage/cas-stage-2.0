@@ -19,7 +19,7 @@ class Registro_Mensual extends CI_Controller {
         $periodo_actual = strftime($periodo_actual.'-01');
         
         $empleados = array();
-        foreach($this->doctrine->em->getRepository('Entities\Empleado')->findAll() as $item) {
+        foreach($this->doctrine->em->getRepository('Entities\Empleado')->findBy(array(), array('apellidos' => 'ASC', 'nombres' => 'ASC', 'rut' => 'ASC')) as $item) {
             
             $UltimoContrato = null;
             foreach($item->getContratos() as $subitem) {                

@@ -4,7 +4,7 @@ class Tipos_Contrato extends CI_Controller {
 
     public function index() {
         $renta_contrato = array();
-        foreach($this->doctrine->em->getRepository('Entities\RentaContrato')->findAll() as $item) {
+        foreach($this->doctrine->em->getRepository('Entities\RentaContrato')->findBy(array(), array('fecha_periodo' => 'DESC', 'renta_bruta' => 'DESC')) as $item) {
             
             $renta_contrato[] = array(
                 'id' => $item->getId(),
