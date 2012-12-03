@@ -44,12 +44,45 @@
                                         {if '/'|cat:$segment:'\/baja(\/|\.)/'|preg_match:$location}{assign var=segment value='baja'}Baja{/if}
                                         {if '/'|cat:$segment:'\/modificar(\/|\.)/'|preg_match:$location}{assign var=segment value='modificar'}Modificar{/if}
                                         {if '/'|cat:$segment:'\/recontratar(\/|\.)/'|preg_match:$location}{assign var=segment value='recontratar'}Recontratar{/if}
-                                        {assign var=segment value=''}
+
+                                        <!--
                                         {if '/'|cat:$segment:'[a-z0-9_]*\/[a-z0-9_]*\/[a-z0-9_]*([0-9]*|\.html|\/[a-z0-9_]*\.html)/'|preg_match:$location}
                                         <a href="{$location}">
                                         {else}
                                         <a href="{$location}/../bienvenido.html">
                                         {/if}
+                                        -->
+                                        
+                                        {if '/'|cat:'(ficha_empleado)/'|preg_match:$location}
+                                        {assign var=subsegment value=$segment|cat:'/ficha_empleado'}
+                                        {/if}
+                                        {if '/'|cat:'(listado_empleados)/'|preg_match:$location}
+                                        {assign var=subsegment value=$segment|cat:'/listado_empleados'}
+                                        {/if}
+                                        {if '/'|cat:'(liquidaciones_sueldo)/'|preg_match:$location}
+                                        {assign var=subsegment value=$segment|cat:'/liquidaciones_sueldo'}
+                                        {/if}
+                                        {if '/'|cat:'(nomina_anticipos)/'|preg_match:$location}
+                                        {assign var=subsegment value=$segment|cat:'/nomina_anticipos'}
+                                        {/if}
+                                        {if '/'|cat:'(horas_extras)/'|preg_match:$location}
+                                        {assign var=subsegment value=$segment|cat:'/horas_extras'}
+                                        {/if}
+                                        
+                                        {if '/'|cat:'(prevision)/'|preg_match:$location}
+                                        {assign var=subsegment value=$segment|cat:'/prevision'}
+                                        {/if}
+                                        {if '/'|cat:'(sistemas_salud)/'|preg_match:$location}
+                                        {assign var=subsegment value=$segment|cat:'/sistemas_salud'}
+                                        {/if}
+                                        {if '/'|cat:'(sueldo_minimo)/'|preg_match:$location}
+                                        {assign var=subsegment value=$segment|cat:'/sueldo_minimo'}
+                                        {/if}
+                                        {if '/'|cat:'(valor_uf)/'|preg_match:$location}
+                                        {assign var=subsegment value=$segment|cat:'/valor_uf'}
+                                        {/if}
+                                        
+                                        <a href="{''|base_url}{$subsegment}.html">
                                             {if '/'|cat:$segment:'\/ficha_empleado(\/|\.)/'|preg_match:$location}{assign var=segment value='ficha_empleado'}Ficha de Empleado{/if}
                                             {if '/'|cat:$segment:'\/listado_empleados(\/|\.)/'|preg_match:$location}{assign var=segment value='listado_empleados'}Listado de Empleados{/if}
                                             {if '/'|cat:$segment:'\/liquidaciones_sueldo(\/|\.)/'|preg_match:$location}{assign var=segment value='liquidaciones_sueldo'}Liquidaciones de Sueldo{/if}
@@ -68,6 +101,7 @@
                                                 {if '/'|cat:$segment:'\/actualizar(\/|\.)/'|preg_match:$location}Actualizar{/if}
                                                 {if '/'|cat:$segment:'\/agregar(\/|\.)/'|preg_match:$location}Agregar{/if}
                                                 {if '/'|cat:$segment:'\/modificar(\/|\.)/'|preg_match:$location}Modificar{/if}
+                                                {if '/'|cat:$segment:'\/ver(\/|\.)/'|preg_match:$location}Ver{/if}
                                             </li>
                                         </ul>
                                         {/if}
