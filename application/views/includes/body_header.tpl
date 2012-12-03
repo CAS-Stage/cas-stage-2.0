@@ -51,7 +51,11 @@
                                         {else}
                                         <a href="{$location}/../bienvenido.html">
                                         {/if}
+                                        
                                         -->
+                                        
+                                        
+                                        {assign var=subsegment value=$segment}
                                         
                                         {if '/'|cat:'(ficha_empleado)/'|preg_match:$location}
                                         {assign var=subsegment value=$segment|cat:'/ficha_empleado'}
