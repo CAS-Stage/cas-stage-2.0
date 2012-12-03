@@ -9,6 +9,7 @@ Para desarrollo en Windows + XAMPP + NetBeans + GitHub:
 	a. developement/cas-stage.sql
 	b. developement/data.sql
 	c. developement/user.sql
+	d. developement/login.sql
 5. Ejecutar el script developement/xampp.cmd para generar el enlace simbólico a la carpeta
    asociada a GitHub en XAMPP
 6. Importar el proyecto en NetBeans desde la carpeta 'Documents\GitHub\cas-stage-2.0'
