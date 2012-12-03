@@ -98,7 +98,7 @@
                                             {if '/'|cat:$segment:'\/sueldo_minimo(\/|\.)/'|preg_match:$location}{assign var=segment value='sueldo_minimo'}Sueldo Mínimo{/if}
                                             {if '/'|cat:$segment:'\/valor_uf(\/|\.)/'|preg_match:$location}{assign var=segment value='valor_uf'}Valor UF{/if}
                                         </a>
-                                        {if '/'|cat:'(informes|parametros_externos)\/[a-z0-9_]+\/[a-z0-9_]+(\/[0-9]*)*\.html/'|preg_match:$location}
+                                        {if '/'|cat:'(informes|parametros_externos)\/[a-z0-9_]+\/[a-z0-9_]+(\/[0-9\-]*)+\.html/'|preg_match:$location}
                                         <ul>
                                             <li>
 
