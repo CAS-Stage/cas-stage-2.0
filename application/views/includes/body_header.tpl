@@ -10,12 +10,25 @@
                         <ul>
                             <li>
                                 {assign var=location value=''|current_url}
-                                {assign var=segment value=''}
-                                {if '/'|cat:$segment:'[a-z0-9_]*\/[a-z0-9_]*(\.html|\/[a-z0-9_]*\.html)/'|preg_match:$location}
-                                <a href="{$location}/../bienvenido.html">
-                                {else}
-                                <a href="{$location}">
+                                
+                                {if '/'|cat:'(tipos_contrato)/'|preg_match:$location}
+                                {assign var=segment value='tipos_contrato'}
                                 {/if}
+                                {if '/'|cat:'(registro_empleados)/'|preg_match:$location}
+                                {assign var=segment value='registro_empleados'}
+                                {/if}
+                                {if '/'|cat:'(registro_mensual)/'|preg_match:$location}
+                                {assign var=segment value='registro_mensual'}
+                                {/if}
+                                {if '/'|cat:'(parametros_externos)/'|preg_match:$location}
+                                {assign var=segment value='parametros_externos'}
+                                {/if}
+                                {if '/'|cat:'(informes)/'|preg_match:$location}
+                                {assign var=segment value='informes'}
+                                {/if}
+                                
+                                <a href="{''|base_url}{$segment}.html">
+                                
                                 {if '/tipos_contrato(\/|\.)/'|preg_match:$location}{assign var=segment value='tipos_contrato'}Tipos de Contrato{/if}
                                 {if '/registro_empleados(\/|\.)/'|preg_match:$location}{assign var=segment value='registro_empleados'}Registro de Empleados{/if}
                                 {if '/registro_mensual(\/|\.)/'|preg_match:$location}{assign var=segment value='registro_mensual'}Registro Mensual{/if}
@@ -41,14 +54,14 @@
                                             {if '/'|cat:$segment:'\/listado_empleados(\/|\.)/'|preg_match:$location}{assign var=segment value='listado_empleados'}Listado de Empleados{/if}
                                             {if '/'|cat:$segment:'\/liquidaciones_sueldo(\/|\.)/'|preg_match:$location}{assign var=segment value='liquidaciones_sueldo'}Liquidaciones de Sueldo{/if}
                                             {if '/'|cat:$segment:'\/nomina_anticipos(\/|\.)/'|preg_match:$location}{assign var=segment value='nomina_anticipos'}Nómina de Anticipos{/if}
-                                            {if '/'|cat:$segment:'\/informe_horas_extras(\/|\.)/'|preg_match:$location}{assign var=segment value='informe_horas_extras'}Informe de Horas Extras{/if}
+                                            {if '/'|cat:$segment:'\/horas_extras(\/|\.)/'|preg_match:$location}{assign var=segment value='informe_horas_extras'}Informe de Horas Extras{/if}
                                             
                                             {if '/'|cat:$segment:'\/prevision(\/|\.)/'|preg_match:$location}{assign var=segment value='prevision'}Previsión{/if}
                                             {if '/'|cat:$segment:'\/sistemas_salud(\/|\.)/'|preg_match:$location}{assign var=segment value='sistemas_salud'}Sistemas de Salud{/if}
                                             {if '/'|cat:$segment:'\/sueldo_minimo(\/|\.)/'|preg_match:$location}{assign var=segment value='sueldo_minimo'}Sueldo Mínimo{/if}
                                             {if '/'|cat:$segment:'\/valor_uf(\/|\.)/'|preg_match:$location}{assign var=segment value='valor_uf'}Valor UF{/if}
                                         </a>
-                                        {if '/'|cat:'(informes|parametros_externos)\/[a-z0-9_]+\/[a-z0-9_]+(\/[0-9])*\.html/'|preg_match:$location}
+                                        {if '/'|cat:'(informes|parametros_externos)\/[a-z0-9_]+\/[a-z0-9_]+(\/[0-9]*)*\.html/'|preg_match:$location}
                                         <ul>
                                             <li>
 
