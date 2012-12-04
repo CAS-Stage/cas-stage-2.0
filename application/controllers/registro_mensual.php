@@ -63,7 +63,8 @@ class Registro_Mensual extends CI_Controller {
         }
         $this->parser->parse('registro_mensual/index', array(
             'empleados' => $empleados,
-            'mes' => $mes
+            'mes' => $mes,
+            'usuario' => Access::get_current_user()
         ));
     }
     
@@ -95,7 +96,8 @@ class Registro_Mensual extends CI_Controller {
                     'monto_anticipo' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getMontoAnticipo() : null,
                     'cantidad_horas_extras' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtras() : null,
                 ),
-                'mes' => strftime(date_create($periodo_actual)->getTimeStamp())
+                'mes' => strftime(date_create($periodo_actual)->getTimeStamp()),
+                'usuario' => Access::get_current_user()
             ));
             
         } else {
@@ -155,7 +157,8 @@ class Registro_Mensual extends CI_Controller {
                     $this->parser->parse('registro_mensual/error_registro_desconocido', array(
                         'contrato' => array (
                             'id' => $ContratoActual->getId()
-                        )
+                        ),
+                        'usuario' => Access::get_current_user()
                     ));
                 }
                 
@@ -164,7 +167,8 @@ class Registro_Mensual extends CI_Controller {
                     'contrato' => array (
                         'id' => $ContratoActual->getId()
                     ),
-                    'mes' => $periodo_actual
+                    'mes' => $periodo_actual,
+                    'usuario' => Access::get_current_user()
                 ));
                 
             }

@@ -15,7 +15,8 @@ class Prevision extends CI_Controller {
             );
         }
         $this->parser->parse('parametros_externos/prevision/index', array(
-            'descuentos_prevision' => $descuentos_prevision
+            'descuentos_prevision' => $descuentos_prevision,
+            'usuario' => Access::get_current_user()
         ));
     }
     
@@ -54,14 +55,14 @@ class Prevision extends CI_Controller {
                     $this->doctrine->em->persist($DescuentoPrevisionNuevo);
                     $this->doctrine->em->flush();
 
-                    $this->parser->parse('parametros_externos/prevision/crear', array());
+                    $this->parser->parse('parametros_externos/prevision/crear', array('usuario' => Access::get_current_user()));
                 } catch(Exception $e) {
-                    $this->parser->parse('parametros_externos/prevision/error_actualizar_unico', array());
+                    $this->parser->parse('parametros_externos/prevision/error_actualizar_unico', array('usuario' => Access::get_current_user()));
                 }
                 
             } else {
             
-                $this->parser->parse('parametros_externos/prevision/error_actualizar', array());
+                $this->parser->parse('parametros_externos/prevision/error_actualizar', array('usuario' => Access::get_current_user()));
                 
             }
         
@@ -89,7 +90,8 @@ class Prevision extends CI_Controller {
                     'fecha_periodo' => $DescuentoPrevisionActual->getFechaPeriodo()->getTimestamp(),
                     'descuento' => $DescuentoPrevisionActual->getDescuento()
                 ),
-                'prevision' => $prevision
+                'prevision' => $prevision,
+                'usuario' => Access::get_current_user()
             ));
             
         } else {
@@ -110,12 +112,13 @@ class Prevision extends CI_Controller {
                     $this->doctrine->em->persist($DescuentoPrevisionActual);
                     $this->doctrine->em->flush();
                     
-                    $this->parser->parse('parametros_externos/prevision/guardar', array());
+                    $this->parser->parse('parametros_externos/prevision/guardar', array('usuario' => Access::get_current_user()));
                 } catch(Exception $e) {
                     $this->parser->parse('parametros_externos/prevision/error_modificar_unico', array(
                         'descuento_prevision' => array (
                             'id' => $DescuentoPrevisionActual->getId()
-                        )
+                        ),
+                        'usuario' => Access::get_current_user()
                     ));
                 }
                 
@@ -124,7 +127,8 @@ class Prevision extends CI_Controller {
                 $this->parser->parse('parametros_externos/prevision/error', array(
                     'prevision' => array (
                         'id' => $DescuentoPrevisionActual->getId()
-                    )
+                    ),
+                    'usuario' => Access::get_current_user()
                 ));
                 
             }

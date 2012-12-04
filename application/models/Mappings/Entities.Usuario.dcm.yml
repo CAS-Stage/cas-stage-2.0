@@ -1,0 +1,23 @@
+## Entidad Empleado.
+Entities\Usuario:
+  type: entity
+  table: usuario
+  id:
+    id:
+      type: integer
+  fields:
+    username:
+      type: string
+      length: 20
+      nullable: false
+    password:
+      type: string
+      length: 20
+      nullable: false
+    perfil:
+      type: string
+      nullable: false
+    nombre:
+      type: string
+      length: 45
+      nullable: false

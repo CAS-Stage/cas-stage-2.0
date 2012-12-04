@@ -60,7 +60,8 @@ class Registro_Empleados extends CI_Controller {
 
         }
         $this->parser->parse('registro_empleados/index', array(
-            'empleados' => $empleados
+            'empleados' => $empleados,
+            'usuario' => Access::get_current_user()
         ));
     }
     
@@ -106,7 +107,8 @@ class Registro_Empleados extends CI_Controller {
                 'comunas' => $comunas,
                 'tipos_contrato' => $tipos_contrato,
                 'prevision' => $prevision,
-                'sistemas_salud' => $sistemas_salud
+                'sistemas_salud' => $sistemas_salud,
+                'usuario' => Access::get_current_user()
             ));
             
         } else {
@@ -186,16 +188,16 @@ class Registro_Empleados extends CI_Controller {
                     $this->doctrine->em->persist($PactoSaludNuevo);
                     $this->doctrine->em->flush();
 
-                    $this->parser->parse('registro_empleados/crear', array());
+                    $this->parser->parse('registro_empleados/crear', array('usuario' => Access::get_current_user()));
                 } catch(Exception $e) {
 //                    throw $e;
 //                    exit;
-                    $this->parser->parse('registro_empleados/error_agregar_unico', array());
+                    $this->parser->parse('registro_empleados/error_agregar_unico', array('usuario' => Access::get_current_user()));
                 }
                 
             } else {
             
-                $this->parser->parse('registro_empleados/error_agregar', array());
+                $this->parser->parse('registro_empleados/error_agregar', array('usuario' => Access::get_current_user()));
                 
             }
         
@@ -278,7 +280,8 @@ class Registro_Empleados extends CI_Controller {
                 'comunas' => $comunas,
                 'tipos_contrato' => $tipos_contrato,
                 'prevision' => $prevision,
-                'sistemas_salud' => $sistemas_salud
+                'sistemas_salud' => $sistemas_salud,
+                'usuario' => Access::get_current_user()
             ));
             
         } else {
@@ -358,7 +361,7 @@ class Registro_Empleados extends CI_Controller {
                     $this->doctrine->em->persist($PactoSaludActual);
                     $this->doctrine->em->flush();
                     
-                    $this->parser->parse('registro_empleados/guardar', array());
+                    $this->parser->parse('registro_empleados/guardar', array('usuario' => Access::get_current_user()));
                 } catch(Exception $e) {
                     // Verificar excepción en base de datos (default para gratificacion)
                     throw $e;
@@ -366,7 +369,8 @@ class Registro_Empleados extends CI_Controller {
                     $this->parser->parse('registro_empleados/error_modificar_unico', array(
                         'contrato' => array (
                             'id' => $ContratoActual->getId()
-                        )
+                        ),
+                        'usuario' => Access::get_current_user()
                     ));
                 }
                 
@@ -375,7 +379,8 @@ class Registro_Empleados extends CI_Controller {
                 $this->parser->parse('registro_empleados/error_modificar', array(
                     'contrato' => array (
                         'id' => $ContratoActual->getId()
-                    )
+                    ),
+                    'usuario' => Access::get_current_user()
                 ));
                 
             }
@@ -519,7 +524,7 @@ class Registro_Empleados extends CI_Controller {
                     $this->doctrine->em->persist($NuevoPactoSalud);
                     $this->doctrine->em->flush();
                     
-                    $this->parser->parse('registro_empleados/alta', array());
+                    $this->parser->parse('registro_empleados/alta', array('usuario' => Access::get_current_user()));
                 } catch(Exception $e) {
                     // Verificar excepción en base de datos (default para gratificacion)
                     throw $e;
@@ -527,7 +532,8 @@ class Registro_Empleados extends CI_Controller {
                     $this->parser->parse('registro_empleados/error_alta_unico', array(
                         'contrato' => array (
                             'id' => $ContratoActual->getId()
-                        )
+                        ),
+                        'usuario' => Access::get_current_user()
                     ));
                 }
                 
@@ -536,7 +542,8 @@ class Registro_Empleados extends CI_Controller {
                 $this->parser->parse('registro_empleados/error_alta', array(
                     'contrato' => array (
                         'id' => $ContratoActual->getId()
-                    )
+                    ),
+                    'usuario' => Access::get_current_user()
                 ));
                 
             }
@@ -572,7 +579,8 @@ class Registro_Empleados extends CI_Controller {
                     'nombres' => $EmpleadoActual->getNombres(),
                     'nombre_sistema_salud' => $UltimoPactoSalud->getSistemaSalud()->getNombre()
                 ),
-                'pactos_anteriores' => $pactos_anteriores
+                'pactos_anteriores' => $pactos_anteriores,
+                'usuario' => Access::get_current_user()
             ));
             
         } else {
@@ -612,12 +620,13 @@ class Registro_Empleados extends CI_Controller {
                         throw(new Exception);
                     $this->doctrine->em->persist($NuevoPactoSalud);
                     $this->doctrine->em->flush();
-                    $this->parser->parse('registro_empleados/pacto', array());
+                    $this->parser->parse('registro_empleados/pacto', array('usuario' => Access::get_current_user()));
                 } catch(Exception $e) {
                     $this->parser->parse('registro_empleados/error_pacto_unico', array(
                         'contrato' => array (
                             'id' => $ContratoActual->getId()
-                        )
+                        ),
+                        'usuario' => Access::get_current_user()
                     ));
                 }
                 
@@ -626,7 +635,8 @@ class Registro_Empleados extends CI_Controller {
                 $this->parser->parse('registro_empleados/error_pacto', array(
                     'contrato' => array (
                         'id' => $ContratoActual->getId()
-                    )
+                    ),
+                    'usuario' => Access::get_current_user()
                 ));
                 
             }

@@ -59,7 +59,8 @@ class Liquidaciones_Sueldo extends CI_Controller {
         }
         $this->parser->parse('informes/liquidaciones_sueldo/index', array(
             'empleados' => $empleados,
-            'mes' => $mes
+            'mes' => $mes,
+            'usuario' => Access::get_current_user()
         ));
     }
     
@@ -225,7 +226,8 @@ class Liquidaciones_Sueldo extends CI_Controller {
         );
         
         $this->parser->parse('informes/liquidaciones_sueldo/ver', array(
-           'empleado' => $empleado
+           'empleado' => $empleado,
+           'usuario' => Access::get_current_user()
         ));
     }
     

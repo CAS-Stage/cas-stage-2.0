@@ -40,7 +40,8 @@ class Ficha_Empleado extends CI_Controller {
         }
         
         $this->parser->parse('informes/ficha_empleado/index', array(
-            'empleados' => $empleados
+            'empleados' => $empleados,
+            'usuario' => Access::get_current_user()
         ));
     }
     
@@ -104,7 +105,8 @@ class Ficha_Empleado extends CI_Controller {
         );
         
         $this->parser->parse('informes/ficha_empleado/ver', array(
-           'empleado' => $empleado
+           'empleado' => $empleado,
+           'usuario' => Access::get_current_user()
         ));
     }
     

@@ -13,7 +13,8 @@ class Sueldo_Minimo extends CI_Controller {
             );
         }
         $this->parser->parse('parametros_externos/sueldo_minimo/index', array(
-            'parametros_externos' => $parametros_externos
+            'parametros_externos' => $parametros_externos,
+            'usuario' => Access::get_current_user()
         ));
     }
     
@@ -39,14 +40,14 @@ class Sueldo_Minimo extends CI_Controller {
                     $this->doctrine->em->persist($ParametroExternoNuevo);
                     $this->doctrine->em->flush();
 
-                    $this->parser->parse('parametros_externos/sueldo_minimo/crear', array());
+                    $this->parser->parse('parametros_externos/sueldo_minimo/crear', array('usuario' => Access::get_current_user()));
                 } catch(Exception $e) {
-                    $this->parser->parse('parametros_externos/sueldo_minimo/error_actualizar_unico', array());
+                    $this->parser->parse('parametros_externos/sueldo_minimo/error_actualizar_unico', array('usuario' => Access::get_current_user()));
                 }
                 
             } else {
             
-                $this->parser->parse('parametros_externos/sueldo_minimo/error_actualizar', array());
+                $this->parser->parse('parametros_externos/sueldo_minimo/error_actualizar', array('usuario' => Access::get_current_user()));
                 
             }
         
@@ -63,7 +64,8 @@ class Sueldo_Minimo extends CI_Controller {
                     'id' => $ParametroExternoActual->getId(),
                     'fecha_vigencia' => $ParametroExternoActual->getFechaVigencia()->format('Y-m'),
                     'valor' => $ParametroExternoActual->getValor()
-                )
+                ),
+                'usuario' => Access::get_current_user()
             ));
             
         } else {
@@ -85,7 +87,8 @@ class Sueldo_Minimo extends CI_Controller {
                     $this->parser->parse('parametros_externos/sueldo_minimo/error_modificar_unico', array(
                         'parametro_externo' => array (
                             'id' => $ParametroExternoActual->getId()
-                        )
+                        ),
+                        'usuario' => Access::get_current_user()
                     ));
                 }
                 
@@ -94,7 +97,8 @@ class Sueldo_Minimo extends CI_Controller {
                 $this->parser->parse('parametros_externos/sueldo_minimo/error_modificar', array(
                     'parametro_externo' => array (
                         'id' => $ParametroExternoActual->getId()
-                    )
+                    ),
+                    'usuario' => Access::get_current_user()
                 ));
                 
             }

@@ -64,7 +64,8 @@ class Listado_Empleados extends CI_Controller {
             }
         }
         $this->parser->parse('informes/listado_empleados/index', array(
-            'empleados' => $empleados
+            'empleados' => $empleados,
+            'usuario' => Access::get_current_user()
         ));
     }
     

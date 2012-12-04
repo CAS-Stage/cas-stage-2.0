@@ -16,11 +16,9 @@
                         <span>Contraseña</span>
                         <input type="password" name="password">
                     </label>
-                    <!--
                     <div>
                         <p><strong>Error:</strong> Nombre de usuario y/o contraseña no válidos.</p>
                     </div>
-                    -->
                     <!-- <label>
                         <input type="checkbox" name="recordar">
                         <span>Recordar</span>

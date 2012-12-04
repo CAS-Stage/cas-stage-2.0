@@ -100,7 +100,8 @@ class Horas_Extras extends CI_Controller {
         }
         $this->parser->parse('informes/horas_extras/index', array(
             'empleados' => $empleados,
-            'mes' => $mes
+            'mes' => $mes,
+            'usuario' => Access::get_current_user()
         ));
     }
     

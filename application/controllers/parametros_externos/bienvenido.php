@@ -3,7 +3,7 @@
 class Bienvenido extends CI_Controller {
 
     public function index() {              
-        $this->parser->parse('parametros_externos/index', array());
+        $this->parser->parse('parametros_externos/index', array('usuario' => Access::get_current_user()));
     }
     
 }

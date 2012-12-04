@@ -13,7 +13,8 @@ class Sistemas_Salud extends CI_Controller {
             );
         }
         $this->parser->parse('parametros_externos/sistemas_salud/index', array(
-            'sistemas_salud' => $sistemas_salud
+            'sistemas_salud' => $sistemas_salud,
+            'usuario' => Access::get_current_user()
         ));
     }
     
@@ -27,7 +28,8 @@ class Sistemas_Salud extends CI_Controller {
                     'id' => $SistemaSaludActual->getId(),
                     'nombre' => $SistemaSaludActual->getNombre(),
                     'tiene_pacto' => $SistemaSaludActual->getTienePacto()
-                )
+                ),
+                'usuario' => Access::get_current_user()
             ));
             
         } else {
@@ -43,14 +45,15 @@ class Sistemas_Salud extends CI_Controller {
                 $this->doctrine->em->persist($SistemaSaludActual);
                 $this->doctrine->em->flush();
 
-                $this->parser->parse('parametros_externos/sistemas_salud/guardar', array());
+                $this->parser->parse('parametros_externos/sistemas_salud/guardar', array('usuario' => Access::get_current_user()));
                 
             } else {
             
                 $this->parser->parse('parametros_externos/sistemas_salud/error_modificar', array(
                     'sistema_salud' => array (
                         'id' => $SistemaSaludActual->getId()
-                    )
+                    ),
+                    'usuario' => Access::get_current_user()
                 ));
                 
             }

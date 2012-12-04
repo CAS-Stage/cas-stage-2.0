@@ -15,7 +15,8 @@ class Tipos_Contrato extends CI_Controller {
             );
         }
         $this->parser->parse('tipos_contrato/index', array(
-            'renta_contrato' => $renta_contrato
+            'renta_contrato' => $renta_contrato,
+            'usuario' => Access::get_current_user()
         ));
     }
     
@@ -33,7 +34,8 @@ class Tipos_Contrato extends CI_Controller {
         if (!$this->input->post()) {
         
             $this->parser->parse('tipos_contrato/actualizar', array(
-                'tipo_contrato' => $tipo_contrato
+                'tipo_contrato' => $tipo_contrato,
+                'usuario' => Access::get_current_user()
             ));
             
         } else {
@@ -64,17 +66,17 @@ class Tipos_Contrato extends CI_Controller {
                     $this->doctrine->em->persist($RentaContratoNuevo);
                     $this->doctrine->em->flush();
 
-                    $this->parser->parse('tipos_contrato/crear', array());
+                    $this->parser->parse('tipos_contrato/crear', array('usuario' => Access::get_current_user()));
                 } catch(Exception $e) {
                     // Verificar excepción en base de datos (default para gratificacion)
 //                    throw $e;
 //                    exit;
-                    $this->parser->parse('tipos_contrato/error_actualizar_unico', array());
+                    $this->parser->parse('tipos_contrato/error_actualizar_unico', array('usuario' => Access::get_current_user()));
                 }
                 
             } else {
             
-                $this->parser->parse('tipos_contrato/error_actualizar', array());
+                $this->parser->parse('tipos_contrato/error_actualizar', array('usuario' => Access::get_current_user()));
                 
             }
         
@@ -134,7 +136,7 @@ class Tipos_Contrato extends CI_Controller {
                     $this->doctrine->em->persist($RentaContratoActual);
                     $this->doctrine->em->flush();
                     
-                    $this->parser->parse('tipos_contrato/guardar', array());
+                    $this->parser->parse('tipos_contrato/guardar', array('usuario' => Access::get_current_user()));
                 } catch(Exception $e) {
                     // Verificar excepción en base de datos (default para gratificacion)
                     //throw $e;
@@ -142,7 +144,8 @@ class Tipos_Contrato extends CI_Controller {
                     $this->parser->parse('tipos_contrato/error_modificar_unico', array(
                         'renta_contrato' => array (
                             'id' => $RentaContratoActual->getId()
-                        )
+                        ),
+                        'usuario' => Access::get_current_user()
                     ));
                 }
                 
@@ -151,7 +154,8 @@ class Tipos_Contrato extends CI_Controller {
                 $this->parser->parse('tipos_contrato/error_modificar', array(
                     'renta_contrato' => array (
                         'id' => $RentaContratoActual->getId()
-                    )
+                    ),
+                    'usuario' => Access::get_current_user()
                 ));
                 
             }

@@ -1,15 +1,22 @@
         <header>
-            <p>Conectado como: <em>Encargado Administrativo</em> <a href="index.html">[Cerrar sesión]</a></p>
+            {if isset($usuario)}
+            <p>Conectado como: <em>{$usuario.nombre}</em> <a href="{''|base_url}bienvenido/logout.html">[Cerrar sesión]</a></p>
+            {/if}
             <h1>CAS Stage Ltda.</h1>
+            {if isset($usuario)}
+            {assign var=location value=''|current_url}
+            {if '/menu\.html/'|preg_match:$location}
+            {assign var='segment' value=''}
+            {/if}
             <nav id="breadcrumb">
                 Usted está en:
                 <ul>
                     <li>
                         <a href="{''|base_url}">Sistema CAS Stage</a>
-                        {if ''|base_url neq ''|current_url}
+                        {if ''|base_url neq ''|current_url && not {'/menu\.html/'|preg_match:$location}}
                         <ul>
                             <li>
-                                {assign var=location value=''|current_url}
+                                
                                 
                                 {if '/'|cat:'(tipos_contrato)/'|preg_match:$location}
                                 {assign var=segment value='tipos_contrato'}
@@ -118,4 +125,5 @@
                     </li>
                 </ul>
             </nav>
+            {/if}
         </header>

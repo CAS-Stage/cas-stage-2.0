@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-15 21:34:12
+<?php /* Smarty version Smarty-3.0.9, created on 2012-12-04 22:31:55
          compiled from "application/views/bienvenido/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:27610509eef341b0363-63058217%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2750950be6bcb97a0e3-29594147%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '0af35081dff1e1573b278a3b9bcb4d3137881d02' => 
     array (
       0 => 'application/views/bienvenido/index.tpl',
-      1 => 1352995425,
+      1 => 1354656711,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '27610509eef341b0363-63058217',
+  'nocache_hash' => '2750950be6bcb97a0e3-29594147',
   'function' => 
   array (
   ),
@@ -30,11 +30,16 @@ $_smarty_tpl->decodeProperties(array (
             <h1>Menú</h1>
             <nav>
                 <ul>
-                    <li><a href="tipos_contrato.html">Tipos de Contrato</a></li>
-                    <li><a href="registro_empleados.html">Registro Empleados</a></li>
-                    <li><a href="registro_mensual.html">Registro Mensual</a></li>
-                    <li><a href="parametros_externos.html">Actualizar Parámetros Externos</a></li>
-                    <li><a href="informes.html">Generar Informes</a></li>
+                    <li><a href="<?php echo base_url('');?>
+tipos_contrato.html">Tipos de Contrato</a></li>
+                    <li><a href="<?php echo base_url('');?>
+registro_empleados.html">Registro Empleados</a></li>
+                    <li><a href="<?php echo base_url('');?>
+registro_mensual.html">Registro Mensual</a></li>
+                    <li><a href="<?php echo base_url('');?>
+parametros_externos.html">Actualizar Parámetros Externos</a></li>
+                    <li><a href="<?php echo base_url('');?>
+informes.html">Generar Informes</a></li>
                 </ul>
             </nav>
         </section>

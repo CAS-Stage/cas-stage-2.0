@@ -58,7 +58,8 @@ class nomina_anticipos extends CI_Controller {
         }
         $this->parser->parse('informes/nomina_anticipos/index', array(
             'empleados' => $empleados,
-            'mes' => $mes
+            'mes' => $mes,
+            'usuario' => Access::get_current_user()
         ));
     }
     
