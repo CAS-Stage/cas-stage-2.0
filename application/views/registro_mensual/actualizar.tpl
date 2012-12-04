@@ -29,7 +29,11 @@
                 </label>
                 <label>
                     <span>Cantidad Horas Extras</span>
-                    <input type="number" name="cantidad_horas_extras" min="0.00" max="100.00" step="0.05" value="{$registro_mensual.cantidad_horas_extras}">
+                    <input type="number" name="cantidad_horas_extras" min="0.00" max="100.00" step="0.05" value="{$registro_mensual.cantidad_horas_extras|number_format:2:'.':''}">
+                </label>
+                 <label>
+                    <span>Cantidad Horas Extras Festivos</span>
+                    <input type="number" name="cantidad_horas_extras_f" min="0.00" max="100.00" step="0.05" value="{$registro_mensual.cantidad_horas_extras_f|number_format:2:'.':''}">
                 </label>
                 <button type="submit">Guardar Cambios</button>
             </fieldset>

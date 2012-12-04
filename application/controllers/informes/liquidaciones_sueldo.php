@@ -195,6 +195,18 @@ class Liquidaciones_Sueldo extends CI_Controller {
                                         ) + $UltimaRentaContrato->getRentaBruta()
                                 ) * $RegistroMensualSeleccionado->getCantidadHorasExtras()
                          ) : null) : null,
+                    'horas_extras_f' => ($RegistroMensualSeleccionado AND $UltimoFactorHoraExtra)? (($RegistroMensualSeleccionado->getCantidadHorasExtrasF())? array(
+                        'cantidad' => $RegistroMensualSeleccionado->getCantidadHorasExtrasF(),
+                        'valor_monetario' => $UltimoFactorHoraExtra->getValor() *
+                                (
+                                        (
+                                            ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
+                                            $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
+                                            : $UltimaRentaContrato->getRentaBruta() * .25
+                                        ) + $UltimaRentaContrato->getRentaBruta()
+                                        + 680
+                                ) * $RegistroMensualSeleccionado->getCantidadHorasExtrasF()
+                         ) : null) : null,
                     'bono_produccion' => ($RegistroMensualSeleccionado)? (($RegistroMensualSeleccionado->getBonoProduccion())? $RegistroMensualSeleccionado->getBonoProduccion() : null) : null
                 ),
                 'no_imponible' => array(

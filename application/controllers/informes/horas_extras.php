@@ -86,14 +86,29 @@ class Horas_Extras extends CI_Controller {
                     'apellidos' => $item->getApellidos(),
                     'nombres' => $item->getNombres(),
                     'cantidad_horas_extras' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtras() : 0,
+                    'cantidad_horas_extras_f' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtrasF() : 0,
                     'valor_monetario' => ($RegistroMensualSeleccionado AND $UltimoFactorHoraExtra)?
-                        $UltimoFactorHoraExtra->getValor() * (
-                                (
-                                    ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
-                                    $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
-                                    : $UltimaRentaContrato->getRentaBruta() * .25
-                                ) + $UltimaRentaContrato->getRentaBruta()
-                        ) * $RegistroMensualSeleccionado->getCantidadHorasExtras()
+                        (
+                            $UltimoFactorHoraExtra->getValor() * (
+                                    (
+                                        ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
+                                        $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
+                                        : $UltimaRentaContrato->getRentaBruta() * .25
+                                    ) + $UltimaRentaContrato->getRentaBruta()
+                            )
+                            * $RegistroMensualSeleccionado->getCantidadHorasExtras()
+                        ) +
+                        (
+                            ($UltimoFactorHoraExtra->getValor() * (
+                                    (
+                                        ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
+                                        $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
+                                        : $UltimaRentaContrato->getRentaBruta() * .25
+                                    ) + $UltimaRentaContrato->getRentaBruta()
+                            )
+                            + 680)
+                            * $RegistroMensualSeleccionado->getCantidadHorasExtrasF()
+                        )
                         : 0
                 );
             }

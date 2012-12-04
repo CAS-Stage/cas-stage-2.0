@@ -18,6 +18,7 @@
                         <th>Nombres</th>
                         <th>Anticipo</th>
                         <th>Horas Extras</th>
+                        <th>Horas Extras Festivos</th>
                         <th>Bono Movilización</th>
                         <th>Bono Colación</th>
                         <th>Bono Producción</th>
@@ -27,6 +28,7 @@
                 <tbody>
                     {assign var=suma_anticipo value=0}
                     {assign var=suma_horas_extras value=0}
+                    {assign var=suma_horas_extras_f value=0}
                     {assign var=suma_bono_movilizacion value=0}
                     {assign var=suma_bono_colacion value=0}
                     {assign var=suma_bono_produccion value=0}
@@ -38,6 +40,7 @@
                         <td>{$entry.nombres|ucwords|htmlspecialchars}</td>
                         <td class="number"><span>$</span>{$entry.monto_anticipo_registro_mensual|number_format:0:',':'.'}</td>
                         <td class="number">{$entry.cantidad_horas_extras_registro_mensual|number_format:2:',':'.'}</td>
+                        <td class="number">{$entry.cantidad_horas_extras_f_registro_mensual|number_format:2:',':'.'}</td>
                         <td class="number"><span>$</span>{$entry.bono_movilizacion_registro_mensual|number_format:0:',':'.'}</td>
                         <td class="number"><span>$</span>{$entry.bono_colacion_registro_mensual|number_format:0:',':'.'}</td>
                         <td class="number"><span>$</span>{$entry.bono_produccion_registro_mensual|number_format:0:',':'.'}</td>
@@ -50,6 +53,7 @@
                     
                     {assign var=suma_anticipo value=$suma_anticipo+$entry.monto_anticipo_registro_mensual}
                     {assign var=suma_horas_extras value=$suma_horas_extras+$entry.cantidad_horas_extras_registro_mensual}
+                    {assign var=suma_horas_extras_f value=$suma_horas_extras_f+$entry.cantidad_horas_extras_f_registro_mensual}
                     {assign var=suma_bono_movilizacion value=$suma_bono_movilizacion+$entry.bono_movilizacion_registro_mensual}
                     {assign var=suma_bono_colacion value=$suma_bono_colacion+$entry.bono_colacion_registro_mensual}
                     {assign var=suma_bono_produccion value=$suma_bono_produccion+$entry.bono_produccion_registro_mensual}
@@ -60,6 +64,7 @@
                         <th colspan="3">Total</th>
                         <td class="number"><span>$</span>{$suma_anticipo|number_format:0:',':'.'}</td>
                         <td class="number">{$suma_horas_extras|number_format:2:',':'.'}</td>
+                        <td class="number">{$suma_horas_extras_f|number_format:2:',':'.'}</td>
                         <td class="number"><span>$</span>{$suma_bono_movilizacion|number_format:0:',':'.'}</td>
                         <td class="number"><span>$</span>{$suma_bono_colacion|number_format:0:',':'.'}</td>
                         <td class="number"><span>$</span>{$suma_bono_produccion|number_format:0:',':'.'}</td>

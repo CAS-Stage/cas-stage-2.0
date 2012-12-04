@@ -55,6 +55,7 @@ class Registro_Mensual extends CI_Controller {
                     'nombres' => $item->getNombres(),
                     'monto_anticipo_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getMontoAnticipo() : null,
                     'cantidad_horas_extras_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtras() : null,
+                    'cantidad_horas_extras_f_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtrasF() : null,
                     'bono_movilizacion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoMovilizacion() : null,
                     'bono_colacion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoColacion() : null,
                     'bono_produccion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoProduccion() : null
@@ -95,6 +96,7 @@ class Registro_Mensual extends CI_Controller {
                     'bono_produccion' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoProduccion() : null,
                     'monto_anticipo' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getMontoAnticipo() : null,
                     'cantidad_horas_extras' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtras() : null,
+                    'cantidad_horas_extras_f' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtrasF() : null,
                 ),
                 'mes' => strftime(date_create($periodo_actual)->getTimeStamp()),
                 'usuario' => Access::get_current_user()
@@ -107,7 +109,8 @@ class Registro_Mensual extends CI_Controller {
                 ($this->input->post('bono_colacion') == '' OR $this->input->post('bono_colacion') == 0) AND
                 ($this->input->post('bono_produccion') == '' OR $this->input->post('bono_produccion') == 0) AND
                 ($this->input->post('monto_anticipo') == '' OR $this->input->post('monto_anticipo') == 0) AND
-                ($this->input->post('cantidad_horas_extras') == '' OR $this->input->post('cantidad_horas_extras') == 0)
+                ($this->input->post('cantidad_horas_extras') == '' OR $this->input->post('cantidad_horas_extras') == 0) AND
+                ($this->input->post('cantidad_horas_extras_f') == '' OR $this->input->post('cantidad_horas_extras_f') == 0)
             )? '|required|greater_than[0]' : '';
             
             $this->form_validation->set_rules('bono_movilizacion', null, 'numeric'.$required_if);
@@ -115,7 +118,7 @@ class Registro_Mensual extends CI_Controller {
             $this->form_validation->set_rules('bono_produccion', null, 'numeric'.$required_if);
             $this->form_validation->set_rules('monto_anticipo', null, 'numeric'.$required_if);
             $this->form_validation->set_rules('cantidad_horas_extras', null, 'numeric'.$required_if);
-            
+            $this->form_validation->set_rules('cantidad_horas_extras_f', null, 'numeric'.$required_if);
             
             if ($this->form_validation->run()) {               
                 $ContratoActual = $this->doctrine->em->getReference('Entities\Contrato', $id);
@@ -136,6 +139,7 @@ class Registro_Mensual extends CI_Controller {
                     $NuevoRegistroMensual->setBonoProduccion($this->input->post('bono_produccion'));
                     $NuevoRegistroMensual->setMontoAnticipo($this->input->post('monto_anticipo'));
                     $NuevoRegistroMensual->setCantidadHorasExtras($this->input->post('cantidad_horas_extras'));
+                    $NuevoRegistroMensual->setCantidadHorasExtrasF($this->input->post('cantidad_horas_extras_f'));
                 } else {
                     $NuevoRegistroMensual = new Entities\RegistroMensual;
 
@@ -145,6 +149,7 @@ class Registro_Mensual extends CI_Controller {
                     $NuevoRegistroMensual->setBonoProduccion($this->input->post('bono_produccion'));
                     $NuevoRegistroMensual->setMontoAnticipo($this->input->post('monto_anticipo'));
                     $NuevoRegistroMensual->setCantidadHorasExtras($this->input->post('cantidad_horas_extras'));
+                    $NuevoRegistroMensual->setCantidadHorasExtrasF($this->input->post('cantidad_horas_extras_f'));
 
                     $NuevoRegistroMensual->setContrato($ContratoActual);
                 }

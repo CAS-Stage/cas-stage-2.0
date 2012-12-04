@@ -44,6 +44,15 @@
                                         {$total_imponible=$total_imponible+$empleado.haberes.imponible.horas_extras.valor_monetario|round}
                                         </li>
                                         {/if}
+                                        {if $empleado.haberes.imponible.horas_extras_f}
+                                        <li>
+                                            <ul>
+                                                <li><span>{$empleado.haberes.imponible.horas_extras_f.cantidad|number_format:2:',':'.'}</span> horas extras festivos</li>
+                                                <li>$ <span>{$empleado.haberes.imponible.horas_extras_f.valor_monetario|number_format:0:',':'.'}</span></li>
+                                            </ul>
+                                        {$total_imponible=$total_imponible+$empleado.haberes.imponible.horas_extras_f.valor_monetario|round}
+                                        </li>
+                                        {/if}
                                         {if $empleado.haberes.imponible.bono_produccion}
                                         <li>
                                             <ul>

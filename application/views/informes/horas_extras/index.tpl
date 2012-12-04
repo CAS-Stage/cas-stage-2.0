@@ -17,11 +17,13 @@
 						<th>Apellidos</th>
 						<th>Nombres</th>
 						<th>Horas Extras</th>
+                                                <th>Horas Extras Festivos</th>
 						<th>Valor Monetario</th>
 					</tr>
 				</thead>
 				<tbody>
                                     {assign var=suma_horas_extras value=0}
+                                    {assign var=suma_horas_extras_f value=0}
                                     {assign var=suma_valor_horas_extras value=0}
                                     {foreach item=entry from=$empleados}
                                     <tr>
@@ -29,9 +31,11 @@
                                             <td>{$entry.apellidos|ucwords|htmlspecialchars}</td>
                                             <td>{$entry.nombres|ucwords|htmlspecialchars}</td>
                                             <td class="number">{$entry.cantidad_horas_extras|number_format:2:',':'.'}</td>
+                                            <td class="number">{$entry.cantidad_horas_extras_f|number_format:2:',':'.'}</td>
                                             <td class="number"><span>$</span>{$entry.valor_monetario|number_format:0:',':'.'}</td>
                                     </tr>
                                     {assign var=suma_horas_extras value=$suma_horas_extras+$entry.cantidad_horas_extras}
+                                    {assign var=suma_horas_extras_f value=$suma_horas_extras_f+$entry.cantidad_horas_extras_f}
                                     {assign var=suma_valor_horas_extras value=$suma_valor_horas_extras+$entry.valor_monetario}
                                     {/foreach}
 				</tbody>
@@ -39,6 +43,7 @@
                                     <tr>
                                         <th colspan="3">Total</th>
                                         <td class="number">{$suma_horas_extras|number_format:2:',':'.'}</td>
+                                        <td class="number">{$suma_horas_extras_f|number_format:2:',':'.'}</td>
                                         <td class="number"><span>$</span>{$suma_valor_horas_extras|number_format:0:',':'.'}</td>
                                     </tr>
                                 </tfoot>

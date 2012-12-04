@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:46:56
+<?php /* Smarty version Smarty-3.0.9, created on 2012-12-05 00:24:21
          compiled from "application/views/informes/horas_extras/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:3269850aac4f0ccdad9-08610797%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:3134150be86258cb4f6-46259895%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'b2f002ab6535857e71bb28b280c78f76eda9b870' => 
     array (
       0 => 'application/views/informes/horas_extras/index.tpl',
-      1 => 1353368814,
+      1 => 1354663459,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '3269850aac4f0ccdad9-08610797',
+  'nocache_hash' => '3134150be86258cb4f6-46259895',
   'function' => 
   array (
   ),
@@ -40,11 +40,13 @@ informes/horas_extras.html">
 						<th>Apellidos</th>
 						<th>Nombres</th>
 						<th>Horas Extras</th>
+                                                <th>Horas Extras Festivos</th>
 						<th>Valor Monetario</th>
 					</tr>
 				</thead>
 				<tbody>
                                     <?php $_smarty_tpl->tpl_vars['suma_horas_extras'] = new Smarty_variable(0, null, null);?>
+                                    <?php $_smarty_tpl->tpl_vars['suma_horas_extras_f'] = new Smarty_variable(0, null, null);?>
                                     <?php $_smarty_tpl->tpl_vars['suma_valor_horas_extras'] = new Smarty_variable(0, null, null);?>
                                     <?php  $_smarty_tpl->tpl_vars['entry'] = new Smarty_Variable;
  $_from = $_smarty_tpl->getVariable('empleados')->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
@@ -61,10 +63,13 @@ if ($_smarty_tpl->_count($_from) > 0){
 </td>
                                             <td class="number"><?php echo number_format($_smarty_tpl->tpl_vars['entry']->value['cantidad_horas_extras'],2,',','.');?>
 </td>
+                                            <td class="number"><?php echo number_format($_smarty_tpl->tpl_vars['entry']->value['cantidad_horas_extras_f'],2,',','.');?>
+</td>
                                             <td class="number"><span>$</span><?php echo number_format($_smarty_tpl->tpl_vars['entry']->value['valor_monetario'],0,',','.');?>
 </td>
                                     </tr>
                                     <?php $_smarty_tpl->tpl_vars['suma_horas_extras'] = new Smarty_variable($_smarty_tpl->getVariable('suma_horas_extras')->value+$_smarty_tpl->tpl_vars['entry']->value['cantidad_horas_extras'], null, null);?>
+                                    <?php $_smarty_tpl->tpl_vars['suma_horas_extras_f'] = new Smarty_variable($_smarty_tpl->getVariable('suma_horas_extras_f')->value+$_smarty_tpl->tpl_vars['entry']->value['cantidad_horas_extras_f'], null, null);?>
                                     <?php $_smarty_tpl->tpl_vars['suma_valor_horas_extras'] = new Smarty_variable($_smarty_tpl->getVariable('suma_valor_horas_extras')->value+$_smarty_tpl->tpl_vars['entry']->value['valor_monetario'], null, null);?>
                                     <?php }} ?>
 				</tbody>
@@ -72,6 +77,8 @@ if ($_smarty_tpl->_count($_from) > 0){
                                     <tr>
                                         <th colspan="3">Total</th>
                                         <td class="number"><?php echo number_format($_smarty_tpl->getVariable('suma_horas_extras')->value,2,',','.');?>
+</td>
+                                        <td class="number"><?php echo number_format($_smarty_tpl->getVariable('suma_horas_extras_f')->value,2,',','.');?>
 </td>
                                         <td class="number"><span>$</span><?php echo number_format($_smarty_tpl->getVariable('suma_valor_horas_extras')->value,0,',','.');?>
 </td>

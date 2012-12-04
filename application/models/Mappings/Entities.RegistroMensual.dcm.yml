@@ -11,6 +11,9 @@ Entities\RegistroMensual:
     cantidad_horas_extras:
       type: float
       nullable: true
+    cantidad_horas_extras_f:
+      type: float
+      nullable: true
     monto_anticipo:
       type: integer
       nullable: true
