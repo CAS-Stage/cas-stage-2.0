@@ -244,4 +244,32 @@ class RegistroMensual
     {
         return $this->contrato;
     }
+    /**
+     * @var float
+     */
+    private $cantidad_horas_extras_f;
+
+
+    /**
+     * Set cantidad_horas_extras_f
+     *
+     * @param float $cantidadHorasExtrasF
+     * @return RegistroMensual
+     */
+    public function setCantidadHorasExtrasF($cantidadHorasExtrasF)
+    {
+        $this->cantidad_horas_extras_f = $cantidadHorasExtrasF;
+    
+        return $this;
+    }
+
+    /**
+     * Get cantidad_horas_extras_f
+     *
+     * @return float 
+     */
+    public function getCantidadHorasExtrasF()
+    {
+        return $this->cantidad_horas_extras_f;
+    }
 }

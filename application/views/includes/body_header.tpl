@@ -1,6 +1,9 @@
         <header>
             {if isset($usuario)}
-            <p>Conectado como: <em>{$usuario.nombre}</em> <a href="{''|base_url}bienvenido/logout.html">[Cerrar sesión]</a></p>
+            <p>Conectado como: <em>{$usuario.nombre}</em>
+                <a href="{''|base_url}bienvenido/logout.html">[Cerrar sesión]</a>
+                <a rel="external" href="{''|base_url}docs/manual.pdf" onclick="window.open('{''|base_url}docs/manual.pdf'); return false;">[Ayuda]</a>
+            </p>
             {/if}
             <h1>CAS Stage Ltda.</h1>
             {if isset($usuario)}
