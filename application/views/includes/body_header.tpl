@@ -5,7 +5,7 @@
                 <a rel="external" href="{''|base_url}docs/manual.pdf" onclick="window.open('{''|base_url}docs/manual.pdf'); return false;">[Ayuda]</a>
             </p>
             {/if}
-            <h1><span>CAS Stage Ltda.</span></h1>
+            <h1><img src="{''|base_url}design/logo.png" alt="CAS Stage Ltda."></h1>
             {if isset($usuario)}
             {assign var=location value=''|current_url}
             {if '/menu\.html/'|preg_match:$location}

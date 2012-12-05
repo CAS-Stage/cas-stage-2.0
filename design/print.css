@@ -26,6 +26,9 @@ header {
 	}
 
 	header > h1 {
+                width: 277px;
+                height: 91px;
+                margin: 0 auto;
 		text-align: center;
 		font-size: 32px;
 	}
