@@ -88,6 +88,14 @@ class Liquidaciones_Sueldo extends CI_Controller {
             }
         }
         
+        $UltimaDiferenciaHoraExtraF = null;
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'DIFERENCIA_HORA_EXTRA_F'), array('fecha_vigencia' => 'DESC')) as $item) {
+            if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
+                $UltimaDiferenciaHoraExtraF = $item;
+                break;
+            }
+        }
+        
         $UltimoFactorGratificacion = null;
         foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'FACTOR_GRATIFICACION'), array('fecha_vigencia' => 'DESC')) as $item) {
             if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
@@ -197,15 +205,14 @@ class Liquidaciones_Sueldo extends CI_Controller {
                          ) : null) : null,
                     'horas_extras_f' => ($RegistroMensualSeleccionado AND $UltimoFactorHoraExtra)? (($RegistroMensualSeleccionado->getCantidadHorasExtrasF())? array(
                         'cantidad' => $RegistroMensualSeleccionado->getCantidadHorasExtrasF(),
-                        'valor_monetario' => $UltimoFactorHoraExtra->getValor() *
+                        'valor_monetario' => ($UltimoFactorHoraExtra->getValor() *
                                 (
                                         (
                                             ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
                                             $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
                                             : $UltimaRentaContrato->getRentaBruta() * .25
                                         ) + $UltimaRentaContrato->getRentaBruta()
-                                        + 680
-                                ) * $RegistroMensualSeleccionado->getCantidadHorasExtrasF()
+                                ) + $UltimaDiferenciaHoraExtraF->getValor()) * $RegistroMensualSeleccionado->getCantidadHorasExtrasF()
                          ) : null) : null,
                     'bono_produccion' => ($RegistroMensualSeleccionado)? (($RegistroMensualSeleccionado->getBonoProduccion())? $RegistroMensualSeleccionado->getBonoProduccion() : null) : null,
                     'otros_bonos' => ($RegistroMensualSeleccionado)? (($RegistroMensualSeleccionado->getOtrosBonos())? $RegistroMensualSeleccionado->getOtrosBonos() : null) : null

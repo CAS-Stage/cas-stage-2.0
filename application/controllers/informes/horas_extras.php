@@ -26,6 +26,14 @@ class Horas_Extras extends CI_Controller {
             }
         }
         
+        $UltimaDiferenciaHoraExtraF = null;
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'DIFERENCIA_HORA_EXTRA_F'), array('fecha_vigencia' => 'DESC')) as $item) {
+            if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
+                $UltimaDiferenciaHoraExtraF = $item;
+                break;
+            }
+        }
+        
         $UltimoFactorGratificacion = null;
         foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findAll() as $item) {
             if ($item->getCodigo() == 'FACTOR_GRATIFICACION') {
@@ -106,7 +114,7 @@ class Horas_Extras extends CI_Controller {
                                         : $UltimaRentaContrato->getRentaBruta() * .25
                                     ) + $UltimaRentaContrato->getRentaBruta()
                             )
-                            + 680)
+                            + $UltimaDiferenciaHoraExtraF->getValor())
                             * $RegistroMensualSeleccionado->getCantidadHorasExtrasF()
                         )
                         : 0
