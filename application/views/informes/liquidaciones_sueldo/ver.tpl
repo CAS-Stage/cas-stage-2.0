@@ -62,6 +62,15 @@
                                             {$total_imponible=$total_imponible+$empleado.haberes.imponible.bono_produccion|round}
                                         </li>
                                         {/if}
+                                        {if $empleado.haberes.imponible.otros_bonos}
+                                        <li>
+                                            <ul>
+                                                <li>Otros Bonos</li>
+                                                <li>$ <span>{$empleado.haberes.imponible.otros_bonos|number_format:0:',':'.'}</span></li>
+                                            </ul>
+                                            {$total_imponible=$total_imponible+$empleado.haberes.imponible.otros_bonos|round}
+                                        </li>
+                                        {/if}
                                     </ul>
                                 </li>
                                 <li>

@@ -22,6 +22,7 @@
                         <th>Bono Movilización</th>
                         <th>Bono Colación</th>
                         <th>Bono Producción</th>
+                        <th>Otros Bonos</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -32,6 +33,7 @@
                     {assign var=suma_bono_movilizacion value=0}
                     {assign var=suma_bono_colacion value=0}
                     {assign var=suma_bono_produccion value=0}
+                    {assign var=suma_otros_bonos value=0}
                     
                     {foreach item=entry from=$empleados}
                     <tr>
@@ -44,6 +46,7 @@
                         <td class="number"><span>$</span>{$entry.bono_movilizacion_registro_mensual|number_format:0:',':'.'}</td>
                         <td class="number"><span>$</span>{$entry.bono_colacion_registro_mensual|number_format:0:',':'.'}</td>
                         <td class="number"><span>$</span>{$entry.bono_produccion_registro_mensual|number_format:0:',':'.'}</td>
+                        <td class="number"><span>$</span>{$entry.otros_bonos_registro_mensual|number_format:0:',':'.'}</td>
                         <td>
                             <a href="{''|base_url}registro_mensual/actualizar/{$entry.id_contrato}/{$mes}.html">[Actualizar]</a>
                             <a href="{''|base_url}registro_mensual/restablecer/{$entry.id_contrato}/{$mes}.html" onclick="return confirm('¿Está seguro que desea restablecer el siguiente registro mensual?\n\nRUT: {$entry.rut|number_format:0:',':'.'}-{$entry.rut|modulo11}\nNombre: {$entry.apellidos}, {$entry.nombres}\nMes: {'%B %Y'|strftime:{$mes|strtotime}}\n\nADVERTENCIA: Esta operación no se puede deshacer.');">[Restablecer]</a>
@@ -57,6 +60,7 @@
                     {assign var=suma_bono_movilizacion value=$suma_bono_movilizacion+$entry.bono_movilizacion_registro_mensual}
                     {assign var=suma_bono_colacion value=$suma_bono_colacion+$entry.bono_colacion_registro_mensual}
                     {assign var=suma_bono_produccion value=$suma_bono_produccion+$entry.bono_produccion_registro_mensual}
+                    {assign var=suma_otros_bonos value=$suma_otros_bonos+$entry.otros_bonos_registro_mensual}
                     {/foreach}
                 </tbody>
                 <tfoot>
@@ -68,6 +72,7 @@
                         <td class="number"><span>$</span>{$suma_bono_movilizacion|number_format:0:',':'.'}</td>
                         <td class="number"><span>$</span>{$suma_bono_colacion|number_format:0:',':'.'}</td>
                         <td class="number"><span>$</span>{$suma_bono_produccion|number_format:0:',':'.'}</td>
+                        <td class="number"><span>$</span>{$suma_otros_bonos|number_format:0:',':'.'}</td>
                         <th></th>
                     </tr>
                 </tfoot>

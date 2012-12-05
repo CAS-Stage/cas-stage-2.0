@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-12-05 00:30:36
+<?php /* Smarty version Smarty-3.0.9, created on 2012-12-05 04:26:00
          compiled from "application/views/informes/liquidaciones_sueldo/ver.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:755650be879c6d4186-89741972%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:566050bebec8e998a5-55736955%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '090f68ae3dba1b2a47e42205e4559c765a27b072' => 
     array (
       0 => 'application/views/informes/liquidaciones_sueldo/ver.tpl',
-      1 => 1354663786,
+      1 => 1354677801,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '755650be879c6d4186-89741972',
+  'nocache_hash' => '566050bebec8e998a5-55736955',
   'function' => 
   array (
   ),
@@ -97,6 +97,16 @@ $_smarty_tpl->decodeProperties(array (
 </span></li>
                                             </ul>
                                             <?php $_smarty_tpl->tpl_vars['total_imponible'] = new Smarty_variable($_smarty_tpl->getVariable('total_imponible')->value+round($_smarty_tpl->getVariable('empleado')->value['haberes']['imponible']['bono_produccion']), null, null);?>
+                                        </li>
+                                        <?php }?>
+                                        <?php if ($_smarty_tpl->getVariable('empleado')->value['haberes']['imponible']['otros_bonos']){?>
+                                        <li>
+                                            <ul>
+                                                <li>Otros Bonos</li>
+                                                <li>$ <span><?php echo number_format($_smarty_tpl->getVariable('empleado')->value['haberes']['imponible']['otros_bonos'],0,',','.');?>
+</span></li>
+                                            </ul>
+                                            <?php $_smarty_tpl->tpl_vars['total_imponible'] = new Smarty_variable($_smarty_tpl->getVariable('total_imponible')->value+round($_smarty_tpl->getVariable('empleado')->value['haberes']['imponible']['otros_bonos']), null, null);?>
                                         </li>
                                         <?php }?>
                                     </ul>

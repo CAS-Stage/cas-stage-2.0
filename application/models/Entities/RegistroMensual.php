@@ -272,4 +272,32 @@ class RegistroMensual
     {
         return $this->cantidad_horas_extras_f;
     }
+    /**
+     * @var integer
+     */
+    private $otros_bonos;
+
+
+    /**
+     * Set otros_bonos
+     *
+     * @param integer $otrosBonos
+     * @return RegistroMensual
+     */
+    public function setOtrosBonos($otrosBonos)
+    {
+        $this->otros_bonos = $otrosBonos;
+    
+        return $this;
+    }
+
+    /**
+     * Get otros_bonos
+     *
+     * @return integer 
+     */
+    public function getOtrosBonos()
+    {
+        return $this->otros_bonos;
+    }
 }

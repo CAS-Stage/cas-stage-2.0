@@ -58,7 +58,8 @@ class Registro_Mensual extends CI_Controller {
                     'cantidad_horas_extras_f_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtrasF() : null,
                     'bono_movilizacion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoMovilizacion() : null,
                     'bono_colacion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoColacion() : null,
-                    'bono_produccion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoProduccion() : null
+                    'bono_produccion_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoProduccion() : null,
+                    'otros_bonos_registro_mensual' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getOtrosBonos() : null
                 );
             }
         }
@@ -94,6 +95,7 @@ class Registro_Mensual extends CI_Controller {
                     'bono_movilizacion' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoMovilizacion() : null,
                     'bono_colacion' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoColacion() : null,
                     'bono_produccion' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getBonoProduccion() : null,
+                    'otros_bonos' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getOtrosBonos() : null,
                     'monto_anticipo' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getMontoAnticipo() : null,
                     'cantidad_horas_extras' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtras() : null,
                     'cantidad_horas_extras_f' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtrasF() : null,
@@ -108,6 +110,7 @@ class Registro_Mensual extends CI_Controller {
                 ($this->input->post('bono_movilizacion') == '' OR $this->input->post('bono_movilizacion') == 0) AND
                 ($this->input->post('bono_colacion') == '' OR $this->input->post('bono_colacion') == 0) AND
                 ($this->input->post('bono_produccion') == '' OR $this->input->post('bono_produccion') == 0) AND
+                ($this->input->post('otros_bonos') == '' OR $this->input->post('otros_bonos') == 0) AND
                 ($this->input->post('monto_anticipo') == '' OR $this->input->post('monto_anticipo') == 0) AND
                 ($this->input->post('cantidad_horas_extras') == '' OR $this->input->post('cantidad_horas_extras') == 0) AND
                 ($this->input->post('cantidad_horas_extras_f') == '' OR $this->input->post('cantidad_horas_extras_f') == 0)
@@ -116,6 +119,7 @@ class Registro_Mensual extends CI_Controller {
             $this->form_validation->set_rules('bono_movilizacion', null, 'numeric'.$required_if);
             $this->form_validation->set_rules('bono_colacion', null, 'numeric'.$required_if);
             $this->form_validation->set_rules('bono_produccion', null, 'numeric'.$required_if);
+            $this->form_validation->set_rules('otros_bonos', null, 'numeric'.$required_if);
             $this->form_validation->set_rules('monto_anticipo', null, 'numeric'.$required_if);
             $this->form_validation->set_rules('cantidad_horas_extras', null, 'numeric'.$required_if);
             $this->form_validation->set_rules('cantidad_horas_extras_f', null, 'numeric'.$required_if);
@@ -137,6 +141,7 @@ class Registro_Mensual extends CI_Controller {
                     $NuevoRegistroMensual->setBonoMovilizacion($this->input->post('bono_movilizacion'));
                     $NuevoRegistroMensual->setBonoColacion($this->input->post('bono_colacion'));
                     $NuevoRegistroMensual->setBonoProduccion($this->input->post('bono_produccion'));
+                    $NuevoRegistroMensual->setOtrosBonos($this->input->post('otros_bonos'));
                     $NuevoRegistroMensual->setMontoAnticipo($this->input->post('monto_anticipo'));
                     $NuevoRegistroMensual->setCantidadHorasExtras($this->input->post('cantidad_horas_extras'));
                     $NuevoRegistroMensual->setCantidadHorasExtrasF($this->input->post('cantidad_horas_extras_f'));
@@ -147,6 +152,7 @@ class Registro_Mensual extends CI_Controller {
                     $NuevoRegistroMensual->setBonoMovilizacion($this->input->post('bono_movilizacion'));
                     $NuevoRegistroMensual->setBonoColacion($this->input->post('bono_colacion'));
                     $NuevoRegistroMensual->setBonoProduccion($this->input->post('bono_produccion'));
+                    $NuevoRegistroMensual->setOtrosBonos($this->input->post('otros_bonos'));
                     $NuevoRegistroMensual->setMontoAnticipo($this->input->post('monto_anticipo'));
                     $NuevoRegistroMensual->setCantidadHorasExtras($this->input->post('cantidad_horas_extras'));
                     $NuevoRegistroMensual->setCantidadHorasExtrasF($this->input->post('cantidad_horas_extras_f'));

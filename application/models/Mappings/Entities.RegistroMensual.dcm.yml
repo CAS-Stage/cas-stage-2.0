@@ -26,6 +26,9 @@ Entities\RegistroMensual:
     bono_produccion:
       type: integer
       nullable: true
+    otros_bonos:
+      type: integer
+      nullable: true
     fecha_periodo:
       type: date
       nullable: false

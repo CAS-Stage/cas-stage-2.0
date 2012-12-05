@@ -20,6 +20,10 @@
                     <span>Bono Producción ($)</span>
                     <input type="number" name="bono_produccion" min="0" max="9999999" step="1000" value="{$registro_mensual.bono_produccion}">
                 </label>
+                <label>
+                    <span>Otros Bonos ($)</span>
+                    <input type="number" name="otros_bonos" min="0" max="9999999" step="1000" value="{$registro_mensual.otros_bonos}">
+                </label>
             </fieldset>
             <fieldset>
                 <legend>Anticipos y Horas Extras</legend>
