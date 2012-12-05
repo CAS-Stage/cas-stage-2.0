@@ -41,9 +41,17 @@ header {
 	}
 
 	header > h1 {
+                width: 277px;
+                height: 91px;
+                margin: 0 auto;
+                background-image: url('logo.png');
 		text-align: center;
 		font-size: 32px;
 	}
+        
+            header > h1 > span {
+                    display: none;
+            }
 	
 	header > nav {
 		margin-top: 20px;
