@@ -25,8 +25,7 @@
                 </thead>
                 <tbody>
                     {foreach item=entry from=$empleados}
-                    <tr>
-                        
+                    <tr{if $entry.fecha_termino_contrato && {{'%Y-%m-%d'|strftime:$entry.fecha_termino_contrato}|strtotime} < {'now'|strtotime}} class="baja"{/if}>                        
                         <td class="number">{$entry.rut|number_format:0:',':'.'}-{$entry.rut|modulo11}</td>
                         <td>{$entry.apellidos|ucwords|htmlspecialchars}</td>
                         <td>{$entry.nombres|ucwords|htmlspecialchars}</td>

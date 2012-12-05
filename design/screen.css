@@ -154,6 +154,15 @@ section {
                 section table > tfoot {
                     font-weight: bold;
                 }
+                
+                        section table > tbody > tr {
+                                height: auto;
+                        }
+
+                                section table > tbody > tr.baja > td {
+                                        background-color: lightgrey;
+                                        color: rgb(65,65,65);
+                                }
 		
 				section table > * > tr > * {
 					padding: 1px;
@@ -324,7 +333,7 @@ section {
 				section > form > fieldset > label > input[type="range"] {
 					text-align: right;
 				}
-				
+                                			
 			section > form > fieldset > label.rut {
 				width: 429px;
 			}

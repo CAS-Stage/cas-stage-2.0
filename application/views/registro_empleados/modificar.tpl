@@ -12,7 +12,7 @@
                     <legend>Datos Personales</legend>
                     <label class="rut">
                         <span>RUT</span>
-                        <input type="number" name="rut" min="1000000" max="99999999" required="required" value="{$contrato.rut_empleado}">
+                        <input type="text" name="rut" pattern="([1-9])|([0-9]{ldelim}2,8{rdelim})" required="required" value="{$contrato.rut_empleado}">
                     </label>
                     <label class="dv">
                         <span>-</span>

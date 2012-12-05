@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-11-20 00:02:53
+<?php /* Smarty version Smarty-3.0.9, created on 2012-12-05 21:58:55
          compiled from "application/views/registro_empleados/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:825850aaba9d93d3e6-62453295%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:646150bfb58fee7797-21704553%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '5b1399e3ee50005057dd7f088b66813fb68f352a' => 
     array (
       0 => 'application/views/registro_empleados/index.tpl',
-      1 => 1353366171,
+      1 => 1354740984,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '825850aaba9d93d3e6-62453295',
+  'nocache_hash' => '646150bfb58fee7797-21704553',
   'function' => 
   array (
   ),
@@ -51,8 +51,10 @@ registro_empleados/agregar.html"><span>Agregar Nuevo Empleado</span></a>
 if ($_smarty_tpl->_count($_from) > 0){
     foreach ($_from as $_smarty_tpl->tpl_vars['entry']->key => $_smarty_tpl->tpl_vars['entry']->value){
 ?>
-                    <tr>
-                        
+                    <tr<?php ob_start();?><?php echo strftime('%Y-%m-%d',$_smarty_tpl->tpl_vars['entry']->value['fecha_termino_contrato']);?>
+<?php $_tmp1=ob_get_clean();?><?php ob_start();?><?php echo strtotime($_tmp1);?>
+<?php $_tmp2=ob_get_clean();?><?php ob_start();?><?php echo strtotime('now');?>
+<?php $_tmp3=ob_get_clean();?><?php if ($_smarty_tpl->tpl_vars['entry']->value['fecha_termino_contrato']&&$_tmp2<$_tmp3){?> class="baja"<?php }?>>                        
                         <td class="number"><?php echo number_format($_smarty_tpl->tpl_vars['entry']->value['rut'],0,',','.');?>
 -<?php echo modulo11($_smarty_tpl->tpl_vars['entry']->value['rut']);?>
 </td>
@@ -71,9 +73,9 @@ if ($_smarty_tpl->_count($_from) > 0){
 registro_empleados/modificar/<?php echo $_smarty_tpl->tpl_vars['entry']->value['id_contrato'];?>
 .html">[Modificar]</a>
                             <?php ob_start();?><?php echo strftime('%Y-%m-%d',$_smarty_tpl->tpl_vars['entry']->value['fecha_termino_contrato']);?>
-<?php $_tmp1=ob_get_clean();?><?php ob_start();?><?php echo strtotime($_tmp1);?>
-<?php $_tmp2=ob_get_clean();?><?php ob_start();?><?php echo strtotime('now');?>
-<?php $_tmp3=ob_get_clean();?><?php if ($_smarty_tpl->tpl_vars['entry']->value['fecha_termino_contrato']&&$_tmp2<$_tmp3){?>
+<?php $_tmp4=ob_get_clean();?><?php ob_start();?><?php echo strtotime($_tmp4);?>
+<?php $_tmp5=ob_get_clean();?><?php ob_start();?><?php echo strtotime('now');?>
+<?php $_tmp6=ob_get_clean();?><?php if ($_smarty_tpl->tpl_vars['entry']->value['fecha_termino_contrato']&&$_tmp5<$_tmp6){?>
                             <a href="<?php echo base_url('');?>
 registro_empleados/recontratar/<?php echo $_smarty_tpl->tpl_vars['entry']->value['id_contrato'];?>
 .html">[Alta]</a>
