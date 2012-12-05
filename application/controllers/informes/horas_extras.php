@@ -19,10 +19,10 @@ class Horas_Extras extends CI_Controller {
         $periodo_actual = strftime($periodo_actual.'-01');
         
         $UltimoFactorHoraExtra = null;
-        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findAll() as $item) {
-            if ($item->getCodigo() == 'FACTOR_HORA_EXTRA') {
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'FACTOR_HORA_EXTRA'), array('fecha_vigencia' => 'DESC')) as $item) {
+            if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
                 $UltimoFactorHoraExtra = $item;
-                //break;
+                break;
             }
         }
         
@@ -35,18 +35,18 @@ class Horas_Extras extends CI_Controller {
         }
         
         $UltimoFactorGratificacion = null;
-        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findAll() as $item) {
-            if ($item->getCodigo() == 'FACTOR_GRATIFICACION') {
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'FACTOR_GRATIFICACION'), array('fecha_vigencia' => 'DESC')) as $item) {
+            if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
                 $UltimoFactorGratificacion = $item;
-                //break;
+                break;
             }
         }
         
         $UltimoSueldoMinimo = null;
-        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findAll() as $item) {
-            if ($item->getCodigo() == 'SUELDO_MINIMO') {
+        foreach($this->doctrine->em->getRepository('Entities\ParametroExterno')->findBy(array('codigo' => 'SUELDO_MINIMO'), array('fecha_vigencia' => 'DESC')) as $item) {
+            if (strftime('%Y-%m-01', $item->getFechaVigencia()->getTimestamp()) <= strftime($periodo_actual)) {
                 $UltimoSueldoMinimo = $item;
-                //break;
+                break;
             }
         }
         
@@ -78,12 +78,14 @@ class Horas_Extras extends CI_Controller {
             if ($UltimoContrato) {
                 
                 foreach($UltimoContrato->getTipoContrato()->getRentasContrato() as $subitem) {
-                    $UltimaRentaContrato = $subitem;
-                    //break;
+                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) <= strftime($periodo_actual)) {
+                        $UltimaRentaContrato = $subitem;
+                        break;
+                    }
                 }
                 
-                foreach ($UltimoContrato->getRegistrosMensuales() as $subitem){ 
-                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == $periodo_actual) {
+                foreach ($UltimoContrato->getRegistrosMensuales() as $subitem) { 
+                    if (strftime('%Y-%m-01', $subitem->getFechaPeriodo()->getTimestamp()) == strftime($periodo_actual)) {
                         $RegistroMensualSeleccionado = $subitem;
                         break;
                     }
@@ -97,25 +99,30 @@ class Horas_Extras extends CI_Controller {
                     'cantidad_horas_extras_f' => ($RegistroMensualSeleccionado)? $RegistroMensualSeleccionado->getCantidadHorasExtrasF() : 0,
                     'valor_monetario' => ($RegistroMensualSeleccionado AND $UltimoFactorHoraExtra)?
                         (
-                            $UltimoFactorHoraExtra->getValor() * (
-                                    (
-                                        ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
-                                        $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
-                                        : $UltimaRentaContrato->getRentaBruta() * .25
-                                    ) + $UltimaRentaContrato->getRentaBruta()
-                            )
-                            * $RegistroMensualSeleccionado->getCantidadHorasExtras()
+                            $UltimoFactorHoraExtra->getValor() *
+                                (
+                                        (($UltimaRentaContrato->getGratificacion())? (
+                                            ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
+                                            $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
+                                            : $UltimaRentaContrato->getRentaBruta() * .25
+                                        )
+                                        : (
+                                            1
+                                        )) + $UltimaRentaContrato->getRentaBruta()
+                                ) * $RegistroMensualSeleccionado->getCantidadHorasExtras()
                         ) +
                         (
-                            ($UltimoFactorHoraExtra->getValor() * (
-                                    (
-                                        ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
-                                        $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
-                                        : $UltimaRentaContrato->getRentaBruta() * .25
-                                    ) + $UltimaRentaContrato->getRentaBruta()
-                            )
-                            + $UltimaDiferenciaHoraExtraF->getValor())
-                            * $RegistroMensualSeleccionado->getCantidadHorasExtrasF()
+                            ($UltimoFactorHoraExtra->getValor() *
+                                (
+                                        (($UltimaRentaContrato->getGratificacion())? (
+                                            ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
+                                            $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
+                                            : $UltimaRentaContrato->getRentaBruta() * .25
+                                        )
+                                        : (
+                                            1
+                                        )) + $UltimaRentaContrato->getRentaBruta()
+                                ) + $UltimaDiferenciaHoraExtraF->getValor()) * $RegistroMensualSeleccionado->getCantidadHorasExtrasF()
                         )
                         : 0
                 );

@@ -196,22 +196,28 @@ class Liquidaciones_Sueldo extends CI_Controller {
                         'cantidad' => $RegistroMensualSeleccionado->getCantidadHorasExtras(),
                         'valor_monetario' => $UltimoFactorHoraExtra->getValor() *
                                 (
-                                        (
+                                        (($UltimaRentaContrato->getGratificacion())? (
                                             ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
                                             $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
                                             : $UltimaRentaContrato->getRentaBruta() * .25
-                                        ) + $UltimaRentaContrato->getRentaBruta()
+                                        )
+                                        : (
+                                            1
+                                        )) + $UltimaRentaContrato->getRentaBruta()
                                 ) * $RegistroMensualSeleccionado->getCantidadHorasExtras()
                          ) : null) : null,
                     'horas_extras_f' => ($RegistroMensualSeleccionado AND $UltimoFactorHoraExtra)? (($RegistroMensualSeleccionado->getCantidadHorasExtrasF())? array(
                         'cantidad' => $RegistroMensualSeleccionado->getCantidadHorasExtrasF(),
                         'valor_monetario' => ($UltimoFactorHoraExtra->getValor() *
                                 (
-                                        (
+                                        (($UltimaRentaContrato->getGratificacion())? (
                                             ($UltimaRentaContrato->getRentaBruta() * .25 > $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12)?
                                             $UltimoSueldoMinimo->getValor() * $UltimoFactorGratificacion->getValor() / 12
                                             : $UltimaRentaContrato->getRentaBruta() * .25
-                                        ) + $UltimaRentaContrato->getRentaBruta()
+                                        )
+                                        : (
+                                            1
+                                        )) + $UltimaRentaContrato->getRentaBruta()
                                 ) + $UltimaDiferenciaHoraExtraF->getValor()) * $RegistroMensualSeleccionado->getCantidadHorasExtrasF()
                          ) : null) : null,
                     'bono_produccion' => ($RegistroMensualSeleccionado)? (($RegistroMensualSeleccionado->getBonoProduccion())? $RegistroMensualSeleccionado->getBonoProduccion() : null) : null,
