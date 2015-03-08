@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-12-05 00:45:59
+<?php /* Smarty version Smarty-3.0.9, created on 2015-03-06 22:01:43
          compiled from "application/views/includes/body_header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:770850be8b372b3b21-01150932%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:730854fa15b7a96748-99816814%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'cdd9ab4a0a3c4b010614f6fbea0931b005a9f5ae' => 
     array (
       0 => 'application/views/includes/body_header.tpl',
-      1 => 1354664757,
+      1 => 1425671652,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '770850be8b372b3b21-01150932',
+  'nocache_hash' => '730854fa15b7a96748-99816814',
   'function' => 
   array (
   ),
@@ -28,7 +28,8 @@ docs/manual.pdf" onclick="window.open('<?php echo base_url('');?>
 docs/manual.pdf'); return false;">[Ayuda]</a>
             </p>
             <?php }?>
-            <h1>CAS Stage Ltda.</h1>
+            <h1><img src="<?php echo base_url('');?>
+design/logo.png" alt="CAS Stage Ltda."></h1>
             <?php if (isset($_smarty_tpl->getVariable('usuario',null,true,false)->value)){?>
             <?php $_smarty_tpl->tpl_vars['location'] = new Smarty_variable(current_url(''), null, null);?>
             <?php if (preg_match('/menu\.html/',$_smarty_tpl->getVariable('location')->value)){?>

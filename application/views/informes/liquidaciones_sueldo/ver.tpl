@@ -150,7 +150,7 @@
                                         {if $empleado.descuentos.legales.sistema_salud.pacto}
                                         <li>
                                             <ul>
-                                                <li>Diferencia Pactada</li>
+                                                <li><span>{$empleado.descuentos.legales.sistema_salud.pacto_uf|number_format:3:',':'.'}</span> UF Diferencia Pactada</li>
                                                 <li>$ <span>{($empleado.descuentos.legales.sistema_salud.pacto-$empleado.descuentos.legales.sistema_salud.descuento*$total_imponible)|number_format:0:',':'.'}</span></li>
                                             </ul>
                                         </li>

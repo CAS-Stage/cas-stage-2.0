@@ -237,6 +237,7 @@ class Liquidaciones_Sueldo extends CI_Controller {
                     'sistema_salud' => array(
                         'nombre' => $UltimoPactoSalud->getSistemaSalud()->getNombre(),
                         'descuento' => $UltimoDescuentoSalud->getValor(),
+                        'pacto_uf' => $UltimoPactoSalud->getPacto(),
                         'pacto' => ($UltimoPactoSalud->getPacto())?
                             $UltimoValorUf->getValor() * $UltimoPactoSalud->getPacto()
                             : null

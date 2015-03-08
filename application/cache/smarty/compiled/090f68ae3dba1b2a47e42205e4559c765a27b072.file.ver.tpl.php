@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.9, created on 2012-12-05 04:26:00
+<?php /* Smarty version Smarty-3.0.9, created on 2015-03-08 03:02:48
          compiled from "application/views/informes/liquidaciones_sueldo/ver.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:566050bebec8e998a5-55736955%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1665254fbadc851e0c7-35287106%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '090f68ae3dba1b2a47e42205e4559c765a27b072' => 
     array (
       0 => 'application/views/informes/liquidaciones_sueldo/ver.tpl',
-      1 => 1354677801,
+      1 => 1425780167,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '566050bebec8e998a5-55736955',
+  'nocache_hash' => '1665254fbadc851e0c7-35287106',
   'function' => 
   array (
   ),
@@ -199,7 +199,8 @@ $_smarty_tpl->decodeProperties(array (
                                         <?php if ($_smarty_tpl->getVariable('empleado')->value['descuentos']['legales']['sistema_salud']['pacto']){?>
                                         <li>
                                             <ul>
-                                                <li>Diferencia Pactada</li>
+                                                <li><span><?php echo number_format($_smarty_tpl->getVariable('empleado')->value['descuentos']['legales']['sistema_salud']['pacto_uf'],3,',','.');?>
+</span> UF Diferencia Pactada</li>
                                                 <li>$ <span><?php echo number_format(($_smarty_tpl->getVariable('empleado')->value['descuentos']['legales']['sistema_salud']['pacto']-$_smarty_tpl->getVariable('empleado')->value['descuentos']['legales']['sistema_salud']['descuento']*$_smarty_tpl->getVariable('total_imponible')->value),0,',','.');?>
 </span></li>
                                             </ul>
